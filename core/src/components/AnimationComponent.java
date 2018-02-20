@@ -1,4 +1,4 @@
-package components.animation;
+package components;
 
 public class AnimationComponent {
 
