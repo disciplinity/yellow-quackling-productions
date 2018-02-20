@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Zen";
 		config.width = 1280;
-        config.height = 640;
+        config.height = 1200;
 		new LwjglApplication(new MyGdxGame(), config);
 	}
 }
