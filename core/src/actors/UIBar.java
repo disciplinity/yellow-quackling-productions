@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import components.StatComponent;
 
 public class UIBar extends Actor {
 
@@ -20,6 +21,9 @@ public class UIBar extends Actor {
     private TextureRegion[][] elements = TextureRegion.split(elementTexture,
             elementTexture.getWidth() / 3,
             elementTexture.getHeight() / 2);
+
+    private StatComponent currentChosenPlayerStats;
+
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -50,26 +54,25 @@ public class UIBar extends Actor {
         BitmapFont font12 = generator.generateFont(parameter);
 
         // Cards and Leonardo
-        batch.draw(leonardo, 510, 20, 200, 190);
-        batch.draw(cardTexture, 50, 20, 135, 190);
-        batch.draw(cardTexture, 200, 20, 135, 190);
-        batch.draw(cardTexture, 350, 20, 135, 190);
 
-        // Elements textures
-        batch.draw(elements[1][0], 730, 170, 30, 30);
-        batch.draw(elements[0][0], 730, 135, 30, 30);
-        batch.draw(elements[1][2], 730, 100, 30, 30);
-        batch.draw(elements[0][2], 730, 65, 30, 30);
-        batch.draw(elements[0][1], 730, 30, 30, 30);
+        batch.draw(leonardo, 50, 20, 200, 190);
 
+        batch.draw(elements[1][0], 275, 170, 30, 30);
+        batch.draw(elements[0][0], 275, 135, 30, 30);
+        batch.draw(elements[1][2], 275, 100, 30, 30);
+        batch.draw(elements[0][2], 275, 65, 30, 30);
+        batch.draw(elements[0][1], 275, 30, 30, 30);
 
-        font12.draw(batch, "15", 770,  193);
-        font12.draw(batch, "1", 770,  158);
-        font12.draw(batch, "3", 770,  123);
-        font12.draw(batch, "11", 770,  88);
-        font12.draw(batch, "10", 770, 53);
+        batch.draw(cardTexture, 380, 20, 135, 190);
+        batch.draw(cardTexture, 530, 20, 135, 190);
+        batch.draw(cardTexture, 680, 20, 135, 190);
 
-
-
+        if (IceMage.currentlyChosen != null) {
+            font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getIntellect()), 312,  193);
+            font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getSpirit()), 312,  158);
+            font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getStrength()), 312,  123);
+            font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getAgility()), 312,  88);
+            font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getLight()), 312, 53);
+        }
     }
 }
