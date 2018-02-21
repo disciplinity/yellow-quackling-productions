@@ -22,7 +22,6 @@ public class InBattleScreen implements Screen {
     private SpriteBatch spriteBatch;
     private Game game;
     private Texture background;
-    private ShapeRenderer shapeRenderer;
 
     public InBattleScreen(Game game, SpriteBatch spriteBatch) {
         this.game = game;
@@ -32,13 +31,13 @@ public class InBattleScreen implements Screen {
         stage = new Stage(new ScreenViewport(), spriteBatch);
         Gdx.input.setInputProcessor(stage);
 
-        IceMage iceMage1 = new IceMage(40,140 + 175, 120, 120, false);
-        IceMage iceMage2 = new IceMage(200,180 + 175, 120, 120, false);
-        IceMage iceMage3 = new IceMage(70,270 + 175, 120, 120, false);
+        IceMage iceMage1 = new IceMage("spritesheet.png", 0, 5, 1, 40,140 + 175, 120, 120, false);
+        IceMage iceMage2 = new IceMage("knight.png", 1, 2, 4,200,180 + 175, 155, 120, false);
+        IceMage iceMage3 = new IceMage("spritesheet.png", 0, 5,1, 70,270 + 175, 120, 120, false);
 
-        IceMage iceMage4 = new IceMage((int)stage.getWidth() - 120 - 40,140 + 175, 120, 120, true);
-        IceMage iceMage5 = new IceMage((int)stage.getWidth() - 120 - 200,180 + 175, 120, 120, true);
-        IceMage iceMage6 = new IceMage((int)stage.getWidth() - 120 - 70,270 + 175, 120, 120, true);
+        IceMage iceMage4 = new IceMage("spritesheet.png", 0, 5, 1,  (int)stage.getWidth() - 120 - 40,140 + 175, 120, 120, true);
+        IceMage iceMage5 = new IceMage("knight.png", 1, 2,4,(int)stage.getWidth() - 120 - 200,180 + 175, 155, 120, true);
+        IceMage iceMage6 = new IceMage("spritesheet.png", 0, 5,1,(int)stage.getWidth() - 120 - 70,270 + 175, 120, 120, true);
 
         stage.addActor(new UIBar());
         stage.addActor(iceMage1);
@@ -58,7 +57,7 @@ public class InBattleScreen implements Screen {
     @Override
     public void render(float delta) {
         spriteBatch.begin();
-        spriteBatch.draw(background, 0, 175, 1280, 800);
+        spriteBatch.draw(background, 0, 230, 1280, 800);
         spriteBatch.end();
 
         stage.act();
