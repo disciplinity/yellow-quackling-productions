@@ -36,7 +36,7 @@ public class InBattleScreen implements Screen {
         IceMage iceMage3 = new IceMage("spritesheet.png", 0, 5,1, 70,270 + 175, 120, 120, false);
 
         IceMage iceMage4 = new IceMage("spritesheet.png", 0, 5, 1,  (int)stage.getWidth() - 120 - 40,140 + 175, 120, 120, true);
-        IceMage iceMage5 = new IceMage("knight.png", 1, 2,4,(int)stage.getWidth() - 120 - 200,180 + 175, 155, 120, true);
+        IceMage iceMage5 = new IceMage("knight.png", 1, 2,4,(int)stage.getWidth() - 155 - 200,180 + 175, 155, 120, true);
         IceMage iceMage6 = new IceMage("spritesheet.png", 0, 5,1,(int)stage.getWidth() - 120 - 70,270 + 175, 120, 120, true);
 
         stage.addActor(new UIBar());
