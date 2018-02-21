@@ -2,7 +2,6 @@ package components;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import lombok.Data;
 
 @Data public class GraphicsComponent {
@@ -24,5 +23,9 @@ import lombok.Data;
 
     public TextureRegion[][] getTextureRegions() {
         return textureRegions;
+    }
+
+    public TextureRegion[] getRow(int row) {
+        return textureRegions[row];
     }
 }

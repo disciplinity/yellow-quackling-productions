@@ -19,7 +19,6 @@ public class IceMage extends Actor {
 
     private TextureRegion[][] textureRegion;
 
-    private Texture spriteSheet;
     private Animation<TextureRegion> standingAnimation;
     private float stateTime;
     private int x, y, width, height;
