@@ -16,7 +16,6 @@ public class MyGdxGame extends Game {
     public void create () {
         spriteBatch = new SpriteBatch();
         inBattleScreen = new InBattleScreen(spriteBatch);
-
         this.setScreen(inBattleScreen);
     }
 

@@ -1,8 +1,7 @@
 package screens;
 
 
-import battle.UIBar;
-import com.badlogic.gdx.Game;
+import battle.UIBarGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import lombok.Getter;
 import lombok.Setter;
-import battle.Background;
+import battle.BackgroundGroup;
 
 public class InBattleScreen implements Screen {
 
@@ -21,9 +20,11 @@ public class InBattleScreen implements Screen {
         stage = new Stage(new ScreenViewport(), spriteBatch);
         Gdx.input.setInputProcessor(stage);
 
-        stage.addActor(new UIBar());
-        stage.addActor(new Background("fairy-forest.jpg"));
+        stage.addActor(new UIBarGroup());
+        stage.addActor(new BackgroundGroup("fairy-forest.jpg"));
+
     }
+
 
 
     @Override
@@ -35,6 +36,7 @@ public class InBattleScreen implements Screen {
     public void render(float delta) {
         stage.act();
         stage.draw();
+
 
     }
 

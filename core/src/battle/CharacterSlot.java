@@ -21,7 +21,4 @@ class CharacterSlot {
         this.actor = actor;
     }
 
-    public void draw(Batch batch, float parentAlpha) {
-        actor.draw(batch, parentAlpha);
-    }
 }

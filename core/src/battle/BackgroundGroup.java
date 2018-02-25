@@ -3,7 +3,11 @@ package battle;
 import actors.IceMage;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import components.StatComponent;
 import lombok.Getter;
 
@@ -12,7 +16,7 @@ import lombok.Getter;
  *  - background image
  *  - character slots with appropriate characters assigned to them
  */
-public class Background extends Actor {
+public class BackgroundGroup extends Group {
 
     @Getter
     private CharacterSlot[] characterSlots;
@@ -21,8 +25,8 @@ public class Background extends Actor {
     private Texture backgroundImage;
     private String imageName;
 
-    public Background(String imageName) {
-        characterSlots = new CharacterSlot[1];
+    public BackgroundGroup(String imageName) {
+        characterSlots = new CharacterSlot[2];
         backgroundImage = new Texture(imageName);
         this.imageName = imageName;
 
@@ -43,7 +47,7 @@ public class Background extends Actor {
         switch(imageName) {
             case "fairy-forest.jpg":
                 characterSlots[0] = new CharacterSlot(1,1);
-//                characterSlots[1] = new CharacterSlot(2, 2);
+                characterSlots[1] = new CharacterSlot(25, 100);
 //                characterSlots[2] = new CharacterSlot(3, 3);
 //                characterSlots[3] = new CharacterSlot(4, 4);
 //                characterSlots[4] = new CharacterSlot(5, 5);
@@ -54,12 +58,10 @@ public class Background extends Actor {
     private void spawnCharacters() {
         for (int i = 0; i < characterSlots.length; i++) {
             Actor actor = new IceMage(new StatComponent(105, 105, 105, 105, 100));
-            actor.setX(characterSlots[i].getX());
-            actor.setY(characterSlots[i].getY());
-
+            actor.setPosition(characterSlots[i].getX(), characterSlots[i].getY());
             actor.setBounds(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight());
-
             characterSlots[i].putActor(actor);
+            this.addActor(actor);
 
         }
     }
@@ -68,9 +70,8 @@ public class Background extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(backgroundImage, getX(), getY(), getWidth(), getHeight());
         for (CharacterSlot cs : characterSlots) {
-            cs.draw(batch, parentAlpha);
+            cs.getActor().draw(batch, parentAlpha);
         }
-
     }
 
 }

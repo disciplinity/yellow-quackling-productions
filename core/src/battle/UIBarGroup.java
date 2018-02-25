@@ -10,30 +10,26 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import components.GraphicsComponent;
 import components.StatComponent;
 
-public class UIBar extends Actor {
+public class UIBarGroup extends Actor {
 
+    private GraphicsComponent graphicsComponent;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private Texture leonardo = new Texture("leonardo.jpeg");
     private Texture cardTexture = new Texture("card.jpg");
-    private Texture elementTexture = new Texture("elements.png");
     private TextureRegion[][] elements;
 
-    public UIBar() {
-        elements = TextureRegion.split(elementTexture,
-                elementTexture.getWidth() / 3,
-                elementTexture.getHeight() / 2);
+    public UIBarGroup() {
+        graphicsComponent = new GraphicsComponent("elements.png", 3, 2);
+        elements = graphicsComponent.getTextureRegions();
     }
-
-    private StatComponent currentChosenPlayerStats;
 
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-
         batch.end();
-
         drawGrayBackground();
 
         batch.begin();
@@ -43,7 +39,7 @@ public class UIBar extends Actor {
         parameter.size = 16;
         BitmapFont font12 = generator.generateFont(parameter);
 
-        // Cards and Leonardo
+        // Drawing all of the UI elements. TODO:: Implement leonardo as 'worn-items-object', as well as add spells etc
 
         batch.draw(leonardo, 50, 20, 200, 190);
 
@@ -58,7 +54,6 @@ public class UIBar extends Actor {
         batch.draw(cardTexture, 680, 20, 135, 190);
 
         if (IceMage.currentlyChosen != null) {
-            System.out.println("hey");
             font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getIntellect()), 312,  193);
             font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getSpirit()), 312,  158);
             font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getStrength()), 312,  123);
