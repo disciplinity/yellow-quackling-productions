@@ -1,4 +1,4 @@
-package screens.screen.utilities;
+package battle;
 
 import actors.IceMage;
 import com.badlogic.gdx.graphics.Texture;
@@ -55,9 +55,7 @@ public class Background extends Actor {
         for (int i = 0; i < characterSlots.length; i++) {
             Actor actor = new IceMage(new StatComponent(105, 105, 105, 105, 100));
             actor.setX(characterSlots[i].getX());
-            System.out.println("Actor x: " + characterSlots[i].getX());
             actor.setY(characterSlots[i].getY());
-            System.out.println("Actor y: " + characterSlots[i].getY());
 
             actor.setBounds(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight());
 
@@ -69,9 +67,10 @@ public class Background extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(backgroundImage, getX(), getY(), getWidth(), getHeight());
-        for (int i = 0; i < characterSlots.length; i++) {
-            characterSlots[i].draw(batch, parentAlpha);
+        for (CharacterSlot cs : characterSlots) {
+            cs.draw(batch, parentAlpha);
         }
+
     }
 
 }

@@ -10,18 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import components.GraphicsComponent;
 import components.StatComponent;
 import lombok.Getter;
-import lombok.Setter;
-import screens.screen.utilities.Background;
 
 
 public class IceMage extends Actor {
 
-    private TextureRegion[][] textureRegion;
 
     private Animation<TextureRegion> standingAnimation;
     private float stateTime;
-    @Setter
-    private boolean flip;
     private GraphicsComponent graphicsComponent;
 
     @Getter
@@ -35,7 +30,6 @@ public class IceMage extends Actor {
 
         setWidth(220);
         setHeight(200);
-
 
         this.statComponent = statComponent;
         graphicsComponent = new GraphicsComponent("mage-standing.png", 10, 1);
@@ -54,6 +48,7 @@ public class IceMage extends Actor {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             }
         });
+
    }
 
 
@@ -63,7 +58,7 @@ public class IceMage extends Actor {
         currentFrame = standingAnimation.getKeyFrame(stateTime, true);
 
         batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
-//        batch.draw(currentFrame, flip ? x+width : x, y, flip ? -width : width, height);
+
     }
 
 }
