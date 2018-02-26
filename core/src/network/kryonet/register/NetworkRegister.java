@@ -14,7 +14,7 @@ public class NetworkRegister {
         kryo.register(RegisterName.class);
         kryo.register(String[].class);
         kryo.register(UpdateNames.class);
-        kryo.register(ChatMessage.class);
+        kryo.register(OpponentFound.class);
     }
 
     static public class RegisterName {
@@ -25,7 +25,14 @@ public class NetworkRegister {
         public String[] names;
     }
 
-    static public class ChatMessage {
-        public String text;
+
+//    static public class ChatMessage {
+//        public String text;
+//    }
+
+    static public class OpponentFound {
+        //TODO
+        //        public heroPack opponent;  // heroGroup heroTeam ???
+        public String opponent;
     }
 }

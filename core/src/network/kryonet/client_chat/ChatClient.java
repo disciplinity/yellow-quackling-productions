@@ -62,11 +62,11 @@ public class ChatClient {
                     return;
                 }
 
-                if (object instanceof ChatMessage) {
-                    ChatMessage chatMessage = (ChatMessage)object;
-                    chatFrame.addMessage(chatMessage.text);
-                    return;
-                }
+//                if (object instanceof ChatMessage) {
+//                    ChatMessage chatMessage = (ChatMessage)object;
+//                    chatFrame.addMessage(chatMessage.text);
+//                    return;
+//                }
             }
 
             public void disconnected (Connection connection) {
