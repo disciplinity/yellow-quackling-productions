@@ -14,7 +14,7 @@ class CharacterSlot {
 
     CharacterSlot(int x, int y) {
         this.x = x;
-        this.y = 230 + y; // 230 is the height of UI bar. This way we'll assume that y = 0 is where UI bar ends.
+        this.y = y + 230; // 230 is the height of UI bar. This way we'll assume that y = 0 is where UI bar ends.
     }
 
     public void putActor(Actor actor) {

@@ -16,24 +16,16 @@ import lombok.Getter;
  *  - background image
  *  - character slots with appropriate characters assigned to them
  */
-public class BackgroundGroup extends Group {
+public class CharacterSpawner extends Group {
 
     @Getter
     private CharacterSlot[] characterSlots;
 
-    @Getter
-    private Texture backgroundImage;
     private String imageName;
 
-    public BackgroundGroup(String imageName) {
-        characterSlots = new CharacterSlot[2];
-        backgroundImage = new Texture(imageName);
+    public CharacterSpawner(String imageName) {
+        characterSlots = new CharacterSlot[3];
         this.imageName = imageName;
-
-        setX(0);
-        setY(230);
-        setWidth(1280);
-        setHeight(570);
 
         setCharacterSlotPositions();
         spawnCharacters();
@@ -46,12 +38,11 @@ public class BackgroundGroup extends Group {
     private void setCharacterSlotPositions() {
         switch(imageName) {
             case "fairy-forest.jpg":
-                characterSlots[0] = new CharacterSlot(1,1);
-                characterSlots[1] = new CharacterSlot(25, 100);
-//                characterSlots[2] = new CharacterSlot(3, 3);
-//                characterSlots[3] = new CharacterSlot(4, 4);
-//                characterSlots[4] = new CharacterSlot(5, 5);
-//                characterSlots[5] = new CharacterSlot(6, 6);
+                characterSlots[0] = new CharacterSlot(0,0);
+                characterSlots[1] = new CharacterSlot(100, 100);
+                characterSlots[2] = new CharacterSlot(200, 200);
+
+
         }
     }
 
@@ -68,7 +59,7 @@ public class BackgroundGroup extends Group {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(backgroundImage, getX(), getY(), getWidth(), getHeight());
+//        batch.draw(backgroundImage, getX(), getY(), getWidth(), getHeight());
         for (CharacterSlot cs : characterSlots) {
             cs.getActor().draw(batch, parentAlpha);
         }

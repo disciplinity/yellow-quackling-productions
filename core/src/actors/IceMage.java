@@ -58,8 +58,8 @@ public class IceMage extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = standingAnimation.getKeyFrame(stateTime, true);
-        super.draw(batch, parentAlpha);
 
+        super.draw(batch, parentAlpha);
         batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
     }
 

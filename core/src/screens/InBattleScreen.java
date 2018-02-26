@@ -4,44 +4,64 @@ package screens;
 import battle.UIBarGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import lombok.Getter;
 import lombok.Setter;
-import battle.BackgroundGroup;
+import battle.CharacterSpawner;
 
 public class InBattleScreen implements Screen {
 
     @Getter @Setter
-    private Stage stage;
+    private Stage battleStage;
+
+    @Getter @Setter
+    private Stage uiStage;
+
+    private SpriteBatch spriteBatch;
+
+    private Texture currentBackground;
+
 
     public InBattleScreen(SpriteBatch spriteBatch) {
-        stage = new Stage(new ScreenViewport(), spriteBatch);
-        Gdx.input.setInputProcessor(stage);
 
-        stage.addActor(new UIBarGroup());
-        stage.addActor(new BackgroundGroup("fairy-forest.jpg"));
+        this.spriteBatch = spriteBatch;
 
+        battleStage = new Stage(new ScreenViewport(), spriteBatch);
+        uiStage = new Stage(new ScreenViewport(), spriteBatch);
+
+        battleStage.addActor(new CharacterSpawner("fairy-forest.jpg"));
+        uiStage.addActor(new UIBarGroup());
+
+        currentBackground = new Texture("fairy-forest.jpg");
     }
 
 
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(battleStage);
     }
 
     @Override
     public void render(float delta) {
-        stage.act();
-        stage.draw();
+
+        spriteBatch.begin();
+        spriteBatch.draw(currentBackground, 0, 230, 1280, 570);
+        spriteBatch.end();
+
+        battleStage.act();
+        battleStage.draw();
+
+        uiStage.draw();
 
 
     }
 
     public void resize (int width, int height) {
-        stage.getViewport().update(width, height, true);
+        battleStage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -61,7 +81,7 @@ public class InBattleScreen implements Screen {
 
     @Override
     public void dispose() {
-        stage.dispose();
+        battleStage.dispose();
     }
 
 }

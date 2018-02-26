@@ -10,10 +10,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import components.GraphicsComponent;
 import components.StatComponent;
 
-public class UIBarGroup extends Actor {
+public class UIBarGroup extends Group {
 
     private GraphicsComponent graphicsComponent;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
