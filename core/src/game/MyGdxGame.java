@@ -1,10 +1,9 @@
-package com.mygdx.game;
+package game;
 
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import javafx.stage.Stage;
 import lombok.Getter;
 import screens.InBattleScreen;
 
@@ -16,8 +15,7 @@ public class MyGdxGame extends Game {
 
     public void create () {
         spriteBatch = new SpriteBatch();
-        inBattleScreen = new InBattleScreen(this, spriteBatch);
-
+        inBattleScreen = new InBattleScreen(spriteBatch);
         this.setScreen(inBattleScreen);
     }
 
@@ -33,6 +31,7 @@ public class MyGdxGame extends Game {
 
     public void dispose() {
         screen.dispose();
+        spriteBatch.dispose();
     }
 
 
