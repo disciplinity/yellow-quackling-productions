@@ -1,73 +1,67 @@
 package screens;
 
 
-import actors.IceMage;
-import actors.UIBar;
-import com.badlogic.gdx.Game;
+import battle.UIBarGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import lombok.Getter;
 import lombok.Setter;
+import battle.CharacterSpawner;
 
 public class InBattleScreen implements Screen {
 
     @Getter @Setter
-    private Stage stage;
+    private Stage battleStage;
+
+    @Getter @Setter
+    private Stage uiStage;
+
     private SpriteBatch spriteBatch;
-    private Game game;
-    private Texture background;
 
-    public InBattleScreen(Game game, SpriteBatch spriteBatch) {
-        this.game = game;
+    private Texture currentBackground;
+
+
+    public InBattleScreen(SpriteBatch spriteBatch) {
+
         this.spriteBatch = spriteBatch;
-        background = new Texture("background.jpg");
 
-        stage = new Stage(new ScreenViewport(), spriteBatch);
-        Gdx.input.setInputProcessor(stage);
+        battleStage = new Stage(new ScreenViewport(), spriteBatch);
+        uiStage = new Stage(new ScreenViewport(), spriteBatch);
 
-        IceMage iceMage1 = new IceMage("spritesheet.png", 0, 5, 1, 40,140 + 175, 120, 120, false);
-        IceMage iceMage2 = new IceMage("knight.png", 1, 2, 4,200,180 + 175, 155, 120, false);
-        IceMage iceMage3 = new IceMage("spritesheet.png", 0, 5,1, 70,270 + 175, 120, 120, false);
+        battleStage.addActor(new CharacterSpawner("fairy-forest.jpg"));
+        uiStage.addActor(new UIBarGroup());
 
-        IceMage iceMage4 = new IceMage("spritesheet.png", 0, 5, 1,  (int)stage.getWidth() - 120 - 40,140 + 175, 120, 120, true);
-        IceMage iceMage5 = new IceMage("knight.png", 1, 2,4,(int)stage.getWidth() - 155 - 200,180 + 175, 155, 120, true);
-        IceMage iceMage6 = new IceMage("spritesheet.png", 0, 5,1,(int)stage.getWidth() - 120 - 70,270 + 175, 120, 120, true);
-
-        stage.addActor(new UIBar());
-        stage.addActor(iceMage1);
-        stage.addActor(iceMage2);
-        stage.addActor(iceMage3);
-        stage.addActor(iceMage4);
-        stage.addActor(iceMage5);
-        stage.addActor(iceMage6);
+        currentBackground = new Texture("fairy-forest.jpg");
     }
+
 
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(battleStage);
     }
 
     @Override
     public void render(float delta) {
+
         spriteBatch.begin();
-        spriteBatch.draw(background, 0, 230, 1280, 800);
+        spriteBatch.draw(currentBackground, 0, 230, 1280, 570);
         spriteBatch.end();
 
-        stage.act();
-        stage.draw();
+        battleStage.act();
+        battleStage.draw();
+
+        uiStage.draw();
+
 
     }
 
     public void resize (int width, int height) {
-        // See below for what true means.
-        stage.getViewport().update(width, height, true);
+        battleStage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -87,8 +81,9 @@ public class InBattleScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        battleStage.dispose();
     }
+
 }
 
 
