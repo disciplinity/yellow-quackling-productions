@@ -23,10 +23,11 @@ public class Object extends Actor {
         setSize(width, height);
         setBounds(x, y, width, height);
 
+
         this.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
-                System.out.println("button clicked");
+
                 return false;
             }
         });

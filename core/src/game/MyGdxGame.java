@@ -19,8 +19,9 @@ public class MyGdxGame extends Game {
     public void create () {
         spriteBatch = new SpriteBatch();
         inBattleScreen = new InBattleScreen(spriteBatch);
-
-        this.setScreen(inBattleScreen);
+//        this.setScreen(inBattleScreen);
+        menuPanel = new StartMenuScreen(this, spriteBatch);
+        this.setScreen(menuPanel);
     }
 
     public void resize (int width, int height) {

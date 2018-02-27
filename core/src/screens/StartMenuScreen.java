@@ -6,6 +6,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.MyGdxGame;
@@ -26,35 +29,37 @@ public class StartMenuScreen implements Screen {
     public StartMenuScreen(Game game, SpriteBatch spriteBatch) {
         this.game = game;
         this.menuStage = new Stage(new ScreenViewport(), spriteBatch);
+        this.batch = spriteBatch;
 
-        //stage = new Stage(new ScreenViewport(), batch);
-        //Gdx.input.setInputProcessor(stage);
-    }
+        background = new Texture(Gdx.files.internal("backgrond.jpg"));
+        logInButton = new Texture(Gdx.files.internal("log_in.jpg"));
+        exitButton = new Texture(Gdx.files.internal("exit.jpg"));
+
+        logInButtonObj = new Object(logInButton, 510, 381, BUTTON_WIDTH, BUTTON_HEIGHT);
+        exitButtonObj = new Object(exitButton, 510, 281, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+        logInButtonObj.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
+                game.setScreen(new InBattleScreen(batch));
+                return false;
+            }
+        });
+
+        menuStage.addActor(logInButtonObj);    }
 
 
     @Override
     public void show() {
         //мы в игре, переключаемся на экран
-        batch = new SpriteBatch();
 
-        background = new Texture(Gdx.files.internal("backgrond.jpg"));
-        logInButton = new Texture(Gdx.files.internal("log_in.jpg"));
-        boom = new Texture(Gdx.files.internal("boom.png"));
-        exitButton = new Texture(Gdx.files.internal("exit.jpg"));
+        Gdx.input.setInputProcessor(menuStage);
 
-        boomsObj = new Object(boom, 500, 530, 260, 100);
-        logInButtonObj = new Object(logInButton, 510, 381, BUTTON_WIDTH, BUTTON_HEIGHT);
-        exitButtonObj = new Object(exitButton, 510, 281, BUTTON_WIDTH, BUTTON_HEIGHT);
-
-        menuStage.addActor(logInButtonObj);
     }
 
     @Override
     public void render(float delta) {
         //вызывается постоянно, цикл, дельта показывает, сколько времени прошло с первого кадра до следующего
-
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
 
@@ -64,6 +69,7 @@ public class StartMenuScreen implements Screen {
 
         menuStage.draw();
         menuStage.act();
+
 //        logInButtonObj.draw(batch);
 //        if (Gdx.input.isTouched()) {
 //            this.dispose();
@@ -106,7 +112,6 @@ public class StartMenuScreen implements Screen {
         background.dispose();
         logInButton.dispose();
         exitButton.dispose();
-        boom.dispose();
         batch.dispose();
 
     }

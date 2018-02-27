@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import lombok.Getter;
 import lombok.Setter;
-import battle.CharacterSpawner;
+import battle.BattleStageGroup;
 
 public class InBattleScreen implements Screen {
 
@@ -32,7 +32,7 @@ public class InBattleScreen implements Screen {
         battleStage = new Stage(new ScreenViewport(), spriteBatch);
         uiStage = new Stage(new ScreenViewport(), spriteBatch);
 
-        battleStage.addActor(new CharacterSpawner("fairy-forest.jpg"));
+        battleStage.addActor(new BattleStageGroup("fairy-forest.jpg"));
         uiStage.addActor(new UIBarGroup());
 
         currentBackground = new Texture("fairy-forest.jpg");
@@ -82,6 +82,7 @@ public class InBattleScreen implements Screen {
     @Override
     public void dispose() {
         battleStage.dispose();
+        uiStage.dispose();
     }
 
 }
