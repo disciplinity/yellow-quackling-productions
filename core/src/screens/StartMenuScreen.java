@@ -3,15 +3,13 @@ package screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.MyGdxGame;
+import game.MyGdxGame;
 import module.Object;
 
 
@@ -20,42 +18,45 @@ public class StartMenuScreen implements Screen {
     private static final int BUTTON_WIDTH = 280;
     private static final int BUTTON_HEIGHT = 70;
 
-    private Game game;
-    private Stage menuStage;
-    private Texture background, logInButton, exitButton, boom;
+    private MyGdxGame game;
     private SpriteBatch batch;
-    private Object logInButtonObj, exitButtonObj, boomsObj;
+    private Stage menuStage;
+    private Texture background, logInButton, exitButton;
+    private Object logInButtonObj, exitButtonObj;
 
-    public StartMenuScreen(Game game, SpriteBatch spriteBatch) {
+
+    public StartMenuScreen(MyGdxGame game) {
         this.game = game;
-        this.menuStage = new Stage(new ScreenViewport(), spriteBatch);
-        this.batch = spriteBatch;
+        this.menuStage = new Stage(new ScreenViewport());
 
+        // load the images
         background = new Texture(Gdx.files.internal("backgrond.jpg"));
         logInButton = new Texture(Gdx.files.internal("log_in.jpg"));
         exitButton = new Texture(Gdx.files.internal("exit.jpg"));
 
+        // create buttons
         logInButtonObj = new Object(logInButton, 510, 381, BUTTON_WIDTH, BUTTON_HEIGHT);
         exitButtonObj = new Object(exitButton, 510, 281, BUTTON_WIDTH, BUTTON_HEIGHT);
 
+        batch = this.game.getSpriteBatch();
         logInButtonObj.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
                 game.setScreen(new InBattleScreen(batch));
-                return false;
+                dispose();
+                return true;
             }
         });
 
-        menuStage.addActor(logInButtonObj);    }
+        menuStage.addActor(logInButtonObj);
+    }
 
 
     @Override
     public void show() {
-        //мы в игре, переключаемся на экран
-
         Gdx.input.setInputProcessor(menuStage);
-
     }
+
 
     @Override
     public void render(float delta) {
@@ -65,29 +66,15 @@ public class StartMenuScreen implements Screen {
 
         batch.draw(background, 0, 0);
         batch.end();
-        //boomsObj.draw(batch);
 
         menuStage.draw();
         menuStage.act();
-
-//        logInButtonObj.draw(batch);
-//        if (Gdx.input.isTouched()) {
-//            this.dispose();
-//            game.setScreen(new InBattleScreen(game, batch));
-//        }
-
-//        exitButtonObj.draw(batch);
-//        if (Gdx.input.isTouched()) {
-//            Gdx.app.exit();
-//        }
-
-
     }
+
 
     @Override
     public void resize(int width, int height) {
         //изменение размера экрана, пересоздавать камеры
-        // See below for what true means.
         //stage.getViewport().update(width, height, true);
     }
 
@@ -112,7 +99,5 @@ public class StartMenuScreen implements Screen {
         background.dispose();
         logInButton.dispose();
         exitButton.dispose();
-        batch.dispose();
-
     }
 }
