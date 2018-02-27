@@ -61,7 +61,7 @@ public class InBattleScreen implements Screen {
     }
 
     public void resize (int width, int height) {
-        battleStage.getViewport().update(width, height, true);
+        battleStage.getViewport().update(width, height, false);
     }
 
     @Override
