@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.MyGdxGame;
 import module.Object;
 
 
@@ -24,7 +23,7 @@ public class StartMenuScreen implements Screen {
     private Stage menuStage;
     private Texture background, logInButton, exitButton, boom;
     private SpriteBatch batch;
-    private Object logInButtonObj, exitButtonObj, boomsObj;
+    private Object logInButtonObj, exitButtonObj;
 
     public StartMenuScreen(Game game, SpriteBatch spriteBatch) {
         this.game = game;
@@ -42,7 +41,7 @@ public class StartMenuScreen implements Screen {
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
                 game.setScreen(new InBattleScreen(batch));
-                return false;
+                return true;
             }
         });
 
@@ -63,7 +62,7 @@ public class StartMenuScreen implements Screen {
 
         batch.begin();
 
-        batch.draw(background, 0, 0);
+        batch.draw(background, 0, 0, 1280, 800);
         batch.end();
         //boomsObj.draw(batch);
 
@@ -88,7 +87,7 @@ public class StartMenuScreen implements Screen {
     public void resize(int width, int height) {
         //изменение размера экрана, пересоздавать камеры
         // See below for what true means.
-        //stage.getViewport().update(width, height, true);
+        menuStage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -113,6 +112,7 @@ public class StartMenuScreen implements Screen {
         logInButton.dispose();
         exitButton.dispose();
         batch.dispose();
+        menuStage.dispose();
 
     }
 }

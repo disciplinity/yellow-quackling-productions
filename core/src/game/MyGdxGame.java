@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package game;
 
 
 import com.badlogic.gdx.*;
@@ -35,8 +35,8 @@ public class MyGdxGame extends Game {
     }
 
     public void dispose() {
-        screen.dispose();
-        spriteBatch.dispose();
+        inBattleScreen.dispose();
+        menuPanel.dispose();
     }
 
 
