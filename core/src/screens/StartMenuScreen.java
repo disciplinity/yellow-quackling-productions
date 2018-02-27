@@ -64,7 +64,7 @@ public class StartMenuScreen implements Screen {
 
         batch.begin();
 
-        batch.draw(background, 0, 0);
+        batch.draw(background, 0, 0, 1280, 800);
         batch.end();
 
         menuStage.draw();
@@ -75,7 +75,7 @@ public class StartMenuScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         //изменение размера экрана, пересоздавать камеры
-        //stage.getViewport().update(width, height, true);
+        menuStage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -99,5 +99,6 @@ public class StartMenuScreen implements Screen {
         background.dispose();
         logInButton.dispose();
         exitButton.dispose();
+        menuStage.dispose();
     }
 }

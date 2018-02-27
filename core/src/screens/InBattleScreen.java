@@ -3,6 +3,7 @@ package screens;
 
 import battle.UIBarGroup;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,6 +24,7 @@ public class InBattleScreen implements Screen {
     private SpriteBatch spriteBatch;
 
     private Texture currentBackground;
+    private InputMultiplexer inputMultiplexer;
 
 
     public InBattleScreen(SpriteBatch spriteBatch) {
@@ -31,18 +33,21 @@ public class InBattleScreen implements Screen {
 
         battleStage = new Stage(new ScreenViewport(), spriteBatch);
         uiStage = new Stage(new ScreenViewport(), spriteBatch);
+        inputMultiplexer = new InputMultiplexer(battleStage, uiStage);
 
         battleStage.addActor(new BattleStageGroup("fairy-forest.jpg"));
         uiStage.addActor(new UIBarGroup());
 
         currentBackground = new Texture("fairy-forest.jpg");
+
     }
 
 
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(battleStage);
+        Gdx.input.setInputProcessor(inputMultiplexer);
+
     }
 
     @Override
@@ -83,6 +88,7 @@ public class InBattleScreen implements Screen {
     public void dispose() {
         battleStage.dispose();
         uiStage.dispose();
+        spriteBatch.dispose();
     }
 
 }
