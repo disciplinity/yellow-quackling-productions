@@ -16,19 +16,21 @@ import lombok.Getter;
  *  - background image
  *  - character slots with appropriate characters assigned to them
  */
-public class CharacterSpawner extends Group {
+public class BattleStageGroup extends Group {
 
     @Getter
     private CharacterSlot[] characterSlots;
 
     private String imageName;
 
-    public CharacterSpawner(String imageName) {
+    public BattleStageGroup(String imageName) {
         characterSlots = new CharacterSlot[3];
         this.imageName = imageName;
 
         setCharacterSlotPositions();
         spawnCharacters();
+
+//        setOrigin(0, 230);
 
     }
 
@@ -55,6 +57,7 @@ public class CharacterSpawner extends Group {
             this.addActor(actor);
 
         }
+//        CharacterFactory.characterSpawner()
     }
 
     @Override

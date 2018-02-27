@@ -17,13 +17,13 @@
 //import sizes.CharacterSizes;
 //
 //
-//public class Knight extends Actor {
+//public class Archer extends Actor {
 //
 //    private TextureRegion[][] textureRegion;
 //
 //    private Animation<TextureRegion> standingAnimation;
 //    private float stateTime;
-//    private int x, y    ;
+//    private int x, y, width, height;
 //    private boolean flip;
 //    private GraphicsComponent graphicsComponent;
 //
@@ -33,15 +33,15 @@
 //    private IceMage reference;
 //
 //
-//    public Knight(StatComponent statComponent, int x, int y, boolean flip) {
+//    public Archer(StatComponent statComponent, int x, int y, boolean flip) {
 //        this.x = x;
 //        this.y = y;
-//        setWidth(CharacterSizes.WARRIOR_WIDTH);
-//        setHeight(CharacterSizes.WARRIOR_HEIGHT);
+//        setWidth(CharacterSizes.ARCHER_WIDTH);
+//        setHeight(CharacterSizes.ARCHER_HEIGHT);
 //        this.flip = flip;
 //        this.statComponent = statComponent;
 //
-//        graphicsComponent = new GraphicsComponent("knight.png", 2, 4);
+//        graphicsComponent = new GraphicsComponent("mage-standing.png", 10, 1);
 //        textureRegion = graphicsComponent.getTextureRegions();
 //
 //        TextureRegion[] animationSheet = new TextureRegion[COLUMN_NUMBER * ROW_NUMBER - emptySpaces];
