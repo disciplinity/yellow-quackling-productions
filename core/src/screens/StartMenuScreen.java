@@ -27,6 +27,7 @@ public class StartMenuScreen implements Screen {
 
     public StartMenuScreen(MyGdxGame game) {
         this.game = game;
+        this.batch = this.game.getSpriteBatch();
         this.menuStage = new Stage(new ScreenViewport());
 
         // load the images
@@ -35,14 +36,14 @@ public class StartMenuScreen implements Screen {
         exitButton = new Texture(Gdx.files.internal("exit.jpg"));
 
         // create buttons
+        // TODO: make coordinates for buttons constants too And check their proper scalability and resolution adaptation
         logInButtonObj = new Object(logInButton, 510, 381, BUTTON_WIDTH, BUTTON_HEIGHT);
         exitButtonObj = new Object(exitButton, 510, 281, BUTTON_WIDTH, BUTTON_HEIGHT);
 
-        batch = this.game.getSpriteBatch();
         logInButtonObj.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
-                game.setScreen(new InBattleScreen(batch));
+                game.setScreen(new InBattleScreen(game));
                 dispose();
                 return true;
             }
