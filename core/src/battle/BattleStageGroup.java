@@ -50,11 +50,11 @@ public class BattleStageGroup extends Group {
 
     private void spawnCharacters() {
         for (int i = 0; i < characterSlots.length; i++) {
-            Actor actor = new IceMage(new StatComponent(105, 105, 105, 105, 100));
+            /*Actor actor = new IceMage(new StatComponent(105, 105, 105, 105, 100));
             actor.setPosition(characterSlots[i].getX(), characterSlots[i].getY());
             actor.setBounds(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight());
             characterSlots[i].putActor(actor);
-            this.addActor(actor);
+            this.addActor(actor);*/
 
         }
 //        CharacterFactory.characterSpawner()
@@ -64,7 +64,7 @@ public class BattleStageGroup extends Group {
     public void draw(Batch batch, float parentAlpha) {
 //        batch.draw(backgroundImage, getX(), getY(), getWidth(), getHeight());
         for (CharacterSlot cs : characterSlots) {
-            cs.getActor().draw(batch, parentAlpha);
+            //cs.getActor().draw(batch, parentAlpha);
         }
     }
 

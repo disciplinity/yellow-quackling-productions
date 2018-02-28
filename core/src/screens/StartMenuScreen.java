@@ -3,16 +3,13 @@ package screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.MyGdxGame;
-import module.Object;
+import menu.ButtonCreator;
 
 
 public class StartMenuScreen implements Screen {
@@ -22,9 +19,9 @@ public class StartMenuScreen implements Screen {
 
     private Game game;
     private Stage menuStage;
-    private Texture background, logInButton, exitButton, boom;
+    private Texture background, logInButton, exitButton;
     private SpriteBatch batch;
-    private Object logInButtonObj, exitButtonObj, boomsObj;
+    private ButtonCreator logInButtonObj, exitButtonObj;
 
     public StartMenuScreen(Game game, SpriteBatch spriteBatch) {
         this.game = game;
@@ -35,8 +32,8 @@ public class StartMenuScreen implements Screen {
         logInButton = new Texture(Gdx.files.internal("log_in.jpg"));
         exitButton = new Texture(Gdx.files.internal("exit.jpg"));
 
-        logInButtonObj = new Object(logInButton, 510, 381, BUTTON_WIDTH, BUTTON_HEIGHT);
-        exitButtonObj = new Object(exitButton, 510, 281, BUTTON_WIDTH, BUTTON_HEIGHT);
+        logInButtonObj = new ButtonCreator(logInButton, 510, 381, BUTTON_WIDTH, BUTTON_HEIGHT);
+        exitButtonObj = new ButtonCreator(exitButton, 510, 281, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         logInButtonObj.addListener(new InputListener() {
             @Override
@@ -65,23 +62,9 @@ public class StartMenuScreen implements Screen {
 
         batch.draw(background, 0, 0);
         batch.end();
-        //boomsObj.draw(batch);
 
         menuStage.draw();
         menuStage.act();
-
-//        logInButtonObj.draw(batch);
-//        if (Gdx.input.isTouched()) {
-//            this.dispose();
-//            game.setScreen(new InBattleScreen(game, batch));
-//        }
-
-//        exitButtonObj.draw(batch);
-//        if (Gdx.input.isTouched()) {
-//            Gdx.app.exit();
-//        }
-
-
     }
 
     @Override
