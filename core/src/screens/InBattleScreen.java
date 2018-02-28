@@ -26,8 +26,8 @@ public class InBattleScreen implements Screen {
     private Texture currentBackground;
     private InputMultiplexer inputMultiplexer;
 
-
-    public InBattleScreen(MyGdxGame game) {
+    // TODO: May be pass something else but BattleStageGroup?
+    public InBattleScreen(MyGdxGame game, BattleStageGroup battleStageGroup) {
         this.game = game;
         this.spriteBatch = this.game.getSpriteBatch();
 
@@ -43,7 +43,7 @@ public class InBattleScreen implements Screen {
         // TODO: make texture file string as a constant
         // OR
         // TODO: make method to change background in a BattleStageGroup with a method. Make file-string constant there.
-        battleStage.addActor(new BattleStageGroup("fairy-forest.jpg"));
+        battleStage.addActor(battleStageGroup);
         uiStage.addActor(new UIBarGroup());
 
         // TODO: Make getter from BattleStageGroup? And call this getter not here, but at spriteBatch.draw(...) below.
