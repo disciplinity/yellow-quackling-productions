@@ -29,7 +29,7 @@ import javax.swing.JTextField;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import network.kryonet.register.NetworkRegister.ChatMessage;
+//import network.kryonet.register.NetworkRegister.ChatMessage;
 import network.kryonet.register.NetworkRegister.RegisterName;
 import network.kryonet.register.NetworkRegister.UpdateNames;
 import com.esotericsoftware.minlog.Log;
@@ -94,13 +94,13 @@ public class ChatClient {
         // All the ugly Swing stuff is hidden in ChatFrame so it doesn't clutter the KryoNet example code.
         chatFrame = new ChatFrame(host);
         // This listener is called when the send button is clicked.
-        chatFrame.setSendListener(new Runnable() {
-            public void run () {
-                ChatMessage chatMessage = new ChatMessage();
-                chatMessage.text = chatFrame.getSendText();
-                client.sendTCP(chatMessage);
-            }
-        });
+//        chatFrame.setSendListener(new Runnable() {
+//            public void run () {
+//                ChatMessage chatMessage = new ChatMessage();
+//                chatMessage.text = chatFrame.getSendText();
+//                client.sendTCP(chatMessage);
+//            }
+//        });
         // This listener is called when the chat window is closed.
         chatFrame.setCloseListener(new Runnable() {
             public void run () {
