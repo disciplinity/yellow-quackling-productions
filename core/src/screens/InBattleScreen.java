@@ -92,11 +92,8 @@ public class InBattleScreen implements Screen {
 
     @Override
     public void dispose() {
-        // TODO: Here should be some refactoring later. We should't dispose spriteBatch at screens, cause it's kind of global
-        // (we pass it through with the Game object)
         battleStage.dispose();
         uiStage.dispose();
-        spriteBatch.dispose();
     }
 
 }
