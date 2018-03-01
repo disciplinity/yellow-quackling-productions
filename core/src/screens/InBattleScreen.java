@@ -26,6 +26,9 @@ public class InBattleScreen implements Screen {
     private Texture currentBackground;
     private InputMultiplexer inputMultiplexer;
 
+    // TODO: when created BattleStageGroup must be passed. When it is created, Player and Opponent CombatSetups must be
+    // passed
+    // TODO: it should be created somewhere outside. in a "waiting thread" before InBattleScreen is drawn...
 
     public InBattleScreen(MyGdxGame game) {
         this.game = game;

@@ -18,6 +18,7 @@ import lombok.Getter;
  */
 public class BattleStageGroup extends Group {
 
+    // TODO: method that will fill character slots (pass PlayerCombatHeroSetup)
     @Getter
     private CharacterSlot[] characterSlots;
 
