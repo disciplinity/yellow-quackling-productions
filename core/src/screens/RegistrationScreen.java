@@ -36,7 +36,7 @@ public class RegistrationScreen implements Screen {
         logInButtonObj.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
-                game.setScreen(new StartMenuScreen(gdxGame, batch));
+                game.setScreen(new StartMenuScreen(gdxGame));
                 dispose();
                 return true;
             }
