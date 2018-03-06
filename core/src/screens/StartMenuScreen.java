@@ -18,16 +18,15 @@ public class StartMenuScreen implements Screen {
     private static final int BUTTON_WIDTH = 280;
     private static final int BUTTON_HEIGHT = 70;
 
-    private static final int LOGIN_BUTTON_X = 510;
-    private static final int LOGIN_BUTTON_Y = 381;
-    private static final int EXIT_BUTTON_X = 510;
-    private static final int EXIT_BUTTON_Y = 281;
+    private static final int BUTTON_X = 510;
+    private static final int SIGN_UP_BUTTON_Y = 431;
+    private static final int EXIT_BUTTON_Y = 331;
 
     private MyGdxGame game;
     private SpriteBatch batch;
     private Stage menuStage;
-    private Texture background, logInButton, logInButtonActive, exitButton;
-    private ButtonCreator logInButtonObj, logInButtonActiveObj, exitButtonObj;
+    private Texture background, logInButton, logInButtonActive, exitButton, startButton;
+    private ButtonCreator logInButtonObj, logInButtonActiveObj, exitButtonObj, startButtonObj;
 
     private boolean hover;
 
@@ -43,25 +42,28 @@ public class StartMenuScreen implements Screen {
         logInButtonActive = new Texture(Gdx.files.internal("menu/log_in_active.jpg"));
         exitButton = new Texture(Gdx.files.internal("menu/exit.jpg"));
 
+        //later start button become a registration button, no ps on my pc now
+        startButton = new Texture(Gdx.files.internal("menu/start.jpg"));
+
         // create buttons
         // TODO: check their proper scalability and resolution adaptation
-        logInButtonObj = new ButtonCreator(logInButton, LOGIN_BUTTON_X, LOGIN_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
-        exitButtonObj = new ButtonCreator(exitButton, LOGIN_BUTTON_X, LOGIN_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
-        logInButtonActiveObj = new ButtonCreator(logInButtonActive, LOGIN_BUTTON_X, LOGIN_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+        logInButtonObj = new ButtonCreator(logInButton, BUTTON_X, SIGN_UP_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+        exitButtonObj = new ButtonCreator(exitButton, BUTTON_X, EXIT_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+        logInButtonActiveObj = new ButtonCreator(logInButtonActive, BUTTON_X, SIGN_UP_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+        startButtonObj = new ButtonCreator(startButton, BUTTON_X, SIGN_UP_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
 
-        logInButtonObj.addListener(new InputListener() {
+        startButtonObj.addListener(new InputListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 System.out.println("touch - true");
                 hover = true;
-                menuStage.addActor(logInButtonActiveObj);
+                //menuStage.addActor(logInButtonActiveObj);
             }
 
             @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
                 System.out.println("dont touch - false");
                 hover = false;
-                menuStage.addActor(logInButtonObj);
             }
 
             @Override
@@ -80,7 +82,7 @@ public class StartMenuScreen implements Screen {
             }
         });
 
-        menuStage.addActor(logInButtonObj);
+        menuStage.addActor(startButtonObj);
         menuStage.addActor(exitButtonObj);
     }
 
