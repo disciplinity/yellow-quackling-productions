@@ -23,7 +23,7 @@ public class RegistrationScreen implements Screen {
 
     public RegistrationScreen(MyGdxGame gdxGame) {
         this.game = gdxGame;
-        this.batch = this.game.getSpriteBatch();
+        this.batch = gdxGame.getSpriteBatch();
         this.menuStage = new Stage(new ScreenViewport());
 
         // load images
