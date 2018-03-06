@@ -64,7 +64,7 @@ public class BattleStageGroup extends Group {
     public void draw(Batch batch, float parentAlpha) {
 //        batch.draw(backgroundImage, getX(), getY(), getWidth(), getHeight());
         for (CharacterSlot cs : characterSlots) {
-           cs.getActor().draw(batch, parentAlpha);
+            cs.getActor().draw(batch, parentAlpha);
         }
     }
 
