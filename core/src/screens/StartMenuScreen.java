@@ -17,19 +17,19 @@ public class StartMenuScreen implements Screen {
 
     private static final int BUTTON_WIDTH = 280;
     private static final int BUTTON_HEIGHT = 70;
-
     private static final int BUTTON_X = 510;
-    private static final int SIGN_UP_BUTTON_Y = 431;
+
+    private static final int SIGN_UP_BUTTON_Y = 531;
+    private static final int REGISTER_Y = 431;
     private static final int EXIT_BUTTON_Y = 331;
 
     private MyGdxGame game;
     private SpriteBatch batch;
     private Stage menuStage;
-    private Texture background, logInButton, logInButtonActive, exitButton, startButton;
-    private ButtonCreator logInButtonObj, logInButtonActiveObj, exitButtonObj, startButtonObj;
+    private Texture background, startButton, startButtonActive, registerButton, exitButton;
+    private ButtonCreator startButtonObj, startButtonActiveObj, registerButtonObj, exitButtonObj;
 
     private boolean hover;
-
 
     public StartMenuScreen(MyGdxGame game, SpriteBatch batch) {
         this.game = game;
@@ -38,26 +38,26 @@ public class StartMenuScreen implements Screen {
 
         // load the images
         background = new Texture(Gdx.files.internal("menu/background.jpg"));
-        logInButton = new Texture(Gdx.files.internal("menu/log_in.jpg"));
-        logInButtonActive = new Texture(Gdx.files.internal("menu/log_in_active.jpg"));
+
+        startButton = new Texture(Gdx.files.internal("menu/start.jpg"));
+        startButtonActive = new Texture(Gdx.files.internal("menu/start_active.jpg"));
+        registerButton = new Texture(Gdx.files.internal("menu/register.jpg"));
         exitButton = new Texture(Gdx.files.internal("menu/exit.jpg"));
 
-        //later start button become a registration button, no ps on my pc now
-        startButton = new Texture(Gdx.files.internal("menu/start.jpg"));
 
         // create buttons
-        // TODO: check their proper scalability and resolution adaptation
-        logInButtonObj = new ButtonCreator(logInButton, BUTTON_X, SIGN_UP_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
-        exitButtonObj = new ButtonCreator(exitButton, BUTTON_X, EXIT_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
-        logInButtonActiveObj = new ButtonCreator(logInButtonActive, BUTTON_X, SIGN_UP_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+        // TODO: check their proper scalability and resolution adaptation and make button in action
         startButtonObj = new ButtonCreator(startButton, BUTTON_X, SIGN_UP_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+        startButtonActiveObj = new ButtonCreator(startButton, BUTTON_X, SIGN_UP_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+        registerButtonObj = new ButtonCreator(registerButton, BUTTON_X, REGISTER_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+        exitButtonObj = new ButtonCreator(exitButton, BUTTON_X, EXIT_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         startButtonObj.addListener(new InputListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 System.out.println("touch - true");
                 hover = true;
-                //menuStage.addActor(logInButtonActiveObj);
+                //menuStage.addActor(startButtonActiveObj);
             }
 
             @Override
@@ -82,18 +82,19 @@ public class StartMenuScreen implements Screen {
             }
         });
 
+        registerButtonObj.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
+                game.setScreen(new RegistrationScreen(game, batch));
+                dispose();
+                return true;
+            }
+        });
+
         menuStage.addActor(startButtonObj);
+        menuStage.addActor(registerButtonObj);
         menuStage.addActor(exitButtonObj);
     }
-
-    public Texture changeButtonsStyle() {
-        if (!hover) {
-            return logInButton;
-        } else {
-            return logInButtonActive;
-        }
-    }
-
 
     @Override
     public void show() {
@@ -135,7 +136,7 @@ public class StartMenuScreen implements Screen {
     @Override
     public void dispose() {
         background.dispose();
-        logInButton.dispose();
+        registerButton.dispose();
         exitButton.dispose();
         menuStage.dispose();
     }
