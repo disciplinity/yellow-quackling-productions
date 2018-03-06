@@ -34,12 +34,12 @@ public class Knight extends Actor {
 
     public Knight(StatComponent statComponent) {
 
-        setSize(220, 200);
+        setSize(146, 102);
 
         this.statComponent = statComponent;
-        graphicsComponent = new GraphicsComponent("knight.png", 2, 4);
+        graphicsComponent = new GraphicsComponent("knight.png", 7, 1);
 
-        standingAnimation = new Animation<>(0.120f, graphicsComponent.getAnimationSheet(1, 1, 4, 1));
+        standingAnimation = new Animation<>(0.120f, graphicsComponent.getAnimationSheet(1, 1, 1, 7));
         standingAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
         stateTime = 0;
         reference = this;
@@ -63,7 +63,9 @@ public class Knight extends Actor {
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = standingAnimation.getKeyFrame(stateTime, true);
 
-        super.draw(batch, parentAlpha);
-        batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
+//        if (currentFrame != null) {
+            super.draw(batch, parentAlpha);
+            batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
+//        }
     }
 }
