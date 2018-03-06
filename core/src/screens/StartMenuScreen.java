@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
 import menu.ButtonCreator;
+import network.kryonet.ui_frame.ConnectionTestScreen;
 
 
 public class StartMenuScreen implements Screen {
@@ -31,6 +32,10 @@ public class StartMenuScreen implements Screen {
 
     private boolean hover;
 
+    /**
+     * Main menu
+     * @param game Game platform
+     */
     public StartMenuScreen(MyGdxGame game) {
         this.game = game;
         this.batch = this.game.getSpriteBatch();
@@ -68,7 +73,7 @@ public class StartMenuScreen implements Screen {
 
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
-                game.setScreen(new InBattleScreen(game));
+                game.setScreen(new ConnectionTestScreen(game));
                 dispose();
                 return true;
             }
@@ -85,7 +90,7 @@ public class StartMenuScreen implements Screen {
         registerButtonObj.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
-                game.setScreen(new RegistrationScreen(game, batch));
+                game.setScreen(new RegistrationScreen(game));
                 dispose();
                 return true;
             }

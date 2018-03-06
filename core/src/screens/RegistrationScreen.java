@@ -21,9 +21,9 @@ public class RegistrationScreen implements Screen {
     private Texture background, logInButton;
     private ButtonCreator logInButtonObj;
 
-    public RegistrationScreen(MyGdxGame gdxGame, SpriteBatch batch) {
+    public RegistrationScreen(MyGdxGame gdxGame) {
         this.game = gdxGame;
-        this.batch = batch;
+        this.batch = this.game.getSpriteBatch();
         this.menuStage = new Stage(new ScreenViewport());
 
         // load images
@@ -36,7 +36,7 @@ public class RegistrationScreen implements Screen {
         logInButtonObj.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
-                game.setScreen(new StartMenuScreen(gdxGame, batch));
+                game.setScreen(new StartMenuScreen(gdxGame));
                 dispose();
                 return true;
             }
