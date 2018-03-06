@@ -34,7 +34,7 @@ package network.kryonet.server;
 //        NetworkRegister.register(server);
 //
 //        server.addListener(new Listener() {
-//            public void received (Connection c, Object object) {
+//            public void received (Connection c, ButtonCreator object) {
 //                // We know all connections for this server are actually ChatConnections.
 //                ChatConnection connection = (ChatConnection)c;
 //

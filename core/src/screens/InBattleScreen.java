@@ -27,9 +27,9 @@ public class InBattleScreen implements Screen {
     private InputMultiplexer inputMultiplexer;
 
 
-    public InBattleScreen(MyGdxGame game) {
+    public InBattleScreen(MyGdxGame game, SpriteBatch batch) {
         this.game = game;
-        this.spriteBatch = this.game.getSpriteBatch();
+        this.spriteBatch = batch;
 
         // create stages
         battleStage = new Stage(new ScreenViewport(), spriteBatch);

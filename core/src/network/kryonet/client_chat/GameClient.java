@@ -28,7 +28,7 @@ package network.kryonet.client_chat;
 //                client.sendTCP(registerName);
 //            }
 //
-//            public void received (Connection connection, Object object) {
+//            public void received (Connection connection, ButtonCreator object) {
 //                if (object instanceof NetworkRegister.UpdateNames) {
 //                    NetworkRegister.UpdateNames updateNames = (NetworkRegister.UpdateNames)object;
 //                    // Depends on scene. Modify data on current scene, which is not here represented... so..
