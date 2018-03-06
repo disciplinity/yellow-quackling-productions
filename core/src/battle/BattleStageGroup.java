@@ -32,9 +32,6 @@ public class BattleStageGroup extends Group {
 
         setCharacterSlotPositions();
         spawnCharacters();
-
-//        setOrigin(0, 230);
-
     }
 
     /**
@@ -67,12 +64,10 @@ public class BattleStageGroup extends Group {
             characterSlots[i].putActor(actor);
             this.addActor(actor);
         }
-//        CharacterFactory.characterSpawner()
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-//        batch.draw(backgroundImage, getX(), getY(), getWidth(), getHeight());
         for (CharacterSlot cs : characterSlots) {
             cs.getActor().draw(batch, parentAlpha);
         }

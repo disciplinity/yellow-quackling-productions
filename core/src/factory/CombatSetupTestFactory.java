@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import components.StatComponent;
 import models.CombatSetup;
 
-public class TestFactories {
+public class CombatSetupTestFactory {
 
     public static CombatSetup createCombatGroupExample1() {
         Actor a1 = new IceMage(new StatComponent(100, 10, 10, 10, 50));

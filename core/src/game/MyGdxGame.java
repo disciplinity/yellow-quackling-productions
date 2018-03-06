@@ -9,8 +9,8 @@ import models.CombatSetup;
 import screens.InBattleScreen;
 import screens.StartMenuScreen;
 
-import static factory.TestFactories.createCombatGroupExample1;
-import static factory.TestFactories.createCombatGroupExample2;
+import static factory.CombatSetupTestFactory.createCombatGroupExample1;
+import static factory.CombatSetupTestFactory.createCombatGroupExample2;
 
 public class MyGdxGame extends Game {
 

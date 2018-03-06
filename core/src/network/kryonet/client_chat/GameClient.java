@@ -13,14 +13,14 @@ import screens.InBattleScreen;
 
 import java.io.IOException;
 
-import static factory.TestFactories.createCombatGroupExample1;
-import static factory.TestFactories.createCombatGroupExample2;
+import static factory.CombatSetupTestFactory.createCombatGroupExample1;
+import static factory.CombatSetupTestFactory.createCombatGroupExample2;
 
 public class GameClient {
     Client client;
-    String name;
     MyGdxGame game;
 
+    // TODO: Think about merging this class with main game class (or leave it as it is, because here is where client connection is managed)
     public GameClient(String chosenGlobalSetupId, MyGdxGame game, String host) {
         client = new Client();
         client.start();
@@ -29,10 +29,9 @@ public class GameClient {
         // Register the class to be sent over the network
         NetworkRegister.register(client);
 
-
         client.addListener(new Listener() {
             public void connected (Connection connection) {
-                NetworkRegister.EnterRoomWithSetup registerCombatGroup = new NetworkRegister.EnterRoomWithSetup();
+                EnterRoomWithSetup registerCombatGroup = new EnterRoomWithSetup();
                 registerCombatGroup.globalSetupId = chosenGlobalSetupId;
                 client.sendTCP(registerCombatGroup);
             }
@@ -41,7 +40,7 @@ public class GameClient {
 
                 if (object instanceof EnterRoomWithSetup) {
                     EnterRoomWithSetup opponentInRoom = (EnterRoomWithSetup)object;
-                    setAndFillBattleScene(opponentInRoom, chosenGlobalSetupId);
+                    changeToBattleScene(opponentInRoom, chosenGlobalSetupId);
                 }
             }
 
@@ -51,7 +50,6 @@ public class GameClient {
         });
 
 
-        // TODO: special method for this, after host is obtained from the form within a text field
         new Thread("Connect") {
             public void run () {
                 try {
@@ -65,34 +63,32 @@ public class GameClient {
         }.start();
     }
 
-    private void setAndFillBattleScene(EnterRoomWithSetup opponentInRoom, String chosenGlobalSetupId) {
+    private void changeToBattleScene(EnterRoomWithSetup opponentInRoom, String chosenGlobalSetupId) {
+        Gdx.app.postRunnable(() -> {
+            CombatSetup playerCS;
+            CombatSetup opponentCS;
 
-
-        Gdx.app.postRunnable(new Runnable() {
-            @Override
-            public void run() {
-                CombatSetup playerCS;
-                CombatSetup opponentCS;
-
-                switch(chosenGlobalSetupId) {
-                    case "1":
-                        playerCS = createCombatGroupExample1();
-                    default:
-                        playerCS = createCombatGroupExample2();
-                }
-
-                switch(opponentInRoom.globalSetupId) {
-                    case "1":
-                        opponentCS =createCombatGroupExample2();
-                    default:
-                        opponentCS = createCombatGroupExample1();
-                }
-                BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", playerCS, opponentCS);
-                game.setScreen(new InBattleScreen(game, bsg));
-//                game.setBattleScreen();
+            if (chosenGlobalSetupId.equals("1")){
+                System.err.println("here1");
+                playerCS = createCombatGroupExample1();
+            } else {
+                    System.err.println("here2");
+                    playerCS = createCombatGroupExample2();
             }
+
+
+            if (opponentInRoom.globalSetupId.equals("1")){
+                    System.err.println("here3");
+                    opponentCS =createCombatGroupExample1();
+            } else {
+                    System.err.println("here4");
+                    opponentCS = createCombatGroupExample2();
+            }
+
+            // TODO: game.setBattleScreen();
+            BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", playerCS, opponentCS);
+            game.setScreen(new InBattleScreen(game, bsg));
         });
-//        game.setBattleScreen();
     }
 
 }

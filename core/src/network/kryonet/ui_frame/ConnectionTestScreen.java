@@ -53,7 +53,7 @@ public class ConnectionTestScreen implements Screen{
 
         heroPackOneButton = new TextButton("Hero pack one", skin);
         heroPackTwoButton = new TextButton("Hero pack two", skin);
-        ButtonGroup buttonGroup = new ButtonGroup(heroPackOneButton, heroPackTwoButton);
+        ButtonGroup<TextButton> buttonGroup = new ButtonGroup<>(heroPackOneButton, heroPackTwoButton);
         buttonGroup.setMaxCheckCount(1);
         buttonGroup.setMinCheckCount(0);
         buttonGroup.setUncheckLast(true);
@@ -61,12 +61,10 @@ public class ConnectionTestScreen implements Screen{
         connectButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log("Clicked", "Yes, you did!");
-                // TODO: create client. Create CombatGroup for him. Wait for opponent.
-                // TODO: We should pass some 'Game' object to the client with all needed info... (chosen heroes etc..)
                 chosenCombatSetupId = heroPackOneButton.isChecked() ? "1" : "2";
+                Gdx.app.log("Clicked", "Combat setup chosen: " + chosenCombatSetupId);
                 new GameClient(chosenCombatSetupId, game, addressField.getMessageText());
-                System.out.println(nameField.getText());
+//                System.out.println(nameField.getText());
             }
         });
 
@@ -76,6 +74,10 @@ public class ConnectionTestScreen implements Screen{
         table.row();
         table.add(addressLabel);
         table.add(addressField);
+        table.row();
+        table.add(heroPackOneButton).colspan(2);
+        table.row();
+        table.add(heroPackTwoButton).colspan(2);
         table.row();
         table.add(connectButton).colspan(2);
     }
