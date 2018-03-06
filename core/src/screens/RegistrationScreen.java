@@ -2,16 +2,14 @@ package screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.loaders.AssetLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
 import menu.ButtonCreator;
-
-import java.awt.*;
 
 public class RegistrationScreen implements Screen {
     private static final int BUTTON_WIDTH = 280;
@@ -34,6 +32,15 @@ public class RegistrationScreen implements Screen {
 
         //create buttons
         logInButtonObj = new ButtonCreator(logInButton, 0, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+        logInButtonObj.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
+                game.setScreen(new StartMenuScreen(gdxGame, batch));
+                dispose();
+                return true;
+            }
+        });
 
         menuStage.addActor(logInButtonObj);
     }
