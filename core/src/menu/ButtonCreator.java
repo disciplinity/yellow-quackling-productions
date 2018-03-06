@@ -32,6 +32,11 @@ public class ButtonCreator extends Actor {
         });
     }
 
+    /**
+     * Draw the button object
+     * @param batch Batch
+     * @param parentAlpha alpha
+     */
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
