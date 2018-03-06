@@ -14,6 +14,14 @@ public class ButtonCreator extends Actor {
     Sprite object;
     Texture texture;
 
+    /**
+     * Make loading pictures as objects, create button objects.
+     * @param texture Image
+     * @param x x-coordinate
+     * @param y y-coordinate
+     * @param width width of image
+     * @param height height of image
+     */
     public ButtonCreator(Texture texture, float x, float y, float width, float height) {
         bounds = new Rectangle(x, y, width, height);
         this.texture = texture;
