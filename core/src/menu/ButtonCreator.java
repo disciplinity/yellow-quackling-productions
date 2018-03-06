@@ -1,21 +1,20 @@
-package module;
+package menu;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
-public class Object extends Actor {
+public class ButtonCreator extends Actor {
 
     Rectangle bounds;
     Sprite object;
     Texture texture;
 
-    public Object(Texture texture, float x, float y, float width, float height) {
+    public ButtonCreator(Texture texture, float x, float y, float width, float height) {
         bounds = new Rectangle(x, y, width, height);
         this.texture = texture;
 
