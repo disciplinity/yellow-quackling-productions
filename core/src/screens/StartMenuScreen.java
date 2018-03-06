@@ -86,7 +86,7 @@ public class StartMenuScreen implements Screen {
         registerButtonObj.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
-                game.setScreen(new RegistrationScreen(game, batch));
+                game.setScreen(new RegistrationScreen(game));
                 dispose();
                 return true;
             }
