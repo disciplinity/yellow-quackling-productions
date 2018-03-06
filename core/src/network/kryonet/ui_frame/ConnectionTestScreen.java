@@ -8,11 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
-import models.CombatGroup;
 import network.kryonet.client_chat.GameClient;
-
-import static factory.TestFactories.createCombatGroupExample1;
-import static factory.TestFactories.createCombatGroupExample2;
 
 public class ConnectionTestScreen implements Screen{
     private MyGdxGame game;
@@ -29,7 +25,7 @@ public class ConnectionTestScreen implements Screen{
     private TextButton heroPackOneButton;
     private TextButton heroPackTwoButton;
 
-    private CombatGroup chosenCombatGroup;
+    private String chosenCombatSetupId;
 
     public ConnectionTestScreen(MyGdxGame game) {
         this.game = game;
@@ -50,7 +46,7 @@ public class ConnectionTestScreen implements Screen{
 
         nameField = new TextField("", skin);
         nameLabel = new Label("Name:", skin);
-        addressField = new TextField("", skin);
+        addressField = new TextField("localhost", skin);
         addressLabel = new Label("Address:", skin);
         connectButton = new TextButton("Connect", skin);
 
@@ -68,8 +64,8 @@ public class ConnectionTestScreen implements Screen{
                 Gdx.app.log("Clicked", "Yes, you did!");
                 // TODO: create client. Create CombatGroup for him. Wait for opponent.
                 // TODO: We should pass some 'Game' object to the client with all needed info... (chosen heroes etc..)
-                chosenCombatGroup = heroPackOneButton.isChecked() ? createCombatGroupExample1() : createCombatGroupExample2();
-                new GameClient(chosenCombatGroup, game, addressField.getMessageText());
+                chosenCombatSetupId = heroPackOneButton.isChecked() ? "1" : "2";
+                new GameClient(chosenCombatSetupId, game, addressField.getMessageText());
                 System.out.println(nameField.getText());
             }
         });
@@ -83,6 +79,7 @@ public class ConnectionTestScreen implements Screen{
         table.row();
         table.add(connectButton).colspan(2);
     }
+
 
 
 

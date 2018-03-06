@@ -1,23 +1,30 @@
 package network.kryonet.client_chat;
 
 import battle.BattleStageGroup;
+import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import game.MyGdxGame;
-import models.CombatGroup;
+import models.CombatSetup;
 import network.kryonet.register.NetworkRegister;
+import network.kryonet.register.NetworkRegister.EnterRoomWithSetup;
 import screens.InBattleScreen;
 
 import java.io.IOException;
 
+import static factory.TestFactories.createCombatGroupExample1;
+import static factory.TestFactories.createCombatGroupExample2;
+
 public class GameClient {
     Client client;
     String name;
+    MyGdxGame game;
 
-    public GameClient(CombatGroup chosenByPlayerCombatGroup, MyGdxGame game, String host) {
+    public GameClient(String chosenGlobalSetupId, MyGdxGame game, String host) {
         client = new Client();
         client.start();
+        this.game = game;
 
         // Register the class to be sent over the network
         NetworkRegister.register(client);
@@ -25,27 +32,16 @@ public class GameClient {
 
         client.addListener(new Listener() {
             public void connected (Connection connection) {
-                NetworkRegister.RegisterPlayerCombatGroup registerCombatGroup = new NetworkRegister.RegisterPlayerCombatGroup();
-                registerCombatGroup.combatGroup = chosenByPlayerCombatGroup;
+                NetworkRegister.EnterRoomWithSetup registerCombatGroup = new NetworkRegister.EnterRoomWithSetup();
+                registerCombatGroup.globalSetupId = chosenGlobalSetupId;
                 client.sendTCP(registerCombatGroup);
             }
 
             public void received (Connection connection, Object object) {
-                if (object instanceof NetworkRegister.UpdateNames) {
-                    NetworkRegister.UpdateNames updateNames = (NetworkRegister.UpdateNames)object;
-                    // Depends on scene. Modify data on current scene, which is not here represented... so..
-                    // TODO: screen(or even Game object or something that client could interact with the screen when it is switcher)
-                    // should be passed to client object, so it's methods could be called and content modified
-                    return;
-                }
 
-                if (object instanceof NetworkRegister.RegisterPlayerCombatGroup) {
-                    NetworkRegister.RegisterPlayerCombatGroup opponentGroup = (NetworkRegister.RegisterPlayerCombatGroup)object;
-                    // TODO setAndFillBattleScene(opponentGroup);
-                    CombatGroup opponentCombatGroup = opponentGroup.combatGroup; // not used now
-                    BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", chosenByPlayerCombatGroup, opponentCombatGroup);
-                    game.setScreen(new InBattleScreen(game, bsg));
-                    return;
+                if (object instanceof EnterRoomWithSetup) {
+                    EnterRoomWithSetup opponentInRoom = (EnterRoomWithSetup)object;
+                    setAndFillBattleScene(opponentInRoom, chosenGlobalSetupId);
                 }
             }
 
@@ -67,6 +63,36 @@ public class GameClient {
                 }
             }
         }.start();
+    }
+
+    private void setAndFillBattleScene(EnterRoomWithSetup opponentInRoom, String chosenGlobalSetupId) {
+
+
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
+                CombatSetup playerCS;
+                CombatSetup opponentCS;
+
+                switch(chosenGlobalSetupId) {
+                    case "1":
+                        playerCS = createCombatGroupExample1();
+                    default:
+                        playerCS = createCombatGroupExample2();
+                }
+
+                switch(opponentInRoom.globalSetupId) {
+                    case "1":
+                        opponentCS =createCombatGroupExample2();
+                    default:
+                        opponentCS = createCombatGroupExample1();
+                }
+                BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", playerCS, opponentCS);
+                game.setScreen(new InBattleScreen(game, bsg));
+//                game.setBattleScreen();
+            }
+        });
+//        game.setBattleScreen();
     }
 
 }

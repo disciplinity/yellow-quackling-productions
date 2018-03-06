@@ -12,10 +12,7 @@ import javax.swing.JLabel;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import models.CombatGroup;
-import network.kryonet.client_chat.GameClient;
 import network.kryonet.register.NetworkRegister;
-import network.kryonet.register.NetworkRegister.RegisterName;
 import network.kryonet.register.NetworkRegister.UpdateNames;
 import com.esotericsoftware.minlog.Log;
 import network.kryonet.register.NetworkRegister.*;
@@ -25,7 +22,7 @@ public class ChatServer {
     // TODO: Room class. Room list. etc...
     // TODO: LASCIATE OGNI SPERANZA, VOI CH'ENTRATE
     private List<Connection> room = new ArrayList<>();
-    private List<RegisterPlayerCombatGroup> combatSetupsInARoom = new ArrayList<>();
+    private List<EnterRoomWithSetup> combatSetupsInARoom = new ArrayList<>();
 
     public ChatServer () throws IOException {
         server = new Server() {
@@ -46,15 +43,15 @@ public class ChatServer {
             public void received (Connection c, Object object) {
                 // We know all connections for this server are actually ChatConnections.
                 ChatConnection connection = (ChatConnection)c;
-                if (object instanceof RegisterPlayerCombatGroup) {
+                if (object instanceof EnterRoomWithSetup) {
                     /**
                     room + 1 player;
                     if == 2 -> draw screen
                      send first about second. second about first.
                     server.sendToAllExceptTCP(connection.getID(), chatMessage);
                      */
-                    RegisterPlayerCombatGroup grp = (RegisterPlayerCombatGroup) object;
-                    combatSetupsInARoom.add(grp);
+                    EnterRoomWithSetup setup = (EnterRoomWithSetup) object;
+                    combatSetupsInARoom.add(setup);
                     if (room.size() > 1) {
                         server.sendToTCP(room.get(0).getID(), combatSetupsInARoom.get(1));
                         server.sendToTCP(room.get(1).getID(), combatSetupsInARoom.get(0));

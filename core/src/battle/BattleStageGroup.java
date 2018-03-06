@@ -1,16 +1,12 @@
 package battle;
 
-import actors.IceMage;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import components.StatComponent;
 import lombok.Getter;
-import models.CombatGroup;
+import models.CombatSetup;
+
+import java.util.List;
 
 /**
  * Class that holds:
@@ -22,16 +18,16 @@ public class BattleStageGroup extends Group {
     // TODO: method that will fill character slots (pass PlayerCombatHeroSetup)
     @Getter
     private CharacterSlot[] characterSlots;
-    private Actor[] actorGroup;
+    private List<Actor> actorGroup;
 
-    private Actor[] opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated;
+    private List<Actor> opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated;
 
     private String imageName;
 
-    public BattleStageGroup(String imageName, CombatGroup combatGroup, CombatGroup opponentCombatGroup) {
-        characterSlots = new CharacterSlot[3];
-        this.actorGroup = combatGroup.getActorGroup();
-        this.opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated = opponentCombatGroup.getActorGroup();
+    public BattleStageGroup(String imageName, CombatSetup combatSetup, CombatSetup opponentCombatSetup) {
+        characterSlots = new CharacterSlot[6];
+        this.actorGroup = combatSetup.getCombatSetup();
+        this.opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated = opponentCombatSetup.getCombatSetup();
         this.imageName = imageName;
 
         setCharacterSlotPositions();
@@ -51,9 +47,9 @@ public class BattleStageGroup extends Group {
                 characterSlots[0] = new CharacterSlot(0,0);
                 characterSlots[1] = new CharacterSlot(100, 100);
                 characterSlots[2] = new CharacterSlot(200, 200);
-                characterSlots[3] = new CharacterSlot(500,0);
-                characterSlots[4] = new CharacterSlot(600, 100);
-                characterSlots[5] = new CharacterSlot(800, 200);
+                characterSlots[3] = new CharacterSlot(800,0);
+                characterSlots[4] = new CharacterSlot(700, 100);
+                characterSlots[5] = new CharacterSlot(600, 200);
         }
     }
 
@@ -62,9 +58,9 @@ public class BattleStageGroup extends Group {
         for (int i = 0; i < characterSlots.length; i++) {
             Actor actor;
             if (i < 3) {
-                actor = actorGroup[i];
+                actor = actorGroup.get(i);
             } else {
-                actor = opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated[i - 3];
+                actor = opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated.get(i - 3);
             }
             actor.setPosition(characterSlots[i].getX(), characterSlots[i].getY());
             actor.setBounds(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight());
