@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
+import network.kryonet.client_chat.GameClient;
 
 public class ConnectionTestScreen implements Screen{
     private MyGdxGame game;
@@ -20,6 +21,11 @@ public class ConnectionTestScreen implements Screen{
     private TextField nameField;
     private TextField addressField;
     private TextButton connectButton;
+
+    private TextButton heroPackOneButton;
+    private TextButton heroPackTwoButton;
+
+    private String chosenCombatSetupId;
 
     public ConnectionTestScreen(MyGdxGame game) {
         this.game = game;
@@ -40,15 +46,25 @@ public class ConnectionTestScreen implements Screen{
 
         nameField = new TextField("", skin);
         nameLabel = new Label("Name:", skin);
-        addressField = new TextField("", skin);
+        addressField = new TextField("localhost", skin);
         addressLabel = new Label("Address:", skin);
         connectButton = new TextButton("Connect", skin);
+
+
+        heroPackOneButton = new TextButton("Hero pack one", skin);
+        heroPackTwoButton = new TextButton("Hero pack two", skin);
+        ButtonGroup<TextButton> buttonGroup = new ButtonGroup<>(heroPackOneButton, heroPackTwoButton);
+        buttonGroup.setMaxCheckCount(1);
+        buttonGroup.setMinCheckCount(0);
+        buttonGroup.setUncheckLast(true);
 
         connectButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log("Clicked", "Yes, you did!");
-                System.out.println(nameField.getText());
+                chosenCombatSetupId = heroPackOneButton.isChecked() ? "1" : "2";
+                Gdx.app.log("Clicked", "Combat setup chosen: " + chosenCombatSetupId);
+                new GameClient(chosenCombatSetupId, game, addressField.getMessageText());
+//                System.out.println(nameField.getText());
             }
         });
 
@@ -59,8 +75,15 @@ public class ConnectionTestScreen implements Screen{
         table.add(addressLabel);
         table.add(addressField);
         table.row();
+        table.add(heroPackOneButton).colspan(2);
+        table.row();
+        table.add(heroPackTwoButton).colspan(2);
+        table.row();
         table.add(connectButton).colspan(2);
     }
+
+
+
 
     @Override
     public void show() {

@@ -31,9 +31,9 @@ public class StartMenuScreen implements Screen {
 
     private boolean hover;
 
-    public StartMenuScreen(MyGdxGame game, SpriteBatch batch) {
+    public StartMenuScreen(MyGdxGame game) {
         this.game = game;
-        this.batch = batch;
+        this.batch = this.game.getSpriteBatch();
         this.menuStage = new Stage(new ScreenViewport());
 
         // load the images
@@ -68,7 +68,7 @@ public class StartMenuScreen implements Screen {
 
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
-                game.setScreen(new InBattleScreen(game, batch));
+                game.setScreen(new InBattleScreen(game));
                 dispose();
                 return true;
             }
