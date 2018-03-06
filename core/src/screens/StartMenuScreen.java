@@ -32,6 +32,10 @@ public class StartMenuScreen implements Screen {
 
     private boolean hover;
 
+    /**
+     * Main menu
+     * @param game Game platform
+     */
     public StartMenuScreen(MyGdxGame game) {
         this.game = game;
         this.batch = this.game.getSpriteBatch();
