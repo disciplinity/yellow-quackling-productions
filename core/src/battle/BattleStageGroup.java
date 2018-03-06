@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import components.StatComponent;
 import lombok.Getter;
+import models.CombatGroup;
 
 /**
  * Class that holds:
@@ -21,11 +22,16 @@ public class BattleStageGroup extends Group {
     // TODO: method that will fill character slots (pass PlayerCombatHeroSetup)
     @Getter
     private CharacterSlot[] characterSlots;
+    private Actor[] actorGroup;
+
+    private Actor[] opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated;
 
     private String imageName;
 
-    public BattleStageGroup(String imageName) {
+    public BattleStageGroup(String imageName, CombatGroup combatGroup, CombatGroup opponentCombatGroup) {
         characterSlots = new CharacterSlot[3];
+        this.actorGroup = combatGroup.getActorGroup();
+        this.opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated = opponentCombatGroup.getActorGroup();
         this.imageName = imageName;
 
         setCharacterSlotPositions();
@@ -41,22 +47,29 @@ public class BattleStageGroup extends Group {
     private void setCharacterSlotPositions() {
         switch(imageName) {
             case "fairy-forest.jpg":
+                // Array size should be managed at once. Here we are Recreating it every line. I think...
                 characterSlots[0] = new CharacterSlot(0,0);
                 characterSlots[1] = new CharacterSlot(100, 100);
                 characterSlots[2] = new CharacterSlot(200, 200);
-
-
+                characterSlots[3] = new CharacterSlot(500,0);
+                characterSlots[4] = new CharacterSlot(600, 100);
+                characterSlots[5] = new CharacterSlot(800, 200);
         }
     }
 
     private void spawnCharacters() {
+        // TODO: here should be only one method putActor be used. Set actor position in that method. (delegate texture positioning from here to another method.)
         for (int i = 0; i < characterSlots.length; i++) {
-            Actor actor = new IceMage(new StatComponent(105, 105, 105, 105, 100));
+            Actor actor;
+            if (i < 3) {
+                actor = actorGroup[i];
+            } else {
+                actor = opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated[i - 3];
+            }
             actor.setPosition(characterSlots[i].getX(), characterSlots[i].getY());
             actor.setBounds(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight());
             characterSlots[i].putActor(actor);
             this.addActor(actor);
-
         }
 //        CharacterFactory.characterSpawner()
     }

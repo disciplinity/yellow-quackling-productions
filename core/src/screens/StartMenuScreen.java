@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
 import module.Object;
+import network.kryonet.ui_frame.ConnectionTestScreen;
 
 
 public class StartMenuScreen implements Screen {
@@ -43,7 +44,7 @@ public class StartMenuScreen implements Screen {
         logInButtonObj.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
-                game.setScreen(new InBattleScreen(game));
+                game.setScreen(new ConnectionTestScreen(game));
                 dispose();
                 return true;
             }
