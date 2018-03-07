@@ -30,6 +30,7 @@ public class Knight extends Actor {
     public static Knight currentlyChosen = null;
     private Knight reference;
     private TextureRegion currentFrame;
+    private boolean isOpponent = false;
 
 
     public Knight(StatComponent statComponent) {
@@ -37,9 +38,9 @@ public class Knight extends Actor {
         setSize(220, 200);
 
         this.statComponent = statComponent;
-        graphicsComponent = new GraphicsComponent("knight.png", 2, 4);
+        graphicsComponent = new GraphicsComponent("knight.png", 6, 1);
 
-        standingAnimation = new Animation<>(0.120f, graphicsComponent.getAnimationSheet(1, 1, 4, 1));
+        standingAnimation = new Animation<>(0.120f, graphicsComponent.getAnimationSheet(1, 1, 1, 6));
         standingAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
         stateTime = 0;
         reference = this;
@@ -57,12 +58,17 @@ public class Knight extends Actor {
 
    }
 
+    public void setOpponent() {
+        isOpponent = true;
+    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = standingAnimation.getKeyFrame(stateTime, true);
-
+        if (!currentFrame.isFlipX()) {
+            currentFrame.flip(isOpponent, false);
+        }
         super.draw(batch, parentAlpha);
         batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
     }

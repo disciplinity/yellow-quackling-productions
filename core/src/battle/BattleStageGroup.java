@@ -1,5 +1,7 @@
 package battle;
 
+import actors.IceMage;
+import actors.Knight;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -44,9 +46,9 @@ public class BattleStageGroup extends Group {
                 characterSlots[0] = new CharacterSlot(0,0);
                 characterSlots[1] = new CharacterSlot(100, 100);
                 characterSlots[2] = new CharacterSlot(200, 200);
-                characterSlots[3] = new CharacterSlot(800,0);
-                characterSlots[4] = new CharacterSlot(700, 100);
-                characterSlots[5] = new CharacterSlot(600, 200);
+                characterSlots[3] = new CharacterSlot(1000,0);
+                characterSlots[4] = new CharacterSlot(900, 100);
+                characterSlots[5] = new CharacterSlot(800, 200);
         }
     }
 
@@ -58,6 +60,13 @@ public class BattleStageGroup extends Group {
                 actor = actorGroup.get(i);
             } else {
                 actor = opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated.get(i - 3);
+                // TODO: interface for our actors
+                if (actor instanceof IceMage) {
+                    ((IceMage) actor).setOpponent();
+                }
+                if (actor instanceof Knight) {
+                    ((Knight) actor).setOpponent();
+                }
             }
             actor.setPosition(characterSlots[i].getX(), characterSlots[i].getY());
             actor.setBounds(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight());

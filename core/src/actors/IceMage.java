@@ -25,6 +25,7 @@ public class IceMage extends Actor {
     public static IceMage currentlyChosen = null;
     private IceMage reference;
     private TextureRegion currentFrame;
+    private boolean isOpponent = false;
 
 
     public IceMage(StatComponent statComponent) {
@@ -52,12 +53,20 @@ public class IceMage extends Actor {
 
    }
 
+   public void setOpponent() {
+        isOpponent = true;
+   }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = standingAnimation.getKeyFrame(stateTime, true);
 
+        if (!currentFrame.isFlipX()) {
+            currentFrame.flip(isOpponent, false);
+        }
+
+        currentFrame.flip(false, isOpponent);
         super.draw(batch, parentAlpha);
         batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
     }
