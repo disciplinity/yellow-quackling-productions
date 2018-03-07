@@ -16,6 +16,9 @@ import lombok.Getter;
 import lombok.Setter;
 import sizes.CharacterSizes;
 
+import java.sql.Connection;
+import java.util.Properties;
+
 
 public class Knight extends Actor {
 
@@ -31,6 +34,9 @@ public class Knight extends Actor {
     private Knight reference;
     private TextureRegion currentFrame;
     private boolean isOpponent = false;
+    private Connection connection;
+
+
 
 
     public Knight(StatComponent statComponent) {
@@ -54,6 +60,7 @@ public class Knight extends Actor {
 
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             }
+
         });
 
    }
