@@ -66,7 +66,6 @@ public class IceMage extends Actor {
             currentFrame.flip(isOpponent, false);
         }
 
-        currentFrame.flip(false, isOpponent);
         super.draw(batch, parentAlpha);
         batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
     }
