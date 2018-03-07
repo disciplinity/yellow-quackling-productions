@@ -35,7 +35,7 @@ public class Knight extends Actor {
 
     public Knight(StatComponent statComponent) {
 
-        setSize(220, 200);
+        setSize(146, 102);
 
         this.statComponent = statComponent;
         graphicsComponent = new GraphicsComponent("knight.png", 6, 1);
