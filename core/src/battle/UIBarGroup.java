@@ -31,6 +31,7 @@ public class UIBarGroup extends Group {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.end();
+
         drawGrayBackground();
 
         batch.begin();
@@ -61,6 +62,7 @@ public class UIBarGroup extends Group {
             font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getAgility()), 312,  88);
             font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getLight()), 312, 53);
         }
+
     }
 
     private void drawGrayBackground() {

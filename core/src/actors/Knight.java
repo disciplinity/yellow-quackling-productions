@@ -64,12 +64,14 @@ public class Knight extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        batch.end();
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = standingAnimation.getKeyFrame(stateTime, true);
         if (!currentFrame.isFlipX()) {
             currentFrame.flip(isOpponent, false);
         }
-        super.draw(batch, parentAlpha);
+        batch.begin();
+//        super.draw(batch, parentAlpha);
         batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
     }
 }

@@ -50,17 +50,23 @@ public class GameClient {
         });
 
 
-        new Thread("Connect") {
-            public void run () {
-                try {
-                    client.connect(5000, host, NetworkRegister.port);
-                    // Server communication after connection can go here, or in Listener#connected().
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                    System.exit(1);
-                }
-            }
-        }.start();
+        try {
+            client.connect(5000, host, NetworkRegister.port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        new Thread("Connect") {
+//            public void run () {
+//                try {
+//                    // Server communication after connection can go here, or in Listener#connected().
+//
+//                } catch (IOException ex) {
+//                    ex.printStackTrace();
+//                    System.exit(1);
+//                }
+//            }
+//        }.start();
     }
 
     private void changeToBattleScene(EnterRoomWithSetup opponentInRoom, String chosenGlobalSetupId) {
