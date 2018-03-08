@@ -14,5 +14,7 @@ eclipse.project {
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.16.20'
     compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+
 
 }

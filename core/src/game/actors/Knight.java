@@ -11,6 +11,9 @@ import game.components.GraphicsComponent;
 import game.components.StatComponent;
 import lombok.Getter;
 
+import java.sql.Connection;
+import java.util.Properties;
+
 
 public class Knight extends Actor {
 
@@ -26,6 +29,9 @@ public class Knight extends Actor {
     private Knight reference;
     private TextureRegion currentFrame;
     private boolean isOpponent = false;
+    private Connection connection;
+
+
 
 
     public Knight(StatComponent statComponent) {
@@ -49,6 +55,7 @@ public class Knight extends Actor {
 
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             }
+
         });
 
    }
@@ -59,12 +66,14 @@ public class Knight extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        batch.end();
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = standingAnimation.getKeyFrame(stateTime, true);
         if (!currentFrame.isFlipX()) {
             currentFrame.flip(isOpponent, false);
         }
-        super.draw(batch, parentAlpha);
+        batch.begin();
+//        super.draw(batch, parentAlpha);
         batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
     }
 }

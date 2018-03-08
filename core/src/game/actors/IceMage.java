@@ -42,7 +42,6 @@ public class IceMage extends Actor {
 
         this.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("ay");
                 currentlyChosen = reference;
                 return false;
             }
@@ -59,14 +58,15 @@ public class IceMage extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        batch.end();
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = standingAnimation.getKeyFrame(stateTime, true);
 
         if (!currentFrame.isFlipX()) {
             currentFrame.flip(isOpponent, false);
         }
-
-        super.draw(batch, parentAlpha);
+        batch.begin();
+//        super.draw(batch, parentAlpha);
         batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
     }
 
