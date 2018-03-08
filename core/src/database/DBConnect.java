@@ -1,75 +1,68 @@
 package database;
 
-import java.sql.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 public class DBConnect {
 
-
-
     public static void main(String[] args) {
+        Configuration conf = new Configuration().configure();
+//        conf.configure("hibernate.cfg.xml");
+        conf.addAnnotatedClass(Student.class);
+        SessionFactory factory = conf.buildSessionFactory();
 
-        System.out.println("Loading driver...");
+//        SessionFactory factory = new Configuration()
+//                                    .configure("resources/hibernate.cfg.xml")
+//                                    .addAnnotatedClass(Student.class)
+//                                    .buildSessionFactory();
+
+
+        Session session = factory.getCurrentSession();
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Driver loaded!");
-        } catch (ClassNotFoundException e) {
-            throw new IllegalStateException("Cannot find the driver in the classpath!", e);
-        }
+            System.out.println("Creating new student object");
+            Student tempStudent = new Student(1, "b", 2, 3);
 
-        String url = "jdbc:mysql://sql11.freemysqlhosting.net/sql11225282";
-        String username = "sql11225282";
-        String password = "VA8eNT8N2L";
-        try {
-            // create our mysql database connection
-            Connection conn = DriverManager.getConnection(url, username, password);
-            // our SQL SELECT query.
-            // if you only need a few columns, specify them by name instead of using "*"
+            session.beginTransaction();
 
-            // the mysql insert statement
-            String query = "insert into test (first, second, third, fourth)"
-                    + " values (?, ?, ?, ?)";
+            System.out.println("Saving...");
+            session.save(tempStudent);
 
-            // create the mysql insert preparedstatement
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setInt(1, 5);
-            preparedStmt.setString (2, "abc");
-            preparedStmt.setInt(3, 6);
-            preparedStmt.setInt(4, 7);
+            session.getTransaction().commit();
 
-            // execute the preparedstatement
-            preparedStmt.execute();
+            System.out.println("done!");
 
-//            conn.close();
-
-            String query1 = "SELECT * FROM test";
-
-
-            // create the java statement
-            Statement st = conn.createStatement();
-
-            // execute the query, and get a java resultset
-            ResultSet rs = st.executeQuery(query1);
-
-            // iterate through the java resultset
-            while (rs.next())
-            {
-                int first = rs.getInt("first");
-                String second = rs.getString("second");
-                int third = rs.getInt("third");
-                int fourth = rs.getInt("fourth");
-
-
-                // print the results
-                System.out.format("%d, %s, %d, %d\n", first, second, third, fourth);
-            }
-            st.close();
-        }
-        catch (Exception e)
-        {
-            System.err.println("Got an exception! ");
-            System.err.println(e.getMessage());
+        } finally {
+            factory.close();
         }
     }
+}
+
+@Entity
+@Table(name="test")
+@NoArgsConstructor
+@AllArgsConstructor
+class Student {
+
+    @Id
+    @Column(name="first")
+    private int first;
+
+    @Column(name="second")
+    private String second;
+
+    @Column(name="third")
+    private int third;
+
+    @Column(name="fourth")
+    private int fourth;
 }
