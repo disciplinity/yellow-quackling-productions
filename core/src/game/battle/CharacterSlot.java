@@ -1,6 +1,5 @@
-package battle;
+package game.battle;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import lombok.Data;
 

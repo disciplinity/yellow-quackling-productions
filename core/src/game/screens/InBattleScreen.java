@@ -1,7 +1,7 @@
-package screens;
+package game.screens;
 
 
-import battle.UIBarGroup;
+import game.battle.UIBarGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
 import lombok.Getter;
 import lombok.Setter;
-import battle.BattleStageGroup;
+import game.battle.BattleStageGroup;
 
 public class InBattleScreen implements Screen {
 
@@ -38,7 +38,7 @@ public class InBattleScreen implements Screen {
         inputMultiplexer = new InputMultiplexer(battleStage, uiStage);
 
         // fill stages
-        // TODO: create factory method for filling background for the stage and call this method here
+        // TODO: create game.factory method for filling background for the stage and call this method here
         // OR
         // TODO: make texture file string as a constant
         // OR

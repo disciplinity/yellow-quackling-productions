@@ -1,4 +1,4 @@
-package sizes;
+package game.constants;
 
 public class CharacterSizes {
 

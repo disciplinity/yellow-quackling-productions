@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
-import network.kryonet.client_chat.GameClient;
+import network.kryonet.client.GameClient;
 
 public class ConnectionTestScreen implements Screen{
     private MyGdxGame game;

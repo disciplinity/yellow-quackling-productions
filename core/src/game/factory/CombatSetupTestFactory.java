@@ -1,10 +1,10 @@
-package factory;
+package game.factory;
 
-import actors.IceMage;
-import actors.Knight;
+import game.actors.IceMage;
+import game.actors.Knight;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import components.StatComponent;
-import models.CombatSetup;
+import game.components.StatComponent;
+import game.models.CombatSetup;
 
 public class CombatSetupTestFactory {
 

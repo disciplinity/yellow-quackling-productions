@@ -1,4 +1,4 @@
-package models;
+package game.models;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import lombok.Getter;

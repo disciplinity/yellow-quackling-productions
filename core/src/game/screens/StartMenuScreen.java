@@ -1,4 +1,4 @@
-package screens;
+package game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
-import menu.ButtonCreator;
+import ui.menu.ButtonCreator;
 import network.kryonet.ui_frame.ConnectionTestScreen;
 
 
@@ -33,7 +33,7 @@ public class StartMenuScreen implements Screen {
     private boolean hover;
 
     /**
-     * Main menu
+     * Main game.screens.menu
      * @param game Game platform
      */
     public StartMenuScreen(MyGdxGame game) {
@@ -42,12 +42,12 @@ public class StartMenuScreen implements Screen {
         this.menuStage = new Stage(new ScreenViewport());
 
         // load the images
-        background = new Texture(Gdx.files.internal("menu/background.jpg"));
+        background = new Texture(Gdx.files.internal("ui/menu/background.jpg"));
 
-        startButton = new Texture(Gdx.files.internal("menu/start.jpg"));
-        startButtonActive = new Texture(Gdx.files.internal("menu/start_active.jpg"));
-        registerButton = new Texture(Gdx.files.internal("menu/register.jpg"));
-        exitButton = new Texture(Gdx.files.internal("menu/exit.jpg"));
+        startButton = new Texture(Gdx.files.internal("ui/menu/start.jpg"));
+        startButtonActive = new Texture(Gdx.files.internal("ui/menu/start_active.jpg"));
+        registerButton = new Texture(Gdx.files.internal("ui/menu/register.jpg"));
+        exitButton = new Texture(Gdx.files.internal("ui/menu/exit.jpg"));
 
 
         // create buttons

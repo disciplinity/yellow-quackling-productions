@@ -1,6 +1,6 @@
-package battle;
+package game.battle;
 
-import actors.IceMage;
+import game.actors.IceMage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,10 +9,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import components.GraphicsComponent;
-import components.StatComponent;
+import game.components.GraphicsComponent;
 
 public class UIBarGroup extends Group {
 

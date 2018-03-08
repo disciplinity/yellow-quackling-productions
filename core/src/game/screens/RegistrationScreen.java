@@ -1,4 +1,4 @@
-package screens;
+package game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
-import menu.ButtonCreator;
+import ui.menu.ButtonCreator;
 
 public class RegistrationScreen implements Screen {
     private static final int BUTTON_WIDTH = 280;
@@ -27,8 +27,8 @@ public class RegistrationScreen implements Screen {
         this.menuStage = new Stage(new ScreenViewport());
 
         // load images
-        background = new Texture(Gdx.files.internal("menu/background.jpg"));
-        logInButton = new Texture(Gdx.files.internal("menu/log_in.jpg"));
+        background = new Texture(Gdx.files.internal("ui/menu/background.jpg"));
+        logInButton = new Texture(Gdx.files.internal("ui/menu/log_in.jpg"));
 
         //create buttons
         logInButtonObj = new ButtonCreator(logInButton, 0, 0, BUTTON_WIDTH, BUTTON_HEIGHT);

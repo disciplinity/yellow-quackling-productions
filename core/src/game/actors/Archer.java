@@ -1,4 +1,4 @@
-//package actors;
+//package game.actors;
 //
 //import com.badlogic.gdx.Gdx;
 //import com.badlogic.gdx.graphics.Texture;
@@ -9,12 +9,12 @@
 //import com.badlogic.gdx.scenes.scene2d.InputEvent;
 //import com.badlogic.gdx.scenes.scene2d.InputListener;
 //import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-//import components.GraphicsComponent;
-//import components.StatComponent;
+//import game.components.GraphicsComponent;
+//import game.components.StatComponent;
 //import lombok.Data;
 //import lombok.Getter;
 //import lombok.Setter;
-//import sizes.CharacterSizes;
+//import game.constants.CharacterSizes;
 //
 //
 //public class Archer extends Actor {

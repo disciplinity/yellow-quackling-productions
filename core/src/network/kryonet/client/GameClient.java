@@ -1,20 +1,20 @@
-package network.kryonet.client_chat;
+package network.kryonet.client;
 
-import battle.BattleStageGroup;
+import game.battle.BattleStageGroup;
 import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import game.MyGdxGame;
-import models.CombatSetup;
+import game.models.CombatSetup;
 import network.kryonet.register.NetworkRegister;
 import network.kryonet.register.NetworkRegister.EnterRoomWithSetup;
-import screens.InBattleScreen;
+import game.screens.InBattleScreen;
 
 import java.io.IOException;
 
-import static factory.CombatSetupTestFactory.createCombatGroupExample1;
-import static factory.CombatSetupTestFactory.createCombatGroupExample2;
+import static game.factory.CombatSetupTestFactory.createCombatGroupExample1;
+import static game.factory.CombatSetupTestFactory.createCombatGroupExample2;
 
 public class GameClient {
     Client client;
@@ -49,18 +49,13 @@ public class GameClient {
             }
         });
 
-
-        new Thread("Connect") {
-            public void run () {
-                try {
-                    client.connect(5000, host, NetworkRegister.port);
-                    // Server communication after connection can go here, or in Listener#connected().
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                    System.exit(1);
-                }
-            }
-        }.start();
+        try {
+            client.connect(5000, host, NetworkRegister.port);
+            // Server communication after connection can go here, or in Listener#connected().
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(1);
+        }
     }
 
     private void changeToBattleScene(EnterRoomWithSetup opponentInRoom, String chosenGlobalSetupId) {

@@ -1,4 +1,4 @@
-package actors;
+package game.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import components.GraphicsComponent;
-import components.StatComponent;
+import game.components.GraphicsComponent;
+import game.components.StatComponent;
 import lombok.Getter;
 
 

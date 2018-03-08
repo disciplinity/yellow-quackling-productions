@@ -1,4 +1,4 @@
-package components;
+package game.components;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

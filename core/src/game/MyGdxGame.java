@@ -1,17 +1,18 @@
 package game;
 
-import battle.BattleStageGroup;
+import game.battle.BattleStageGroup;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import lombok.Getter;
-import models.CombatSetup;
-import screens.InBattleScreen;
-import screens.StartMenuScreen;
+import game.models.CombatSetup;
+import game.screens.InBattleScreen;
+import game.screens.StartMenuScreen;
 
-import static factory.CombatSetupTestFactory.createCombatGroupExample1;
-import static factory.CombatSetupTestFactory.createCombatGroupExample2;
+import static game.factory.CombatSetupTestFactory.createCombatGroupExample1;
+import static game.factory.CombatSetupTestFactory.createCombatGroupExample2;
 
+// TODO: NOW IT'S JUST A MODEL FOR SPRITE BATCH :D
 public class MyGdxGame extends Game {
 
 

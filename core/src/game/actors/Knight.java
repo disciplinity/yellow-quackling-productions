@@ -1,20 +1,15 @@
-package actors;
+package game.actors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import components.GraphicsComponent;
-import components.StatComponent;
-import lombok.Data;
+import game.components.GraphicsComponent;
+import game.components.StatComponent;
 import lombok.Getter;
-import lombok.Setter;
-import sizes.CharacterSizes;
 
 
 public class Knight extends Actor {

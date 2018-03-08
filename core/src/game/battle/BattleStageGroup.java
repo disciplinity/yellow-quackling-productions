@@ -1,12 +1,12 @@
-package battle;
+package game.battle;
 
-import actors.IceMage;
-import actors.Knight;
+import game.actors.IceMage;
+import game.actors.Knight;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import lombok.Getter;
-import models.CombatSetup;
+import game.models.CombatSetup;
 
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class BattleStageGroup extends Group {
                 actor = actorGroup.get(i);
             } else {
                 actor = opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated.get(i - 3);
-                // TODO: interface for our actors
+                // TODO: interface for our game.actors
                 if (actor instanceof IceMage) {
                     ((IceMage) actor).setOpponent();
                 }

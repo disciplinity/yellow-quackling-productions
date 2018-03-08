@@ -1,4 +1,4 @@
-package models;
+package game.models;
 
 public class PlayerCombatHeroSetup {
     // TODO: Actor array/list
