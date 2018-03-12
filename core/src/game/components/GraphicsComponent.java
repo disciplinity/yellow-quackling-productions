@@ -1,28 +1,74 @@
 package game.components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import game.actors.GameCharacter;
 import lombok.Data;
+import lombok.Getter;
 
 @Data public class GraphicsComponent {
-
-    private Texture texture;
-    private TextureRegion[][] textureRegions;
-
     private final int COLUMN_AMOUNT;
     private final int ROW_AMOUNT;
 
+    private Animation<TextureRegion> standingAnimation;
+    private TextureRegion[][] textureRegions;
+    private TextureRegion currentFrame;
+    private Texture texture;
+    private float stateTime = 0;
+    private boolean isOpponent = false;
 
-    public GraphicsComponent(String textureName, int COLUMN_AMOUNT, int ROW_AMOUNT) {
-        texture = new Texture(textureName);
+    @Getter
+    private int sizeWidth;
+    @Getter
+    private int sizeHeight;
+
+    // TODO: MOVE IT TO THE CONTROLLER(OR MAYBE VIEW?) OF THE COMBAT SCENE
+    public static GameCharacter currentlyChosen = null;
+
+    public GraphicsComponent(String textureName, int COLUMN_AMOUNT, int ROW_AMOUNT, int sizeWidth, int sizeHeight, int endColumn) {
+        this.texture = new Texture(textureName);
         this.COLUMN_AMOUNT = COLUMN_AMOUNT;
         this.ROW_AMOUNT = ROW_AMOUNT;
+        this.sizeHeight = sizeHeight;
+        this.sizeWidth = sizeWidth;
+        // TODO: MOAR CONSTANTS OR FLEXIBILITY
+        standingAnimation = new Animation<>(0.120f, this.getAnimationSheet(1, 1, 1, endColumn));
+        standingAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
         textureRegions = TextureRegion.split(texture,
                 texture.getWidth() / COLUMN_AMOUNT,
                         texture.getHeight() / ROW_AMOUNT);
+    }
 
+    public InputListener getTouchListener(GameCharacter reference) {
+        return new InputListener() {
 
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                // TODO: Some set method for this (in controller/view of combat screen of course)
+                currentlyChosen = reference;
+            }
+        };
+    }
+
+    public void setOpponent() {
+        isOpponent = true;
+    }
+
+    public void draw(Batch batch, float parentAlpha, float x, float y, float width, float height) {
+        batch.end();
+        stateTime += Gdx.graphics.getDeltaTime();
+        currentFrame = standingAnimation.getKeyFrame(stateTime, true);
+
+        if (!currentFrame.isFlipX()) {
+            currentFrame.flip(isOpponent, false);
+        }
+        batch.begin();
+        batch.draw(currentFrame, x, y, width, height);
     }
 
     public Texture getTexture() {
@@ -46,7 +92,7 @@ import lombok.Data;
      * @param endCol At which column stop counting.
      * @return 1D array (animation sheet).
      */
-    public TextureRegion[] getAnimationSheet(int startRow, int startCol, int endRow, int endCol) {
+    private TextureRegion[] getAnimationSheet(int startRow, int startCol, int endRow, int endCol) {
 
 
         int amountOfSprites = (endRow - startRow) * ROW_AMOUNT + (endCol - startCol) + 1;

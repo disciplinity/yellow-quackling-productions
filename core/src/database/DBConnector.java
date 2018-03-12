@@ -1,5 +1,6 @@
 package database;
 
+import game.components.StatComponent;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
@@ -12,25 +13,32 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
-public class DBConnect {
+public class DBConnector {
+
+    public static StatComponent fetchStats(int playerId) {
+        // TODO: MAKE THIS CLASS NOT STATIC!!! AND YOU KNOW WHAT TO DO HERE!
+        return new StatComponent(10,10,10,10,10);
+    }
 
     public static void main(String[] args) {
-        Configuration conf = new Configuration().configure();
-//        conf.configure("hibernate.cfg.xml");
-        conf.addAnnotatedClass(Student.class);
-        SessionFactory factory = conf.buildSessionFactory();
+//        Configuration conf = new Configuration().configure();
+////        conf.configure("hibernate.cfg.xml");
+//        conf.addAnnotatedClass(Student.class);
+//        SessionFactory factory = conf.buildSessionFactory();
+//
+        SessionFactory factory = new Configuration()
+                .configure()
+                .addAnnotatedClass(Student.class)
+                .buildSessionFactory();
 
-//        SessionFactory factory = new Configuration()
-//                                    .configure("resources/hibernate.cfg.xml")
-//                                    .addAnnotatedClass(Student.class)
-//                                    .buildSessionFactory();
-
+//        Configuration configuration = new Configuration().configure();
+//        SessionFactory sessionFactory = configuration.buildSessionFactory();
 
         Session session = factory.getCurrentSession();
 
         try {
             System.out.println("Creating new student object");
-            Student tempStudent = new Student(1, "b", 2, 3);
+            Student tempStudent = new Student(111, "bbb", 222, 333);
 
             session.beginTransaction();
 

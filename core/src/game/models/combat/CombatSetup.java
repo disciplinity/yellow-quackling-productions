@@ -1,6 +1,6 @@
-package game.models;
+package game.models.combat;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import game.actors.GameCharacter;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -8,9 +8,9 @@ import java.util.List;
 
 public class CombatSetup {
     @Getter
-    private List<Actor> combatSetup = new ArrayList<>();
+    private List<GameCharacter> combatSetup = new ArrayList<>();
 
-    public CombatSetup(Actor hero0, Actor hero1, Actor hero2) {
+    public CombatSetup(GameCharacter hero0, GameCharacter hero1, GameCharacter hero2) {
         combatSetup.add(hero0);
         combatSetup.add(hero1);
         combatSetup.add(hero2);

@@ -1,15 +1,19 @@
-package game.battle;
+package game.models.combat;
 
-import game.actors.IceMage;
-import game.actors.Knight;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import game.actors.GameCharacter;
 import lombok.Getter;
-import game.models.CombatSetup;
 
 import java.util.List;
 
+
+// TODO: ПЕРЕОСМЫСЛИТЬ РОЛЬ ЭТОГО КЛАССА, МНЕ КАЖЕТСЯ, ОН ДОЛЖЕН УСТАНАВЛИВАТЬ ТОЛЬКО(!) КООРДИНАТЫ СЛОТОВ НА КАРТЕ,
+// TODO: ОТМЕЧАТЬ КАКИЕ СЛОТЫ БУДУТ "ПЕРЕВЕРНУТЫ", ИБО ВРАГИ И СОДЕРЖАТЬ ТЕКСТУРУ ФОНА.
+// TODO: ТО ЕСТЬ БЫТЬ ЕЩЕ ОДНОЙ МОДЕЛЬЮ В НАШЕЙ СЛОЖНОЙ МОДЕЛЬНОЙ АРХИТЕКТУРЕ.
+// TODO: С ДРУГОЙ СТОРОНЫ, ЭТОТ "МОДУЛЬ" МОЖЕТ БЫТЬ НЕ ТОЛЬКО МОДЕЛЬЮ, А И КОНТРОЛЛЕРОМ, ИБО ВЫЗЫВАЕТ DRAW У ВСЕХ АКТЕРОВ
+// TODO: ЧТО КАК БЫ НЕ ХОРОШО, НО РАЗ УЖ ЭТОТ МЕТОД ВСТРОЕН В ЭТОТ КЛАССС И ОН ВСЕГО ОДИН И ОЧЕНЬ ПРОСТОЙ, ТО МОЖЕТ БЫТЬ НЕ ВСЕ ТАК ПЛОХО
 /**
  * Class that holds:
  *  - background image
@@ -20,9 +24,9 @@ public class BattleStageGroup extends Group {
     // TODO: method that will fill character slots (pass PlayerCombatHeroSetup)
     @Getter
     private CharacterSlot[] characterSlots;
-    private List<Actor> actorGroup;
+    private List<GameCharacter> actorGroup;
 
-    private List<Actor> opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated;
+    private List<GameCharacter> opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated;
 
     private String imageName;
 
@@ -55,19 +59,17 @@ public class BattleStageGroup extends Group {
     private void spawnCharacters() {
         // TODO: here should be only one method putActor be used. Set actor position in that method. (delegate texture positioning from here to another method.)
         for (int i = 0; i < characterSlots.length; i++) {
-            Actor actor;
+            GameCharacter actor;
             if (i < 3) {
                 actor = actorGroup.get(i);
             } else {
                 actor = opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated.get(i - 3);
                 // TODO: interface for our game.actors
-                if (actor instanceof IceMage) {
-                    ((IceMage) actor).setOpponent();
-                }
-                if (actor instanceof Knight) {
-                    ((Knight) actor).setOpponent();
-                }
+                actor.getGraphicsComponent().setOpponent();
             }
+            // TODO: Этот актёр совершает совсем уж какие-то грешные для модели вещи :)
+            // (мб перенести и эту часть кода в графический компонент и вызывать её через метод, обращаясь к этому компоненту,
+            // через модель персонажа, содержащую этот компонент???)
             actor.setPosition(characterSlots[i].getX(), characterSlots[i].getY());
             actor.setBounds(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight());
             characterSlots[i].putActor(actor);

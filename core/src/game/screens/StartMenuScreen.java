@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
 import ui.menu.ButtonCreator;
-import network.kryonet.ui_frame.ConnectionTestScreen;
+import ui.connection.ConnectionTestScreen;
 
 
 public class StartMenuScreen implements Screen {
@@ -42,12 +42,12 @@ public class StartMenuScreen implements Screen {
         this.menuStage = new Stage(new ScreenViewport());
 
         // load the images
-        background = new Texture(Gdx.files.internal("ui/menu/background.jpg"));
+        background = new Texture(Gdx.files.internal("ui/background.jpg"));
 
-        startButton = new Texture(Gdx.files.internal("ui/menu/start.jpg"));
-        startButtonActive = new Texture(Gdx.files.internal("ui/menu/start_active.jpg"));
-        registerButton = new Texture(Gdx.files.internal("ui/menu/register.jpg"));
-        exitButton = new Texture(Gdx.files.internal("ui/menu/exit.jpg"));
+        startButton = new Texture(Gdx.files.internal("ui/start.jpg"));
+        startButtonActive = new Texture(Gdx.files.internal("ui/start_active.jpg"));
+        registerButton = new Texture(Gdx.files.internal("ui/register.jpg"));
+        exitButton = new Texture(Gdx.files.internal("ui/exit.jpg"));
 
 
         // create buttons

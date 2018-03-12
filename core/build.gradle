@@ -12,10 +12,25 @@ eclipse.project {
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.16.20'
-    compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
-    compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.2.14.Final'
-    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+    // https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
+    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
 
+// https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl
+    compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
+
+// https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core
+    compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
+
+// https://mvnrepository.com/artifact/javax.activation/activation
+    compile group: 'javax.activation', name: 'activation', version: '1.1.1'
+
+    compileOnly 'org.projectlombok:lombok:1.16.20'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+    compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.2.14.Final'
+// И это, ведь некие jaxb появляются выше, да и вторая строка загружает именно это(загружает ли? Синтаксис у неё другой)
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+// Не уверен нужено ли это поле
+    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
+    compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
 }

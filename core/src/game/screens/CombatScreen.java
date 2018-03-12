@@ -1,7 +1,7 @@
 package game.screens;
 
 
-import game.battle.UIBarGroup;
+import ui.combat.UIBarGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -12,9 +12,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
 import lombok.Getter;
 import lombok.Setter;
-import game.battle.BattleStageGroup;
+import game.models.combat.BattleStageGroup;
 
-public class InBattleScreen implements Screen {
+public class CombatScreen implements Screen {
 
     @Getter @Setter
     private Stage battleStage;
@@ -27,7 +27,7 @@ public class InBattleScreen implements Screen {
     private InputMultiplexer inputMultiplexer;
 
     // TODO: May be pass something else but BattleStageGroup?
-    public InBattleScreen(MyGdxGame game, BattleStageGroup battleStageGroup) {
+    public CombatScreen(MyGdxGame game, BattleStageGroup battleStageGroup) {
         this.game = game;
         this.spriteBatch = this.game.getSpriteBatch();
 

@@ -27,8 +27,8 @@ public class RegistrationScreen implements Screen {
         this.menuStage = new Stage(new ScreenViewport());
 
         // load images
-        background = new Texture(Gdx.files.internal("ui/menu/background.jpg"));
-        logInButton = new Texture(Gdx.files.internal("ui/menu/log_in.jpg"));
+        background = new Texture(Gdx.files.internal("ui/background.jpg"));
+        logInButton = new Texture(Gdx.files.internal("ui/log_in.jpg"));
 
         //create buttons
         logInButtonObj = new ButtonCreator(logInButton, 0, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
