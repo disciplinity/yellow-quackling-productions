@@ -14,5 +14,8 @@ eclipse.project {
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.16.20'
     compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+    compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.2.14.Final'
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
 
 }
