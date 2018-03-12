@@ -41,6 +41,15 @@ public class StartMenuScreen implements Screen {
         this.batch = this.game.getSpriteBatch();
         this.menuStage = new Stage(new ScreenViewport());
 
+        loadImages();
+        clickToButton();
+
+        menuStage.addActor(startButtonObj);
+        menuStage.addActor(registerButtonObj);
+        menuStage.addActor(exitButtonObj);
+    }
+
+    private void loadImages() {
         // load the images
         background = new Texture(Gdx.files.internal("menu/background.jpg"));
 
@@ -49,14 +58,15 @@ public class StartMenuScreen implements Screen {
         registerButton = new Texture(Gdx.files.internal("menu/register.jpg"));
         exitButton = new Texture(Gdx.files.internal("menu/exit.jpg"));
 
-
         // create buttons
         // TODO: check their proper scalability and resolution adaptation and make button in action
         startButtonObj = new ButtonCreator(startButton, BUTTON_X, SIGN_UP_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
         startButtonActiveObj = new ButtonCreator(startButton, BUTTON_X, SIGN_UP_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
         registerButtonObj = new ButtonCreator(registerButton, BUTTON_X, REGISTER_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
         exitButtonObj = new ButtonCreator(exitButton, BUTTON_X, EXIT_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+    }
 
+    private void clickToButton() {
         startButtonObj.addListener(new InputListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -95,17 +105,12 @@ public class StartMenuScreen implements Screen {
                 return true;
             }
         });
-
-        menuStage.addActor(startButtonObj);
-        menuStage.addActor(registerButtonObj);
-        menuStage.addActor(exitButtonObj);
     }
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(menuStage);
     }
-
 
     @Override
     public void render(float delta) {
@@ -117,7 +122,6 @@ public class StartMenuScreen implements Screen {
         menuStage.draw();
         menuStage.act();
     }
-
 
     @Override
     public void resize(int width, int height) {
