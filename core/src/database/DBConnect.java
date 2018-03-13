@@ -15,15 +15,15 @@ import javax.persistence.Table;
 public class DBConnect {
 
     public static void main(String[] args) {
-        Configuration conf = new Configuration().configure();
-//        conf.configure("hibernate.cfg.xml");
-        conf.addAnnotatedClass(Student.class);
-        SessionFactory factory = conf.buildSessionFactory();
+//        Configuration conf = new Configuration().configure();
+////        conf.configure("hibernate.cfg.xml");
+//        conf.addAnnotatedClass(Student.class);
+//        SessionFactory factory = conf.buildSessionFactory();
 
-//        SessionFactory factory = new Configuration()
-//                                    .configure("resources/hibernate.cfg.xml")
-//                                    .addAnnotatedClass(Student.class)
-//                                    .buildSessionFactory();
+        SessionFactory factory = new Configuration()
+                                    .configure("hibernate.cfg.xml")
+                                    .addAnnotatedClass(Student.class)
+                                    .buildSessionFactory();
 
 
         Session session = factory.getCurrentSession();
