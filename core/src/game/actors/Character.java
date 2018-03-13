@@ -2,9 +2,9 @@ package game.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import game.components.EquipmentComponent;
+import components.EquipmentComponent;
+import components.SpellBookComponent;
 import game.components.GraphicsComponent;
-import game.components.SpellBookComponent;
 import game.components.StatComponent;
 import lombok.AllArgsConstructor;
 
