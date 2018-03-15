@@ -8,7 +8,7 @@
     <session-factory>
 
         <!-- JDBC Database connection settings -->
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11225282?useSSL=false</property>
         <property name="connection.username">sql11225282</property>
         <property name="connection.password">VA8eNT8N2L</property>
@@ -24,6 +24,8 @@
 
         <!-- Set the current session context -->
         <property name="current_session_context_class">thread</property>
+
+        <mapping class="database.Account" />
 
     </session-factory>
 
