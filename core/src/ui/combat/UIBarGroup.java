@@ -56,10 +56,10 @@ public class UIBarGroup extends Group {
 
         if (GameCharacter.currentlyChosen != null) {
             font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getIntellect()), 312,  193);
-            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getSpirit()), 312,  158);
+//            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getSpirit()), 312,  158);
             font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getStrength()), 312,  123);
             font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getAgility()), 312,  88);
-            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getLight()), 312, 53);
+//            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getLight()), 312, 53);
         }
 
     }

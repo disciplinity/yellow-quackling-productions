@@ -14,7 +14,7 @@
         <property name="connection.password">VA8eNT8N2L</property>
 
         <!-- JDBC connection pool settings ... using built-in test pool -->
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">100</property>
 
         <!-- Select our SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
@@ -26,6 +26,15 @@
         <property name="current_session_context_class">thread</property>
 
         <mapping class="database.Account" />
+        <mapping class="database.StatComponent" />
+        <mapping class="database.EquipmentComponent" />
+        <mapping class="database.HeroClassifier" />
+        <mapping class="database.Hero" />
+        <mapping class="database.CombatSetup" />
+
+
+
+
 
     </session-factory>
 

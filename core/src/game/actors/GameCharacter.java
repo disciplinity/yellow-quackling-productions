@@ -2,10 +2,9 @@ package game.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import components.EquipmentComponent;
-import components.SpellBookComponent;
+import database.EquipmentComponent;
+import database.StatComponent;
 import game.components.GraphicsComponent;
-import game.components.StatComponent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,7 +13,7 @@ public class GameCharacter extends Actor {
 
     private double hp;
     private double force;
-    private SpellBookComponent spellBookComponent;
+//    private SpellBookComponent spellBookComponent;
     private EquipmentComponent equipmentComponent;
     @Getter
     private StatComponent statComponent;
@@ -23,6 +22,11 @@ public class GameCharacter extends Actor {
 
     public static GameCharacter currentlyChosen = null;
 
+    public GameCharacter(StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent) {
+        this.statComponent = statComponent;
+        this.graphicsComponent = graphicsComponent;
+        this.equipmentComponent = equipmentComponent;
+    }
 
     public GameCharacter(StatComponent statComponent, GraphicsComponent graphicsComponent) {
         this.setSize(graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());
