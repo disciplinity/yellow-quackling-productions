@@ -9,8 +9,8 @@ import game.models.combat.CombatSetup;
 import game.screens.CombatScreen;
 import game.screens.StartMenuScreen;
 
-import static game.actors.CharacterFactory.createCombatGroupExample1;
-import static game.actors.CharacterFactory.createCombatGroupExample2;
+//import static game.actors.CharacterFactory.createCombatGroupExample1;
+//import static game.actors.CharacterFactory.createCombatGroupExample2;
 
 // TODO: NOW IT'S JUST A MODEL FOR SPRITE BATCH :D
 public class MyGdxGame extends Game {
@@ -35,10 +35,10 @@ public class MyGdxGame extends Game {
 
     public void setBattleScreen() {
 
-        CombatSetup playerCS = createCombatGroupExample1();
-        CombatSetup opponentCS = createCombatGroupExample2();
-        BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", playerCS, opponentCS);
-        this.setScreen(new CombatScreen(this, bsg));
+//        CombatSetup playerCS = createCombatGroupExample1();
+//        CombatSetup opponentCS = createCombatGroupExample2();
+//        BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", playerCS, opponentCS);
+//        this.setScreen(new CombatScreen(this, bsg));
     }
 
 

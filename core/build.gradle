@@ -31,6 +31,6 @@ dependencies {
 // И это, ведь некие jaxb появляются выше, да и вторая строка загружает именно это(загружает ли? Синтаксис у неё другой)
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
 // Не уверен нужено ли это поле
-    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
+    compile group: 'javax.persistence', name: 'persistence-api', version: '2.1'
     compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
 }

@@ -13,8 +13,8 @@ import game.screens.CombatScreen;
 
 import java.io.IOException;
 
-import static game.actors.CharacterFactory.createCombatGroupExample1;
-import static game.actors.CharacterFactory.createCombatGroupExample2;
+//import static game.actors.CharacterFactory.createCombatGroupExample1;
+//import static game.actors.CharacterFactory.createCombatGroupExample2;
 
 public class GameClient {
     Client client;
@@ -65,24 +65,24 @@ public class GameClient {
 
             if (chosenGlobalSetupId.equals("1")){
                 System.err.println("here1");
-                playerCS = createCombatGroupExample1();
+//                playerCS = createCombatGroupExample1();
             } else {
                     System.err.println("here2");
-                    playerCS = createCombatGroupExample2();
+//                    playerCS = createCombatGroupExample2();
             }
 
 
             if (opponentInRoom.globalSetupId.equals("1")){
                     System.err.println("here3");
-                    opponentCS =createCombatGroupExample1();
+//                    opponentCS =createCombatGroupExample1();
             } else {
                     System.err.println("here4");
-                    opponentCS = createCombatGroupExample2();
+//                    opponentCS = createCombatGroupExample2();
             }
 
             // TODO: game.setBattleScreen();
-            BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", playerCS, opponentCS);
-            game.setScreen(new CombatScreen(game, bsg));
+//            BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", playerCS, opponentCS);
+//            game.setScreen(new CombatScreen(game, bsg));
         });
     }
 
