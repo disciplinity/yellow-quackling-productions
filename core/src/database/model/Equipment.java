@@ -1,4 +1,4 @@
-package database;
+package database.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name = "Equipment")
-public class EquipmentComponent {
+public class Equipment {
 
     @Id
     @Column(name = "id")

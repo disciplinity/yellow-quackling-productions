@@ -1,6 +1,7 @@
 package database;
 
-import database.model.*;
+import database.model.Account;
+import database.model.Hero;
 import database.value.AccountHeroSetup;
 import database.value.HeroSetup;
 import game.components.StatComponent;
@@ -16,7 +17,7 @@ public class DBConnector {
     // TODO: For the "no red line in code' purposes
     public static StatComponent fetchStats(int playerId) {
         // TODO: MAKE THIS CLASS NOT STATIC!!! AND YOU KNOW WHAT TO DO HERE!
-        return new StatComponent(10,10,10,10,10);
+        return new StatComponent(10, 10, 10);
     }
 
 
