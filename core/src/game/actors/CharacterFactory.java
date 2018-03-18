@@ -51,6 +51,6 @@ public class CharacterFactory {
     }
 
     private static StatComponent createStatComponentFromFetchedStats(int playerId) {
-        return DBConnector.fetchStats(playerId);
+        return new DBConnector().fetchStats(playerId);
     }
 }
