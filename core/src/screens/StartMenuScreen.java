@@ -117,28 +117,25 @@ public class StartMenuScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        //изменение размера экрана, пересоздавать камеры
         menuStage.getViewport().update(width, height, true);
     }
 
     @Override
     public void pause() {
-        //сварачиваем игру
+
     }
 
     @Override
     public void resume() {
-        //разварачиваем игру
+
     }
 
     @Override
     public void hide() {
-        //переключение на другой экран в игре (меню - сама игра)
     }
 
     @Override
     public void dispose() {
-        //уничтожение/освобождение всех рессурсов, закрываем программу
         background.dispose();
         logInButton.dispose();
         exitButton.dispose();
