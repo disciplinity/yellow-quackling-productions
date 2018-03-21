@@ -12,6 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Registration form using HttpServletRequest
+ */
 @Controller
 public class RegistrationController {
     private final UserService userService;
