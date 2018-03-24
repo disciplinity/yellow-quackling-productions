@@ -36,13 +36,14 @@ import lombok.Getter;
         this.ROW_AMOUNT = ROW_AMOUNT;
         this.sizeHeight = sizeHeight;
         this.sizeWidth = sizeWidth;
+
+        textureRegions = TextureRegion.split(texture,
+                texture.getWidth() / COLUMN_AMOUNT,
+                texture.getHeight() / ROW_AMOUNT);
         // TODO: MOAR CONSTANTS OR FLEXIBILITY
         standingAnimation = new Animation<>(0.120f, this.getAnimationSheet(1, 1, 1, endColumn));
         standingAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
-        textureRegions = TextureRegion.split(texture,
-                texture.getWidth() / COLUMN_AMOUNT,
-                        texture.getHeight() / ROW_AMOUNT);
     }
 
     public InputListener getTouchListener(GameCharacter reference) {

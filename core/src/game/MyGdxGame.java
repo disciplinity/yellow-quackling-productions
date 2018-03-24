@@ -9,6 +9,9 @@ import game.models.combat.CombatSetup;
 import game.screens.CombatScreen;
 import game.screens.StartMenuScreen;
 
+import static game.actors.CharacterFactory.createCombatGroupMock1;
+import static game.actors.CharacterFactory.createCombatGroupMock2;
+
 //import static game.actors.CharacterFactory.createCombatGroupExample1;
 //import static game.actors.CharacterFactory.createCombatGroupExample2;
 
@@ -26,7 +29,15 @@ public class MyGdxGame extends Game {
 //        CombatSetup opponentCS = createCombatGroupExample2();
 //        BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", playerCS, opponentCS);
 //        this.setScreen(new CombatScreen(this, bsg));
-        this.setScreen(new StartMenuScreen(this));
+
+        ////////// ::::DANGER ZONE:::::
+        CombatSetup cs = createCombatGroupMock1();
+        CombatSetup cso = createCombatGroupMock2();
+        BattleStageGroup battleStageGroup = new BattleStageGroup("fairy-forest.jpg", cs, cso);
+        ////////// ::::DANGER ZONE:::::
+
+        this.setScreen(new CombatScreen(this, battleStageGroup));
+//        this.setScreen(new StartMenuScreen(this));
     }
 
 

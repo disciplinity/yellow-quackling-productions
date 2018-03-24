@@ -1,6 +1,5 @@
 package game.actors;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import database.DBConnector;
 import game.components.GraphicsComponent;
 import game.components.StatComponent;
@@ -11,10 +10,17 @@ import static game.constants.TexturePaths.KNIGHT_IDLE_TEXTURE;
 
 public class CharacterFactory {
 
-    public static CombatSetup createCombatGroupExample1() {
-        GameCharacter a1 = createIceMage(1);
-        GameCharacter a2 = createIceMage(1);
-        GameCharacter a3 = createKnight(0);
+    public static CombatSetup createCombatGroupMock1() {
+        GameCharacter a1 = createMockIceMage();
+        GameCharacter a2 = createMockIceMage();
+        GameCharacter a3 = createMockKnight();
+        return new CombatSetup(a1, a2, a3);
+    }
+
+    public static CombatSetup createCombatGroupMock2() {
+        GameCharacter a1 = createMockKnight();
+        GameCharacter a2 = createMockIceMage();
+        GameCharacter a3 = createMockKnight();
         return new CombatSetup(a1, a2, a3);
     }
 
@@ -42,12 +48,28 @@ public class CharacterFactory {
         return new GameCharacter(createStatComponentFromFetchedStats(playerId), graphicsComponent);
     }
 
+    public static GameCharacter createMockIceMage(){
+
+        GraphicsComponent graphicsComponent = new GraphicsComponent(ICEMAGE_IDLE_TEXTURE,
+                10, 1,220, 200, 10);
+
+        return new GameCharacter(new StatComponent(35, 8, 11), graphicsComponent);
+    }
+
+    public static GameCharacter createMockKnight(){
+
+        GraphicsComponent graphicsComponent = new GraphicsComponent(KNIGHT_IDLE_TEXTURE,
+                6, 1,170, 115, 6);
+
+        return new GameCharacter(new StatComponent(12, 22, 16), graphicsComponent);
+    }
+
     public static GameCharacter createKnight(int playerId){
 
         GraphicsComponent graphicsComponent = new GraphicsComponent(KNIGHT_IDLE_TEXTURE,
                 6, 1,146, 102, 6);
 
-        return new GameCharacter(createStatComponentFromFetchedStats(playerId), graphicsComponent);
+        return new GameCharacter(new StatComponent(10, 10, 10), graphicsComponent);
     }
 
     private static StatComponent createStatComponentFromFetchedStats(int playerId) {

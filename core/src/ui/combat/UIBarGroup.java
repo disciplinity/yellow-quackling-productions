@@ -16,13 +16,13 @@ public class UIBarGroup extends Group {
 
     private GraphicsComponent graphicsComponent;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private Texture leonardo = new Texture("leonardo.jpeg");
-    private Texture cardTexture = new Texture("card.jpg");
+    private Texture leonardo = new Texture("screens/leonardo.jpeg");
+    private Texture cardTexture = new Texture("screens/card.jpg");
     private TextureRegion[][] elements;
 
     public UIBarGroup() {
         // TODO: Graphic component with EXCESS parameters(eg for animation purposes) -> Change something or create new reduced constructor
-        graphicsComponent = new GraphicsComponent("elements.png", 3, 2, 100, 100, 5);
+        graphicsComponent = new GraphicsComponent("screens/elements.png", 3, 2, 100, 100, 5);
         elements = graphicsComponent.getTextureRegions();
     }
 

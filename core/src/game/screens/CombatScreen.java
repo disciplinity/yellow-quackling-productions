@@ -14,6 +14,8 @@ import lombok.Getter;
 import lombok.Setter;
 import game.models.combat.BattleStageGroup;
 
+import static game.constants.TexturePaths.FAIRY_FOREST_TEXTURE;
+
 public class CombatScreen implements Screen {
 
     @Getter @Setter
@@ -47,7 +49,7 @@ public class CombatScreen implements Screen {
         uiStage.addActor(new UIBarGroup());
 
         // TODO: Make getter from BattleStageGroup? And call this getter not here, but at spriteBatch.draw(...) below.
-        currentBackground = new Texture("fairy-forest.jpg");
+        currentBackground = new Texture(FAIRY_FOREST_TEXTURE);
 
     }
 
