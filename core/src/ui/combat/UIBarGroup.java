@@ -1,6 +1,5 @@
-package game.battle;
+package ui.combat;
 
-import game.actors.IceMage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import game.actors.GameCharacter;
 import game.components.GraphicsComponent;
 
 public class UIBarGroup extends Group {
@@ -21,7 +21,8 @@ public class UIBarGroup extends Group {
     private TextureRegion[][] elements;
 
     public UIBarGroup() {
-        graphicsComponent = new GraphicsComponent("elements.png", 3, 2);
+        // TODO: Graphic component with EXCESS parameters(eg for animation purposes) -> Change something or create new reduced constructor
+        graphicsComponent = new GraphicsComponent("elements.png", 3, 2, 100, 100, 5);
         elements = graphicsComponent.getTextureRegions();
     }
 
@@ -53,12 +54,12 @@ public class UIBarGroup extends Group {
         batch.draw(cardTexture, 530, 20, 135, 190);
         batch.draw(cardTexture, 680, 20, 135, 190);
 
-        if (IceMage.currentlyChosen != null) {
-            font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getIntellect()), 312,  193);
-            font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getSpirit()), 312,  158);
-            font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getStrength()), 312,  123);
-            font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getAgility()), 312,  88);
-            font12.draw(batch, String.valueOf(IceMage.currentlyChosen.getStatComponent().getLight()), 312, 53);
+        if (GameCharacter.currentlyChosen != null) {
+            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getIntellect()), 312,  193);
+            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getSpirit()), 312,  158);
+            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getStrength()), 312,  123);
+            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getAgility()), 312,  88);
+            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getLight()), 312, 53);
         }
 
     }

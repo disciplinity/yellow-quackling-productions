@@ -8,10 +8,9 @@ import lombok.Data;
 public class StatComponent {
 
     private int intellect;
-    private int spirit;
     private int strength;
     private int agility;
+    private int spirit;
     private int light;
-
 
 }

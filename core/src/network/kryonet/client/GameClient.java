@@ -1,20 +1,20 @@
 package network.kryonet.client;
 
-import game.battle.BattleStageGroup;
+import game.models.combat.BattleStageGroup;
 import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import game.MyGdxGame;
-import game.models.CombatSetup;
+import game.models.combat.CombatSetup;
 import network.kryonet.register.NetworkRegister;
 import network.kryonet.register.NetworkRegister.EnterRoomWithSetup;
-import game.screens.InBattleScreen;
+import game.screens.CombatScreen;
 
 import java.io.IOException;
 
-import static game.factory.CombatSetupTestFactory.createCombatGroupExample1;
-import static game.factory.CombatSetupTestFactory.createCombatGroupExample2;
+import static game.actors.CharacterFactory.createCombatGroupExample1;
+import static game.actors.CharacterFactory.createCombatGroupExample2;
 
 public class GameClient {
     Client client;
@@ -82,7 +82,7 @@ public class GameClient {
 
             // TODO: game.setBattleScreen();
             BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", playerCS, opponentCS);
-            game.setScreen(new InBattleScreen(game, bsg));
+            game.setScreen(new CombatScreen(game, bsg));
         });
     }
 

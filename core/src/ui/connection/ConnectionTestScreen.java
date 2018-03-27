@@ -1,4 +1,4 @@
-package network.kryonet.ui_frame;
+package ui.connection;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
