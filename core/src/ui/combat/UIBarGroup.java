@@ -16,13 +16,13 @@ public class UIBarGroup extends Group {
 
     private GraphicsComponent graphicsComponent;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private Texture leonardo = new Texture("leonardo.jpeg");
-    private Texture cardTexture = new Texture("card.jpg");
+    private Texture leonardo = new Texture("screens/leonardo.jpeg");
+    private Texture cardTexture = new Texture("screens/card.jpg");
     private TextureRegion[][] elements;
 
     public UIBarGroup() {
         // TODO: Graphic component with EXCESS parameters(eg for animation purposes) -> Change something or create new reduced constructor
-        graphicsComponent = new GraphicsComponent("elements.png", 3, 2, 100, 100, 5);
+        graphicsComponent = new GraphicsComponent("screens/elements.png", 3, 2, 100, 100, 5);
         elements = graphicsComponent.getTextureRegions();
     }
 
@@ -56,10 +56,10 @@ public class UIBarGroup extends Group {
 
         if (GameCharacter.currentlyChosen != null) {
             font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getIntellect()), 312,  193);
-            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getSpirit()), 312,  158);
+//            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getSpirit()), 312,  158);
             font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getStrength()), 312,  123);
             font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getAgility()), 312,  88);
-            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getLight()), 312, 53);
+//            font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getLight()), 312, 53);
         }
 
     }

@@ -1,7 +1,6 @@
 package game.models.combat;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import game.actors.GameCharacter;
 import lombok.Getter;
@@ -49,8 +48,8 @@ public class BattleStageGroup extends Group {
                 // Array size should be managed at once. Here we are Recreating it every line. I think...
                 characterSlots[0] = new CharacterSlot(0,0);
                 characterSlots[1] = new CharacterSlot(100, 100);
-                characterSlots[2] = new CharacterSlot(200, 200);
-                characterSlots[3] = new CharacterSlot(1000,0);
+                characterSlots[2] = new CharacterSlot(250, 200);
+                characterSlots[3] = new CharacterSlot(1000,20);
                 characterSlots[4] = new CharacterSlot(900, 100);
                 characterSlots[5] = new CharacterSlot(800, 200);
         }

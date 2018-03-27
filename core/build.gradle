@@ -13,7 +13,7 @@ eclipse.project {
 
 dependencies {
     // https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
-    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.2.Final'
     compile 'javax.xml.bind:jaxb-api:2.3.0'
 
 // https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl
@@ -31,6 +31,6 @@ dependencies {
 // И это, ведь некие jaxb появляются выше, да и вторая строка загружает именно это(загружает ли? Синтаксис у неё другой)
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
 // Не уверен нужено ли это поле
-    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
+    compile group: 'javax.persistence', name: 'persistence-api', version: '2.1'
     compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
 }
