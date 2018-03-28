@@ -26,11 +26,7 @@
         <property name="current_session_context_class">thread</property>
 
         <mapping class="database.model.Account"/>
-        <mapping class="database.model.CombatSetup"/>
-        <mapping class="database.model.Hero"/>
-        <mapping class="database.model.HeroClassifier"/>
-        <mapping class="database.model.Stat"/>
-        <mapping class="database.value.HeroSetup"/>
+        <mapping class="database.model.HeroSetup"/>
     </session-factory>
 
 </hibernate-configuration>
