@@ -33,4 +33,6 @@ dependencies {
 // Не уверен нужено ли это поле
     compile group: 'javax.persistence', name: 'persistence-api', version: '2.1'
     compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
 }

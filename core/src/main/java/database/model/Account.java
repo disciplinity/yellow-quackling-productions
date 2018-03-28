@@ -1,30 +1,22 @@
 package database.model;
 
-import database.value.AccountHeroSetup;
 import database.value.HeroSetup;
 import lombok.Data;
 
 import javax.persistence.*;
 @NamedNativeQueries({
-        @NamedNativeQuery(name="HeroCombatQuery", query="SELECT HeroClassifier.name, Stat.intelligence," +
-                " Stat.strength, Stat.agility\n" +
-                "FROM Stat, CombatSetup, Account, HeroClassifier, Hero \n" +
-                "WHERE Account.ID = CombatSetup.acc_id AND \n" +
-                "HeroClassifier.id = Hero.hero_id AND \n" +
-                "Stat.id = Hero.stat_id AND \n" +
-                "(Hero.id = CombatSetup.slot1_hero_id OR \n" +
-                "Hero.id = CombatSetup.slot2_hero_id OR \n" +
-                "Hero.id = CombatSetup.slot3_hero_id) AND \n" +
-                "Account.ID = 1;", resultSetMapping="HeroSetupMapping"),
-        @NamedNativeQuery(name="SuccessfulTestQuery", query="SELECT a.username, cs.acc_id FROM Account a, CombatSetup cs WHERE a.id=cs.acc_id", resultSetMapping="SuccessfulTestMapping")
+        @NamedNativeQuery(name="HeroCombatQuery", query="SELECT HC.name, S.intelligence, S.strength, S.agility " +
+                "FROM Stat S, CombatSetup CS, Account A, HeroClassifier HC, Hero H " +
+                "WHERE A.ID = CS.acc_id AND " +
+                "HC.id = H.hero_id AND " +
+                "S.id = H.stat_id AND " +
+                "(H.id = CS.slot1_hero_id OR " +
+                "H.id = CS.slot2_hero_id OR " +
+                "H.id = CS.slot3_hero_id) AND " +
+                "A.ID=:playerId ;", resultSetMapping="HeroSetupMapping")
 })
 @SqlResultSetMappings({
-        @SqlResultSetMapping(name="SuccessfulTestMapping",
-                classes = {
-                        @ConstructorResult(targetClass = AccountHeroSetup.class,
-                                columns = {@ColumnResult(name="username"), @ColumnResult(name="acc_id")}
-                        )}
-        ),
+
         @SqlResultSetMapping(
                 name = "AccountCombatSetupMapping",
                 entities = {

@@ -3,7 +3,7 @@ package database.value;
 import lombok.ToString;
 
 
-// TODO: For the test purposes
+// TODO: For the test purposes. Move to tests
 @ToString
 public class AccountHeroSetup {
     String usr;
