@@ -1,4 +1,4 @@
-package database.value;
+package database.model;
 
 import lombok.*;
 

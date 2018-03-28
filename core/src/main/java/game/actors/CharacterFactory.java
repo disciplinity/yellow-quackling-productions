@@ -40,34 +40,34 @@ public class CharacterFactory {
     // TODO: 2. Send data to the method that determines which hero should be created and create it with proper stats.
     // To do this db should fetch data to some object, that could store variable for hero id (1 for mage, 2 for knight etc.)
     //and be able to connect this id to stats (so hero id and it's stats in one model, in this case our created StatComponent doesn't fit)
-    public static GameCharacter createIceMage(int playerId){
+    public static GameCharacter createIceMage(int playerId) {
 
         GraphicsComponent graphicsComponent = new GraphicsComponent(ICEMAGE_IDLE_TEXTURE,
-                10, 1,220, 200, 10);
+                10, 1, 220, 200, 10);
 
         return new GameCharacter(createStatComponentFromFetchedStats(playerId), graphicsComponent);
     }
 
-    public static GameCharacter createMockIceMage(){
+    public static GameCharacter createMockIceMage() {
 
         GraphicsComponent graphicsComponent = new GraphicsComponent(ICEMAGE_IDLE_TEXTURE,
-                10, 1,220, 200, 10);
+                10, 1, 220, 200, 10);
 
         return new GameCharacter(new StatComponent(35, 8, 11), graphicsComponent);
     }
 
-    public static GameCharacter createMockKnight(){
+    public static GameCharacter createMockKnight() {
 
         GraphicsComponent graphicsComponent = new GraphicsComponent(KNIGHT_IDLE_TEXTURE,
-                6, 1,170, 115, 6);
+                6, 1, 170, 115, 6);
 
         return new GameCharacter(new StatComponent(12, 22, 16), graphicsComponent);
     }
 
-    public static GameCharacter createKnight(int playerId){
+    public static GameCharacter createKnight(int playerId) {
 
         GraphicsComponent graphicsComponent = new GraphicsComponent(KNIGHT_IDLE_TEXTURE,
-                6, 1,146, 102, 6);
+                6, 1, 146, 102, 6);
 
         return new GameCharacter(new StatComponent(10, 10, 10), graphicsComponent);
     }

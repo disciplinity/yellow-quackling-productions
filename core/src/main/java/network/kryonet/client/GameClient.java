@@ -1,6 +1,5 @@
 package network.kryonet.client;
 
-import game.models.combat.BattleStageGroup;
 import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -9,12 +8,9 @@ import game.MyGdxGame;
 import game.models.combat.CombatSetup;
 import network.kryonet.register.NetworkRegister;
 import network.kryonet.register.NetworkRegister.EnterRoomWithSetup;
-import game.screens.CombatScreen;
 
 import java.io.IOException;
 
-//import static game.actors.CharacterFactory.createCombatGroupExample1;
-//import static game.actors.CharacterFactory.createCombatGroupExample2;
 
 public class GameClient {
     Client client;
@@ -30,21 +26,21 @@ public class GameClient {
         NetworkRegister.register(client);
 
         client.addListener(new Listener() {
-            public void connected (Connection connection) {
+            public void connected(Connection connection) {
                 EnterRoomWithSetup registerCombatGroup = new EnterRoomWithSetup();
                 registerCombatGroup.globalSetupId = chosenGlobalSetupId;
                 client.sendTCP(registerCombatGroup);
             }
 
-            public void received (Connection connection, Object object) {
+            public void received(Connection connection, Object object) {
 
                 if (object instanceof EnterRoomWithSetup) {
-                    EnterRoomWithSetup opponentInRoom = (EnterRoomWithSetup)object;
+                    EnterRoomWithSetup opponentInRoom = (EnterRoomWithSetup) object;
                     changeToBattleScene(opponentInRoom, chosenGlobalSetupId);
                 }
             }
 
-            public void disconnected (Connection connection) {
+            public void disconnected(Connection connection) {
                 // TODO: Return to lobby. Could be implemented only when client will know about the screen.
             }
         });
@@ -63,20 +59,20 @@ public class GameClient {
             CombatSetup playerCS;
             CombatSetup opponentCS;
 
-            if (chosenGlobalSetupId.equals("1")){
+            if (chosenGlobalSetupId.equals("1")) {
                 System.err.println("here1");
 //                playerCS = createCombatGroupExample1();
             } else {
-                    System.err.println("here2");
+                System.err.println("here2");
 //                    playerCS = createCombatGroupExample2();
             }
 
 
-            if (opponentInRoom.globalSetupId.equals("1")){
-                    System.err.println("here3");
+            if (opponentInRoom.globalSetupId.equals("1")) {
+                System.err.println("here3");
 //                    opponentCS =createCombatGroupExample1();
             } else {
-                    System.err.println("here4");
+                System.err.println("here4");
 //                    opponentCS = createCombatGroupExample2();
             }
 

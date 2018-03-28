@@ -49,7 +49,6 @@ public class DBConnectorTest {
     }
 
 
-
     //TODO: Check if more than one entity is created with appropriate quary
 
 }

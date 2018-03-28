@@ -13,10 +13,11 @@ import java.util.List;
 // TODO: ТО ЕСТЬ БЫТЬ ЕЩЕ ОДНОЙ МОДЕЛЬЮ В НАШЕЙ СЛОЖНОЙ МОДЕЛЬНОЙ АРХИТЕКТУРЕ.
 // TODO: С ДРУГОЙ СТОРОНЫ, ЭТОТ "МОДУЛЬ" МОЖЕТ БЫТЬ НЕ ТОЛЬКО МОДЕЛЬЮ, А И КОНТРОЛЛЕРОМ, ИБО ВЫЗЫВАЕТ DRAW У ВСЕХ АКТЕРОВ
 // TODO: ЧТО КАК БЫ НЕ ХОРОШО, НО РАЗ УЖ ЭТОТ МЕТОД ВСТРОЕН В ЭТОТ КЛАССС И ОН ВСЕГО ОДИН И ОЧЕНЬ ПРОСТОЙ, ТО МОЖЕТ БЫТЬ НЕ ВСЕ ТАК ПЛОХО
+
 /**
  * Class that holds:
- *  - background image
- *  - character slots with appropriate characters assigned to them
+ * - background image
+ * - character slots with appropriate characters assigned to them
  */
 public class BattleStageGroup extends Group {
 
@@ -43,13 +44,13 @@ public class BattleStageGroup extends Group {
      * Depending on the background image, set the positions where characters will stand.
      */
     private void setCharacterSlotPositions() {
-        switch(imageName) {
+        switch (imageName) {
             case "fairy-forest.jpg":
                 // Array size should be managed at once. Here we are Recreating it every line. I think...
-                characterSlots[0] = new CharacterSlot(0,0);
+                characterSlots[0] = new CharacterSlot(0, 0);
                 characterSlots[1] = new CharacterSlot(100, 100);
                 characterSlots[2] = new CharacterSlot(250, 200);
-                characterSlots[3] = new CharacterSlot(1000,20);
+                characterSlots[3] = new CharacterSlot(1000, 20);
                 characterSlots[4] = new CharacterSlot(900, 100);
                 characterSlots[5] = new CharacterSlot(800, 200);
         }

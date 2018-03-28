@@ -22,7 +22,7 @@ public class MyGdxGame extends Game {
     @Getter
     private SpriteBatch spriteBatch;
 
-    public void create () {
+    public void create() {
         spriteBatch = new SpriteBatch();
 
 //        CombatSetup playerCS = createCombatGroupExample1();
@@ -41,7 +41,7 @@ public class MyGdxGame extends Game {
     }
 
 
-    public void resize (int width, int height) {
+    public void resize(int width, int height) {
     }
 
     public void setBattleScreen() {
@@ -53,7 +53,7 @@ public class MyGdxGame extends Game {
     }
 
 
-    public void render () {
+    public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         screen.render(0.033f);

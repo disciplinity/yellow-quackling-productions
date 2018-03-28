@@ -3,7 +3,7 @@
                  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
     http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
     <sql-result-set-mapping name="HeroSetupMappingXml">
-        <constructor-result target-class="database.value.HeroSetup">
+        <constructor-result target-class="database.model.HeroSetup">
             <column name="heroName"/>
             <column name="intelligence"/>
             <column name="agility"/>

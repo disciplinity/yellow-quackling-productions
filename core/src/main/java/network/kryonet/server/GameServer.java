@@ -27,7 +27,7 @@ public class GameServer {
 
     public GameServer() throws IOException {
         server = new Server() {
-            protected Connection newConnection () {
+            protected Connection newConnection() {
                 // By providing our own connection implementation, we can store per
                 // connection state without a connection ID to state look up.
                 Connection con = new GameConnection();
@@ -39,15 +39,15 @@ public class GameServer {
         NetworkRegister.register(server);
 
         server.addListener(new Listener() {
-            public void received (Connection c, Object object) {
+            public void received(Connection c, Object object) {
                 // We know all connections for this server are actually GameConnections.
-                GameConnection connection = (GameConnection)c;
+                GameConnection connection = (GameConnection) c;
                 if (object instanceof EnterRoomWithSetup) {
                     /**
-                    connectionRoom + 1 player;
-                    if == 2 -> draw screen
+                     connectionRoom + 1 player;
+                     if == 2 -> draw screen
                      send first about second. second about first.
-                    server.sendToAllExceptTCP(connection.getID(), chatMessage);
+                     server.sendToAllExceptTCP(connection.getID(), chatMessage);
                      */
                     EnterRoomWithSetup setup = (EnterRoomWithSetup) object;
                     combatSetupsInARoom.add(setup);
@@ -59,8 +59,8 @@ public class GameServer {
                 }
             }
 
-            public void disconnected (Connection c) {
-                GameConnection connection = (GameConnection)c;
+            public void disconnected(Connection c) {
+                GameConnection connection = (GameConnection) c;
                 if (connection.name != null) {
                     // Announce to everyone that someone (with a registered name) has left.
 //                    ChatMessage chatMessage = new ChatMessage();
@@ -77,7 +77,7 @@ public class GameServer {
         JFrame frame = new JFrame("Game Server");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
-            public void windowClosed (WindowEvent evt) {
+            public void windowClosed(WindowEvent evt) {
                 server.stop();
             }
         });
@@ -107,7 +107,7 @@ public class GameServer {
         public String name;
     }
 
-    public static void main (String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         Log.set(Log.LEVEL_DEBUG);
         new GameServer();
     }

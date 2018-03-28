@@ -11,7 +11,8 @@ import game.actors.GameCharacter;
 import lombok.Data;
 import lombok.Getter;
 
-@Data public class GraphicsComponent {
+@Data
+public class GraphicsComponent {
     private final int COLUMN_AMOUNT;
     private final int ROW_AMOUNT;
 
@@ -49,7 +50,7 @@ import lombok.Getter;
     public InputListener getTouchListener(GameCharacter reference) {
         return new InputListener() {
 
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 // TODO: Some set method for this (in controller/view of combat screen of course)
                 currentlyChosen = reference;
             }
@@ -86,11 +87,10 @@ import lombok.Getter;
 
 
     /**
-     *
      * @param startRow Row from which you want to start taking your sprites on a sprite sheet.
      * @param startCol Column from which you want to start taking your sprites...
-     * @param endRow At which row stop counting.
-     * @param endCol At which column stop counting.
+     * @param endRow   At which row stop counting.
+     * @param endCol   At which column stop counting.
      * @return 1D array (animation sheet).
      */
     private TextureRegion[] getAnimationSheet(int startRow, int startCol, int endRow, int endCol) {

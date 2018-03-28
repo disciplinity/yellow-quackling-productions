@@ -1,11 +1,11 @@
 package database;
 
-import database.value.AccountHeroSetup;
-import database.value.HeroSetup;
+import database.model.HeroSetup;
 import game.components.StatComponent;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
 import java.util.List;
 
 public class DBConnector {
@@ -16,34 +16,16 @@ public class DBConnector {
         return new StatComponent(10, 10, 10);
     }
 
-    // TODO: For the test purposes. Move to the test class
-    private static void fetchHeroAndCombatSetupSuccessfulTest(SessionFactory factory) {
-        Session session = factory.getCurrentSession();
-        session.beginTransaction();
-        List<AccountHeroSetup> results = session.getNamedNativeQuery("SuccessfulTestQuery").getResultList();
-
-        results.stream().forEach((record) -> {
-            System.out.println(record);
-        });
-
-        session.getTransaction().commit();
-        session.close();
-    }
-
     // TODO: Working crap. Has to be refactored a bit (return type)
     private static void fetchCombatSetup(SessionFactory factory) {
         Session session = factory.getCurrentSession();
         session.beginTransaction();
 
-        List<HeroSetup> results = session.getNamedNativeQuery("HeroCombatQuery").setParameter("playerId",1).list();
+        List<HeroSetup> results = session.getNamedNativeQuery("HeroCombatQuery").setParameter("playerId", 2).list();
 
-        System.out.println("HELLO");
-        results.stream().forEach((record) -> {
-            System.out.println("HELL2O");
+        results.forEach((record) -> {
             System.out.println(record.getHeroName());
-            System.out.println("HELLO3");
         });
-        System.out.println("HE4LLO");
 
         session.getTransaction().commit();
         session.close();
@@ -57,8 +39,6 @@ public class DBConnector {
                 .buildSessionFactory()) {
 
             fetchCombatSetup(factory);
-
-//            fetchHeroAndCombatSetupSuccessfulTest(factory); TODO: Successful!
         }
     }
 }

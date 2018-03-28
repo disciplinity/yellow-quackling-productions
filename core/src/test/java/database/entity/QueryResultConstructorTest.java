@@ -6,6 +6,7 @@ import lombok.ToString;
 public class QueryResultConstructorTest {
     String usr;
     int accId;
+
     public QueryResultConstructorTest(String usr, int accId) {
         this.usr = usr;
         this.accId = accId;
