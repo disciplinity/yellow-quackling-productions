@@ -87,10 +87,6 @@ public class DBConnector {
 
         results.stream().forEach((record) -> {
             System.out.println(record);
-//            Account a = (Account)record[0];
-//            CombatSetup cs = (CombatSetup)record[1];
-//            System.out.println(a);
-//            System.out.println(cs);
         });
 
 //        for (Stat acc:results) {
