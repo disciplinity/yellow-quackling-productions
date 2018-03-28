@@ -81,10 +81,6 @@ public class DBConnector {
         Session session = factory.getCurrentSession();
         session.beginTransaction();
 
-        //"SELECT a.id, a.username, a.pwd, cs.id as cs_id, cs.acc_id," +
-        //                " cs.slot1_hero_id, cs.slot2_hero_id, cs.slot3_hero_id FROM Account a JOIN CombatSetup cs ON a.id=cs.acc_id"
-        List<AccountHeroSetup> results = session.getNamedNativeQuery("SuccessfulTestQuery").getResultList();
-
         results.stream().forEach((record) -> {
             System.out.println(record);
         });
