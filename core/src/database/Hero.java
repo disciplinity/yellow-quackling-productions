@@ -12,19 +12,19 @@ public class Hero {
 
     @Id
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
-    @ManyToOne
-    @Column(name = "hero_id")
-    private int heroId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hero_id")
+    private Integer heroId;
 
-    @ManyToOne
-    @Column(name = "stat_id")
-    private int statId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stat_id")
+    private Integer statId;
 
-    @ManyToOne
-    @Column(name = "equipment_id")
-    private int equipmentId;
+    @ManyToOne(targetEntity = EquipmentComponent.class)
+    @JoinColumn(name = "equipment_id")
+    private Integer equipmentId;
 
 
 }

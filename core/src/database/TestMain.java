@@ -26,13 +26,16 @@ public class TestMain {
 //                    "(ec.id, ec.helm, ec.chest, ec.legs, ec.gloves, ec.boots, ec.mainHand, ec.offHand)"
 //                    + " FROM HeroClassifier hc, Stat sc, Equipment ec;";
 
-            String sql = "SELECT hc.name, sc, ec FROM HeroClassifier hc, StatComponent sc, EquipmentComponent ec";
+//            String sql = "SELECT hc.name, new StatComponent(sc.id, sc.intellect, sc.strength, sc.agility), " +
+//                    "new EquipmentComponent(ec.id, ec.helm, ec.chest, ec.legs, ec.gloves, ec.boots, ec.mainHand, ec.offHand)" +
+//                    " FROM HeroClassifier hc, StatComponent sc, EquipmentComponent ec";
 //            List<Object[]> result = session.createQuery(sql).getResultList();
-            List<Object[]> result = session.createQuery(sql).list();
+            Account acc = (Account)(session.createQuery("from Account a WHERE a.id = 1").getSingleResult());
+            CombatSetup combatSetup = (CombatSetup) (session.createQuery("SELECT cs from CombatSetup cs WHERE cs.id = " + acc.getId()));
+            System.out.println(combatSetup.getAccId());
+//            List<Hero> heroes = session.createQuery("SELECT h from Hero h WHERE h.id = " + acc.getId()).getResultList();
 
-            for (Object[] obj : result) {
-
-            }
+//            System.out.println(heroes.size());
 
             transaction.commit();
             session.close();
