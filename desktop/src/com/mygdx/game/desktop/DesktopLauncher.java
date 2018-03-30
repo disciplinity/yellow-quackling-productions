@@ -2,7 +2,7 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import game.MyGdxGame;
+import main.java.game.MyGdxGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		config.title = "Zen";
 		config.width = 1280;
         config.height = 800;
+
 		new LwjglApplication(new MyGdxGame(), config);
 	}
 }

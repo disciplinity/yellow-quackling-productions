@@ -1,0 +1,69 @@
+package main.java.game;
+
+import main.java.game.models.combat.BattleStageGroup;
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import lombok.Getter;
+import main.java.game.models.combat.CombatSetup;
+import main.java.game.screens.CombatScreen;
+import main.java.game.screens.StartMenuScreen;
+
+import static main.java.game.actors.CharacterFactory.createCombatGroupMock1;
+import static main.java.game.actors.CharacterFactory.createCombatGroupMock2;
+
+//import static game.actors.CharacterFactory.createCombatGroupExample1;
+//import static game.actors.CharacterFactory.createCombatGroupExample2;
+
+// TODO: NOW IT'S JUST A MODEL FOR SPRITE BATCH :D
+public class MyGdxGame extends Game {
+
+
+    @Getter
+    private SpriteBatch spriteBatch;
+
+    public void create() {
+        spriteBatch = new SpriteBatch();
+
+//        CombatSetup playerCS = createCombatGroupExample1();
+//        CombatSetup opponentCS = createCombatGroupExample2();
+//        BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", playerCS, opponentCS);
+//        this.setScreen(new CombatScreen(this, bsg));
+
+        ////////// ::::DANGER ZONE:::::
+        CombatSetup cs = createCombatGroupMock1();
+        CombatSetup cso = createCombatGroupMock2();
+        BattleStageGroup battleStageGroup = new BattleStageGroup("fairy-forest.jpg", cs, cso);
+        ////////// ::::DANGER ZONE:::::
+
+        this.setScreen(new CombatScreen(this, battleStageGroup));
+//        this.setScreen(new StartMenuScreen(this));
+    }
+
+
+    public void resize(int width, int height) {
+    }
+
+    public void setBattleScreen() {
+
+//        CombatSetup playerCS = createCombatGroupExample1();
+//        CombatSetup opponentCS = createCombatGroupExample2();
+//        BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", playerCS, opponentCS);
+//        this.setScreen(new CombatScreen(this, bsg));
+    }
+
+
+    public void render() {
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        screen.render(0.033f);
+    }
+
+
+    public void dispose() {
+        screen.dispose();
+        spriteBatch.dispose();
+    }
+
+
+}
