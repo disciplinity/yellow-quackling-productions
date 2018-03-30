@@ -15,14 +15,14 @@ public class GameCharacter extends Actor {
     private double hp;
     private double force;
     //    private SpellBookComponent spellBookComponent;
+
+    @Getter
     private EquipmentComponent equipmentComponent;
     @Getter
     private StatComponent statComponent;
     @Getter
     private GraphicsComponent graphicsComponent;
 
-    private static int sid = 0;
-    private int id = 0;
 
     public static GameCharacter currentlyChosen = null;
 
@@ -39,19 +39,11 @@ public class GameCharacter extends Actor {
 
         // TODO: Ну чисто теоретически. Эта Модель хранит в себе листэнер. Всё законно. Его назначает контроллер, и используется он во вью. Sounds kind of legal.
         this.addListener(graphicsComponent.getTouchListener(this));
-
-        id = ++sid;
-
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         graphicsComponent.draw(batch, parentAlpha, getX(), getY(), getWidth(), getHeight());
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(id);
     }
 
 }

@@ -2,15 +2,18 @@ package main.java.game.components;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import main.java.game.items.Item;
+
 @Data
 @AllArgsConstructor
 public class EquipmentComponent {
-    private String helm;
-    private String chest;
-    private String legs;
-    private String gloves;
-    private String boots;
-    private String mainHand;
-    private String offHand;
+    private Item helm;
+    private Item chest;
+    private Item legs;
+    private Item gloves;
+    private Item boots;
+    private Item mainHand;
+    private Item offHand;
+
 }
 

@@ -2,6 +2,8 @@ package main.java.ui.combat;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -16,7 +18,7 @@ public class UIDrawer {
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     private BitmapFont font12;
 
-    public UIDrawer() {
+    UIDrawer() {
         generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Raleway-Medium.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 16;
@@ -37,12 +39,12 @@ public class UIDrawer {
         batch.draw(c, 680, 20, 135, 190);
     }
 
-    public void drawGrayBackground(ShapeRenderer shapeRenderer) {
-        shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        // Gray background
-        shapeRenderer.rect(0, 0, 1280, 230);
-        shapeRenderer.end();
+    public void drawGrayBackground(ShapeRenderer sr) {
+        sr.begin(ShapeRenderer.ShapeType.Filled);
+        sr.setColor(Color.FIREBRICK);
+        sr.rect(0, 0, 1280, 230);
+        sr.end();
+
     }
 
     public void drawStats(Batch batch) {
@@ -52,4 +54,5 @@ public class UIDrawer {
         font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getAgility()), 312, 88);
 //        font12.draw(batch, String.valueOf(GameCharacter.currentlyChosen.getStatComponent().getLight()), 312, 53);
     }
+
 }

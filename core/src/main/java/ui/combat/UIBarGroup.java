@@ -1,13 +1,9 @@
 package main.java.ui.combat;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import main.java.game.actors.GameCharacter;
@@ -16,11 +12,10 @@ import main.java.game.components.GraphicsComponent;
 public class UIBarGroup extends Group {
 
     private GraphicsComponent graphicsComponent;
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private Texture leonardo = new Texture("screens/leonardo.jpeg");
+    private ShapeRenderer shapeRenderer;
     private Texture cardTexture = new Texture("screens/card.jpg");
     private TextureRegion[][] elements;
-
+    private GearGroup gearGroup;
     private UIDrawer drawer;
 
     public UIBarGroup() {
@@ -28,6 +23,9 @@ public class UIBarGroup extends Group {
         graphicsComponent = new GraphicsComponent("screens/elements.png", 3, 2, 100, 100, 5);
         elements = graphicsComponent.getTextureRegions();
         drawer = new UIDrawer();
+        shapeRenderer = new ShapeRenderer();
+        gearGroup = new GearGroup(shapeRenderer);
+        this.addActor(gearGroup);
     }
 
 
@@ -35,20 +33,24 @@ public class UIBarGroup extends Group {
     public void draw(Batch batch, float parentAlpha) {
         batch.end();
         drawer.drawGrayBackground(shapeRenderer);
-        batch.begin();
+        gearGroup.draw(batch, parentAlpha);
 
-        batch.draw(leonardo, 50, 20, 200, 190);
+
+        batch.begin();
         drawer.drawElements(batch, elements);
         drawer.drawCards(batch, cardTexture);
 
-        if (GameCharacter.currentlyChosen != null) {
+
+
+        if (friendlyCharacterIsChosen()) {
             drawer.drawStats(batch);
         }
 
+
+
     }
 
-
-
-
-
+    private boolean friendlyCharacterIsChosen() {
+        return GameCharacter.currentlyChosen != null && !GameCharacter.currentlyChosen.getGraphicsComponent().isOpponent();
+    }
 }
