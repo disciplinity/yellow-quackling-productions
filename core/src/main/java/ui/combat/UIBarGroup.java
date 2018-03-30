@@ -20,10 +20,19 @@ public class UIBarGroup extends Group {
     private Texture cardTexture = new Texture("screens/card.jpg");
     private TextureRegion[][] elements;
 
+    private FreeTypeFontGenerator generator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+    private BitmapFont font12;
+
     public UIBarGroup() {
         // TODO: Graphic component with EXCESS parameters(eg for animation purposes) -> Change something or create new reduced constructor
         graphicsComponent = new GraphicsComponent("screens/elements.png", 3, 2, 100, 100, 5);
         elements = graphicsComponent.getTextureRegions();
+
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Raleway-Medium.ttf"));
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 16;
+        font12 = generator.generateFont(parameter);
     }
 
 
@@ -35,10 +44,7 @@ public class UIBarGroup extends Group {
 
         batch.begin();
 
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Raleway-Medium.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 16;
-        BitmapFont font12 = generator.generateFont(parameter);
+
 
         // Drawing all of the UI elements. TODO:: Implement leonardo as 'worn-items-object', as well as add spells etc
 
