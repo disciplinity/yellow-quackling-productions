@@ -49,11 +49,12 @@ public class ItemSlot extends Actor {
                 hovered = false;
             }
         });
+        Gdx.gl.glLineWidth(2);
+
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        Gdx.gl.glLineWidth(2);
         sr.begin(ShapeRenderer.ShapeType.Line);
         sr.setColor(hovered ? Color.GOLD : Color.BLACK);
         sr.rect(this.getX(), this.getY(), 50, 50);

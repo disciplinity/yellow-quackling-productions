@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Setter;
+import main.java.game.actors.GameCharacter;
 import main.java.game.constants.TexturePaths;
 
 @AllArgsConstructor
@@ -22,10 +25,15 @@ public class Item extends Actor {
     private String description;
     private Texture texture;
     private boolean hovered;
+
     @Setter
     private ItemSlot is;
     private TextureRegion txr;
     private ShapeRenderer sr;
+
+    private FreeTypeFontGenerator generator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+    private BitmapFont font12;
 
     public Item(String name, String description, TextureRegion txr) {
         this.name = name;
@@ -34,6 +42,11 @@ public class Item extends Actor {
         hovered = false;
         texture = new Texture(TexturePaths.LEONARDO);
         sr = new ShapeRenderer();
+
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Raleway-Medium.ttf"));
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 14;
+        font12 = generator.generateFont(parameter);
 
         this.addListener(new InputListener() {
             @Override
@@ -56,12 +69,27 @@ public class Item extends Actor {
         batch.draw(txr, is.getX(), is.getY(), is.getWidth(), is.getHeight());
         batch.end();
         if (hovered) {
-            sr.begin(ShapeRenderer.ShapeType.Filled);
-            sr.setColor(Color.BLACK);
-            sr.rect(getX(), getY() + 100, 200, 200);
-            sr.end();
-//            batch.draw(texture, getX() + 25 ,getY() + 65, 100, 200);
+            drawTextBox();
+            writeTextToTextBox(batch);
         }
+    }
+
+    private void drawTextBox() {
+        sr.begin(ShapeRenderer.ShapeType.Filled);
+        sr.setColor(Color.BLACK);
+        sr.rect(getX() + 25, getY() + 60, 200, 200);
+        sr.end();
+        sr.begin(ShapeRenderer.ShapeType.Line);
+        sr.setColor(Color.WHITE);
+        sr.rect(getX() + 25, getY() + 60, 200, 200);
+        sr.end();
+    }
+
+    private void writeTextToTextBox(Batch batch) {
+        batch.begin();
+        font12.draw(batch, name, getX() + 30, getY() + 240);
+        font12.draw(batch, description, getX() + 30, getY() + 220);
+        batch.end();
     }
 
 }
