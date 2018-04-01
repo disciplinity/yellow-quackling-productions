@@ -6,13 +6,18 @@ import main.java.database.DBConnector;
 import main.java.game.components.EquipmentComponent;
 import main.java.game.components.GraphicsComponent;
 import main.java.game.components.StatComponent;
+import main.java.game.items.Item;
 import main.java.game.items.ItemInfo;
+import main.java.game.items.ItemSet;
 import main.java.game.models.combat.CombatSetup;
 
 import static main.java.game.constants.TexturePaths.ICEMAGE_IDLE_TEXTURE;
 import static main.java.game.constants.TexturePaths.KNIGHT_IDLE_TEXTURE;
 
 public class CharacterFactory {
+
+    static TextureRegion[][] items = new GraphicsComponent("items.png", 13, 7, 476, 246, 13).getTextureRegions();
+
 
     public static CombatSetup createCombatGroupMock1() {
         GameCharacter a1 = createMockIceMage();
@@ -54,13 +59,14 @@ public class CharacterFactory {
 
     public static GameCharacter createMockIceMage() {
 
-        TextureRegion[][] items = new GraphicsComponent("items.png", 13, 7, 476, 246, 13).getTextureRegions();
 
 
         GraphicsComponent graphicsComponent = new GraphicsComponent(ICEMAGE_IDLE_TEXTURE,
                 10, 1, 220, 200, 10);
 
-        return new GameCharacter(new StatComponent(35, 8, 11), graphicsComponent);
+        EquipmentComponent equipmentComponent = createMockEquipmentComponentForMage();
+
+        return new GameCharacter(new StatComponent(35, 8, 11), graphicsComponent, equipmentComponent);
     }
 
     public static GameCharacter createMockKnight() {
@@ -68,7 +74,9 @@ public class CharacterFactory {
         GraphicsComponent graphicsComponent = new GraphicsComponent(KNIGHT_IDLE_TEXTURE,
                 6, 1, 170, 115, 6);
 
-        return new GameCharacter(new StatComponent(12, 22, 16), graphicsComponent);
+        EquipmentComponent equipmentComponent = createMockEquipmentComponentForKnight();
+
+        return new GameCharacter(new StatComponent(12, 22, 16), graphicsComponent, equipmentComponent);
     }
 
     public static GameCharacter createKnight(int playerId) {
@@ -81,5 +89,49 @@ public class CharacterFactory {
 
     private static StatComponent createStatComponentFromFetchedStats(int playerId) {
         return new DBConnector().fetchStats(playerId);
+    }
+
+    private static EquipmentComponent createMockEquipmentComponentForMage() {
+        ItemInfo helmInfo = new ItemInfo("Helm of the Fallen", "\nDefense: +5\nResist: +2%", items[5][1]);
+        ItemInfo mainHandInfo = new ItemInfo("Dagger of Destruction", "\nMagic Attack: 12-17\nCrit chance: +5%", items[0][8]);
+        ItemInfo offHandInfo = new ItemInfo("Swampy didgeridoo", "\nStamina: +20\nHP regen: +1%", items[0][9]);
+        ItemInfo chestInfo = new ItemInfo("Armor of the Champions", "\nDefense: +10\nResist: +5%", items[2][1]);
+        ItemInfo glovesInfo = new ItemInfo("Mystic Gloves", "\nDefense: +3\nResist: +1%", items[1][1]);
+        ItemInfo bootsInfo = new ItemInfo("Ak'heia boots", "\nDefense: +5\nResist: +0%\nSpeed: +5%", items[4][1]);
+        ItemInfo legsInfo = new ItemInfo("Yirog's sleeves", "\nDefense: +1\nResist: +10%\nImmune to ice damage", items[6][6]);
+
+        Item helm = new Item(helmInfo);
+        Item mainHand = new Item(mainHandInfo);
+        Item offHand = new Item(offHandInfo);
+        Item chest = null; //new Item(chestInfo);
+        Item gloves = new Item(glovesInfo);
+        Item boots = new Item(bootsInfo);
+        Item legs = null; //new Item(legsInfo);
+
+        ItemSet itemSet = new ItemSet(helm, mainHand, offHand, chest, gloves, boots, legs);
+
+        return new EquipmentComponent(itemSet);
+    }
+
+    private static EquipmentComponent createMockEquipmentComponentForKnight() {
+        ItemInfo helmInfo = new ItemInfo("Steel helm of Agony", "\nDefense: +30\nResist: +5%\nImmune to stun effects", items[1][0]);
+        ItemInfo mainHandInfo = new ItemInfo("Conqueror", "\nAttack: 30-32\nParry rate: +1%", items[4][8]);
+        ItemInfo offHandInfo = new ItemInfo("Molten Hellscreamer", "\nFiery damage: +10%\nStrength: +15", items[3][12]);
+        ItemInfo chestInfo = new ItemInfo("Ephemeral cuirass", "\nDefense: +0\nResist: +10%\nAbsorb chance: 2%", items[6][2]);
+        ItemInfo glovesInfo = new ItemInfo("Sunholders", "\nDefense: +1\nFire Resist: +15%", items[5][0]);
+        ItemInfo bootsInfo = new ItemInfo("Blaze runners", "\nDefense: +1\nFire Resist: +5%\nCan walk on fire", items[3][3]);
+        ItemInfo legsInfo = new ItemInfo("Bone-enchanted leggings", "\nCan't be targeted by\nunholy magic", items[1][5]);
+
+        Item helm = new Item(helmInfo);
+        Item mainHand = null; //new Item(mainHandInfo);
+        Item offHand = new Item(offHandInfo);
+        Item chest = new Item(chestInfo);
+        Item gloves = null; //new Item(glovesInfo);
+        Item boots = new Item(bootsInfo);
+        Item legs = new Item(legsInfo);
+
+        ItemSet itemSet = new ItemSet(helm, mainHand, offHand, chest, gloves, boots, legs);
+
+        return new EquipmentComponent(itemSet);
     }
 }

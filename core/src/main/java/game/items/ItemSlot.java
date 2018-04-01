@@ -16,27 +16,25 @@ import main.java.game.constants.TexturePaths;
 @AllArgsConstructor
 public class ItemSlot extends Actor {
 
-    @Getter @Setter
+    @Getter
     private Item item;
     @Setter
     private boolean hovered;
     private final int ITEM_SLOT_WIDTH = 50;
     private final int ITEM_SLOT_HEIGHT = 50;
 
+    private int x, y;
+
+    @Setter
     private ShapeRenderer sr;
 
-    public ItemSlot(int x, int y, Item item, ShapeRenderer sr) {
-        this.sr = sr;
+
+
+    public ItemSlot(int x, int y) {
         hovered = false;
-        this.setPosition(x, y);
+        this.x = x;
+        this.y = y;
         this.setBounds(x, y, ITEM_SLOT_WIDTH, ITEM_SLOT_HEIGHT);
-
-        this.item = item;
-
-        if (item != null) {
-            item.setPosition(x, y);
-            item.setBounds(x, y, ITEM_SLOT_WIDTH, ITEM_SLOT_HEIGHT);
-        }
 
         this.addListener(new InputListener() {
             @Override
@@ -52,6 +50,15 @@ public class ItemSlot extends Actor {
         Gdx.gl.glLineWidth(2);
 
     }
+
+    public void setItem(Item item) {
+        this.item = item;
+        if (item != null) {
+            item.setPosition(x, y);
+            item.setBounds(x, y, ITEM_SLOT_WIDTH, ITEM_SLOT_HEIGHT);
+        }
+    }
+
 
     @Override
     public void draw(Batch batch, float parentAlpha) {

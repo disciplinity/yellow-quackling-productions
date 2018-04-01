@@ -27,9 +27,13 @@ public class GameCharacter extends Actor {
     public static GameCharacter currentlyChosen = null;
 
     public GameCharacter(StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent) {
+        this.setSize(graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());
         this.statComponent = statComponent;
         this.graphicsComponent = graphicsComponent;
         this.equipmentComponent = equipmentComponent;
+
+        this.addListener(graphicsComponent.getTouchListener(this));
+
     }
 
     public GameCharacter(StatComponent statComponent, GraphicsComponent graphicsComponent) {

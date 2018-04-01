@@ -17,14 +17,13 @@ import lombok.Setter;
 import main.java.game.actors.GameCharacter;
 import main.java.game.constants.TexturePaths;
 
-@AllArgsConstructor
 @Data
+@AllArgsConstructor
 public class Item extends Actor {
 
     private ItemInfo itemInfo;
     private boolean hovered;
 
-    @Setter
     private ItemSlot is;
     private ShapeRenderer sr;
 
@@ -32,9 +31,8 @@ public class Item extends Actor {
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     private BitmapFont font12;
 
-    public Item(ItemInfo itemInfo, ShapeRenderer sr) {
+    public Item(ItemInfo itemInfo) {
 
-        this.sr = sr;
         this.itemInfo = itemInfo;
 
         hovered = false;
@@ -57,6 +55,8 @@ public class Item extends Actor {
             }
         });
     }
+
+
 
     @Override
     public void draw(Batch batch, float parentAlpha) {

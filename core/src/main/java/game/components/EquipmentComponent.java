@@ -1,19 +1,15 @@
 package main.java.game.components;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import main.java.game.items.Item;
+import lombok.*;
+import main.java.game.items.ItemSet;
 
 @Data
-@AllArgsConstructor
+@ToString
 public class EquipmentComponent {
-    private Item helm;
-    private Item chest;
-    private Item legs;
-    private Item gloves;
-    private Item boots;
-    private Item mainHand;
-    private Item offHand;
+    private ItemSet itemSet;
 
+    public EquipmentComponent(ItemSet itemSet) {
+        this.itemSet = itemSet;
+    }
 }
 
