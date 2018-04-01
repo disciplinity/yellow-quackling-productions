@@ -21,28 +21,23 @@ import main.java.game.constants.TexturePaths;
 @Data
 public class Item extends Actor {
 
-    private String name;
-    private String description;
-    private Texture texture;
+    private ItemInfo itemInfo;
     private boolean hovered;
 
     @Setter
     private ItemSlot is;
-    private TextureRegion txr;
     private ShapeRenderer sr;
 
     private FreeTypeFontGenerator generator;
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     private BitmapFont font12;
 
-    public Item(String name, String description, TextureRegion txr) {
-        this.name = name;
-        this.description = description;
-        this.txr = txr;
-        hovered = false;
-        texture = new Texture(TexturePaths.LEONARDO);
-        sr = new ShapeRenderer();
+    public Item(ItemInfo itemInfo, ShapeRenderer sr) {
 
+        this.sr = sr;
+        this.itemInfo = itemInfo;
+
+        hovered = false;
         generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Raleway-Medium.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 14;
@@ -65,21 +60,23 @@ public class Item extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+
         batch.begin();
-        batch.draw(txr, is.getX(), is.getY(), is.getWidth(), is.getHeight());
+        batch.draw(itemInfo.getTxr(), is.getX(), is.getY(), is.getWidth(), is.getHeight());
         batch.end();
+
         if (hovered) {
             drawTextBox();
             writeTextToTextBox(batch);
         }
-    }
+
+}
 
     private void drawTextBox() {
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.BLACK);
         sr.rect(getX() + 25, getY() + 60, 200, 200);
-        sr.end();
-        sr.begin(ShapeRenderer.ShapeType.Line);
+        sr.set(ShapeRenderer.ShapeType.Line);
         sr.setColor(Color.WHITE);
         sr.rect(getX() + 25, getY() + 60, 200, 200);
         sr.end();
@@ -87,8 +84,8 @@ public class Item extends Actor {
 
     private void writeTextToTextBox(Batch batch) {
         batch.begin();
-        font12.draw(batch, name, getX() + 30, getY() + 240);
-        font12.draw(batch, description, getX() + 30, getY() + 220);
+        font12.draw(batch, itemInfo.getName(), getX() + 30, getY() + 240);
+        font12.draw(batch, itemInfo.getDescription(), getX() + 30, getY() + 220);
         batch.end();
     }
 

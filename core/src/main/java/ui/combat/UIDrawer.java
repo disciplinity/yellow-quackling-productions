@@ -17,6 +17,7 @@ public class UIDrawer {
     private FreeTypeFontGenerator generator;
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     private BitmapFont font12;
+    private Texture texture = new Texture("nightsky.jpg");
 
     UIDrawer() {
         generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Raleway-Medium.ttf"));
@@ -41,9 +42,14 @@ public class UIDrawer {
 
     public void drawGrayBackground(ShapeRenderer sr) {
         sr.begin(ShapeRenderer.ShapeType.Filled);
-        sr.setColor(Color.FIREBRICK);
+        sr.setColor(Color.valueOf("2f5623"));
         sr.rect(0, 0, 1280, 230);
+        sr.rectLine(0, 230, 1280, 230, 10, Color.valueOf("e2b62f"), Color.valueOf("d63a1b"));
+//        sr.rectLine(0, 230, 1280, 230, 2, Color.valueOf("e2b62f"), Color.valueOf("d63a1b"));
+
         sr.end();
+//        batch.draw(texture, 0, 0, 1280, 230);
+
 
     }
 

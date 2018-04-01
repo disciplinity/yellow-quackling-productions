@@ -1,8 +1,12 @@
 package main.java.game.actors;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import main.java.database.DBConnector;
+import main.java.game.components.EquipmentComponent;
 import main.java.game.components.GraphicsComponent;
 import main.java.game.components.StatComponent;
+import main.java.game.items.ItemInfo;
 import main.java.game.models.combat.CombatSetup;
 
 import static main.java.game.constants.TexturePaths.ICEMAGE_IDLE_TEXTURE;
@@ -49,6 +53,9 @@ public class CharacterFactory {
     }
 
     public static GameCharacter createMockIceMage() {
+
+        TextureRegion[][] items = new GraphicsComponent("items.png", 13, 7, 476, 246, 13).getTextureRegions();
+
 
         GraphicsComponent graphicsComponent = new GraphicsComponent(ICEMAGE_IDLE_TEXTURE,
                 10, 1, 220, 200, 10);
