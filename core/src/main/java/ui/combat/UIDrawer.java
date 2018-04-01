@@ -17,7 +17,6 @@ public class UIDrawer {
     private FreeTypeFontGenerator generator;
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     private BitmapFont font12;
-    private Texture texture = new Texture("nightsky.jpg");
 
     UIDrawer() {
         generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Raleway-Medium.ttf"));
