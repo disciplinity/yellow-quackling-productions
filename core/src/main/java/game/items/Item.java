@@ -2,6 +2,7 @@ package main.java.game.items;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -38,8 +39,6 @@ public class Item extends Actor {
         hovered = false;
         generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Raleway-Medium.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 14;
-        font12 = generator.generateFont(parameter);
 
         this.addListener(new InputListener() {
             @Override
@@ -73,19 +72,44 @@ public class Item extends Actor {
 }
 
     private void drawTextBox() {
+        // Main frame
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         sr.begin(ShapeRenderer.ShapeType.Filled);
-        sr.setColor(Color.BLACK);
-        sr.rect(getX() + 25, getY() + 60, 200, 200);
+        sr.setColor(0.788f, 0.69f, 0.478f, 0.8f);
+        sr.rect(getX() + 25, getY() + 60, 300, 200);
+
+        // Now draw border for it
         sr.set(ShapeRenderer.ShapeType.Line);
-        sr.setColor(Color.WHITE);
-        sr.rect(getX() + 25, getY() + 60, 200, 200);
+        sr.setColor(Color.valueOf("51310f"));
+        sr.rect(getX() + 25, getY() + 60, 300, 200);
         sr.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
     private void writeTextToTextBox(Batch batch) {
         batch.begin();
+
+        // Name of the item
+        parameter.size = 16;
+        parameter.color = Color.FOREST;
+        parameter.borderWidth = 3;
+        parameter.borderColor = Color.BLACK;
+
+
+        font12 = generator.generateFont(parameter);
         font12.draw(batch, itemInfo.getName(), getX() + 30, getY() + 240);
+
+        // Description of the item
+        parameter.size = 15;
+        parameter.color = Color.valueOf("e06328");
+        parameter.borderWidth = 2;
+
+        parameter.shadowColor = Color.valueOf("682708");
+
+        font12 = generator.generateFont(parameter);
         font12.draw(batch, itemInfo.getDescription(), getX() + 30, getY() + 220);
+
         batch.end();
     }
 

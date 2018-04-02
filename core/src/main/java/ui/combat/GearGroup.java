@@ -1,6 +1,7 @@
 package main.java.ui.combat;
 
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -43,12 +44,21 @@ public class GearGroup extends Group {
 
         batch.end();
 
-            for (ItemSlot itemSlot : itemSlots) {
-                itemSlot.draw(batch, parentAlpha);
-            }
+        drawBorderAroundLeonardo();
+        for (ItemSlot itemSlot : itemSlots) {
+            itemSlot.draw(batch, parentAlpha);
+        }
 
         batch.begin();
 
+
+    }
+
+    private void drawBorderAroundLeonardo() {
+        sr.begin(ShapeRenderer.ShapeType.Line);
+        sr.setColor(Color.BLACK);
+        sr.rect(15, 15, 250, 200);
+        sr.end();
     }
 
     private void createItemSlots() {

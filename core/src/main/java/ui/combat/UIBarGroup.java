@@ -1,6 +1,7 @@
 package main.java.ui.combat;
 
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -34,6 +35,7 @@ public class UIBarGroup extends Group {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 //        drawer.drawGrayBackground(batch);
+
         batch.end();
         drawer.drawGrayBackground(shapeRenderer);
         batch.begin();
@@ -44,6 +46,7 @@ public class UIBarGroup extends Group {
         if (friendlyCharacterIsChosen()) {
             drawer.drawStats(batch);
             gearGroup.draw(batch, parentAlpha);
+
         }
     }
 

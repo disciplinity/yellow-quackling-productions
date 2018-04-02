@@ -114,7 +114,7 @@ public class CharacterFactory {
     }
 
     private static EquipmentComponent createMockEquipmentComponentForKnight() {
-        ItemInfo helmInfo = new ItemInfo("Steel helm of Agony", "\nDefense: +30\nResist: +5%\nImmune to stun effects", items[1][0]);
+        ItemInfo helmInfo = new ItemInfo("Steel helm of Percevalt", "\nDefense: +30\nResist: +5%\nImmune to stun effects", items[1][0]);
         ItemInfo mainHandInfo = new ItemInfo("Conqueror", "\nAttack: 30-32\nParry rate: +1%", items[4][8]);
         ItemInfo offHandInfo = new ItemInfo("Molten Hellscreamer", "\nFiery damage: +10%\nStrength: +15", items[3][12]);
         ItemInfo chestInfo = new ItemInfo("Ephemeral cuirass", "\nDefense: +0\nResist: +10%\nAbsorb chance: 2%", items[6][2]);
