@@ -1,4 +1,4 @@
-package main.java.network.kryonet.server;
+package network.kryonet.server;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -12,10 +12,9 @@ import javax.swing.JLabel;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import main.java.network.kryonet.register.NetworkRegister;
-import main.java.network.kryonet.register.NetworkRegister.UpdateNames;
+import network.kryonet.register.NetworkRegister;
 import com.esotericsoftware.minlog.Log;
-import main.java.network.kryonet.register.NetworkRegister.*;
+import network.kryonet.register.NetworkRegister.*;
 
 public class GameServer {
     Server server;

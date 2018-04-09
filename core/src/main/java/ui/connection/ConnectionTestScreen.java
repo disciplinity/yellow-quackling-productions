@@ -1,4 +1,4 @@
-package main.java.ui.connection;
+package ui.connection;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -7,8 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import main.java.game.MyGdxGame;
-import main.java.network.kryonet.client.GameClient;
+import game.MyGdxGame;
+import network.kryonet.client.GameClient;
 
 public class ConnectionTestScreen implements Screen{
     private MyGdxGame game;

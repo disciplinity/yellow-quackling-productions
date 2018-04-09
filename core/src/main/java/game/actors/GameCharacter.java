@@ -1,11 +1,11 @@
-package main.java.game.actors;
+package game.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import lombok.ToString;
-import main.java.game.components.EquipmentComponent;
-import main.java.game.components.StatComponent;
-import main.java.game.components.GraphicsComponent;
+import game.components.EquipmentComponent;
+import game.components.StatComponent;
+import game.components.GraphicsComponent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -1,13 +1,13 @@
-package main.java.network.kryonet.client;
+package network.kryonet.client;
 
 import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import main.java.game.MyGdxGame;
-import main.java.game.models.combat.CombatSetup;
-import main.java.network.kryonet.register.NetworkRegister;
-import main.java.network.kryonet.register.NetworkRegister.EnterRoomWithSetup;
+import game.MyGdxGame;
+import game.models.combat.CombatSetup;
+import network.kryonet.register.NetworkRegister;
+import network.kryonet.register.NetworkRegister.EnterRoomWithSetup;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package main.java.game.screens;
+package game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -8,8 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import main.java.game.MyGdxGame;
-import main.java.ui.menu.ButtonCreator;
+import game.MyGdxGame;
+import ui.menu.ButtonCreator;
 
 public class RegistrationScreen implements Screen {
     private static final int BUTTON_WIDTH = 280;

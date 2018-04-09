@@ -1,15 +1,12 @@
-package main.java.ui.combat;
+package ui.combat;
 
-
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import main.java.game.actors.GameCharacter;
-import main.java.game.components.GraphicsComponent;
+import game.actors.GameCharacter;
+import game.components.GraphicsComponent;
 
 public class UIBarGroup extends Group {
 

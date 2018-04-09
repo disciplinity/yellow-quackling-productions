@@ -1,4 +1,4 @@
-package main.java.game.items;
+package game.items;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import lombok.AllArgsConstructor;

@@ -1,19 +1,16 @@
-package main.java.game;
+package game;
 
-import main.java.game.models.combat.BattleStageGroup;
+import game.models.combat.BattleStageGroup;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import lombok.Getter;
-import main.java.game.models.combat.CombatSetup;
-import main.java.game.screens.CombatScreen;
-import main.java.game.screens.StartMenuScreen;
+import game.models.combat.CombatSetup;
+import game.screens.CombatScreen;
 
-import static main.java.game.actors.CharacterFactory.createCombatGroupMock1;
-import static main.java.game.actors.CharacterFactory.createCombatGroupMock2;
+import static game.actors.CharacterFactory.createCombatGroupMock1;
+import static game.actors.CharacterFactory.createCombatGroupMock2;
 
-//import static game.actors.CharacterFactory.createCombatGroupExample1;
-//import static game.actors.CharacterFactory.createCombatGroupExample2;
 
 // TODO: NOW IT'S JUST A MODEL FOR SPRITE BATCH :D
 public class MyGdxGame extends Game {

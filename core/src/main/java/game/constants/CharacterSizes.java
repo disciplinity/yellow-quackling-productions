@@ -1,4 +1,4 @@
-package main.java.game.constants;
+package game.constants;
 
 public class CharacterSizes {
 

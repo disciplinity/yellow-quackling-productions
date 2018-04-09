@@ -1,8 +1,8 @@
-package main.java.game.models.combat;
+package game.models.combat;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import main.java.game.actors.GameCharacter;
+import game.actors.GameCharacter;
 import lombok.Getter;
 
 import java.util.List;

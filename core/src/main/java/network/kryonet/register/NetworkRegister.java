@@ -1,4 +1,4 @@
-package main.java.network.kryonet.register;
+package network.kryonet.register;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;

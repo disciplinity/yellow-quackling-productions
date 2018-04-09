@@ -1,4 +1,4 @@
-package main.java.game.components;
+package game.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -6,12 +6,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import main.java.game.actors.GameCharacter;
+import game.actors.GameCharacter;
 import lombok.Data;
 import lombok.Getter;
-import main.java.ui.combat.GearGroup;
+import ui.combat.GearGroup;
 
 @Data
 public class GraphicsComponent {

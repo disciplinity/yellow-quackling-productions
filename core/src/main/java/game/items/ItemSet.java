@@ -1,11 +1,9 @@
-package main.java.game.items;
+package game.items;
 
 import lombok.Data;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Data
 public class ItemSet {

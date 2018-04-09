@@ -1,7 +1,7 @@
-package main.java.game.screens;
+package game.screens;
 
 
-import main.java.ui.combat.UIBarGroup;
+import ui.combat.UIBarGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -9,12 +9,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import main.java.game.MyGdxGame;
+import game.MyGdxGame;
 import lombok.Getter;
 import lombok.Setter;
-import main.java.game.models.combat.BattleStageGroup;
+import game.models.combat.BattleStageGroup;
 
-import static main.java.game.constants.TexturePaths.FAIRY_FOREST_TEXTURE;
+import static game.constants.TexturePaths.FAIRY_FOREST_TEXTURE;
 
 public class CombatScreen implements Screen {
 

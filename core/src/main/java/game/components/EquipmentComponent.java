@@ -1,7 +1,7 @@
-package main.java.game.components;
+package game.components;
 
 import lombok.*;
-import main.java.game.items.ItemSet;
+import game.items.ItemSet;
 
 @Data
 @ToString

@@ -1,4 +1,4 @@
-package main.java.game.components;
+package game.components;
 
 public class SpellBookComponent {
 }

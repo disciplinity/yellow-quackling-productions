@@ -1,6 +1,6 @@
-package main.java.game.models.combat;
+package game.models.combat;
 
-import main.java.game.actors.GameCharacter;
+import game.actors.GameCharacter;
 import lombok.Getter;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package main.java.ui.combat;
+package ui.combat;
 
 
 import com.badlogic.gdx.graphics.Color;
@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import main.java.game.actors.GameCharacter;
-import main.java.game.components.EquipmentComponent;
-import main.java.game.components.GraphicsComponent;
-import main.java.game.constants.TexturePaths;
-import main.java.game.items.Item;
-import main.java.game.items.ItemSlot;
+import game.actors.GameCharacter;
+import game.components.EquipmentComponent;
+import game.components.GraphicsComponent;
+import game.constants.TexturePaths;
+import game.items.Item;
+import game.items.ItemSlot;
 import java.util.List;
 
 

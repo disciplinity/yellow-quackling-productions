@@ -1,4 +1,4 @@
-package main.java.game.constants;
+package game.constants;
 
 public class TexturePaths {
     public static final String ICEMAGE_IDLE_TEXTURE = "heroes/icemage/mage_idle.png";

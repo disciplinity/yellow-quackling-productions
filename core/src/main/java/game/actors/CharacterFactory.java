@@ -1,18 +1,17 @@
-package main.java.game.actors;
+package game.actors;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import main.java.database.DBConnector;
-import main.java.game.components.EquipmentComponent;
-import main.java.game.components.GraphicsComponent;
-import main.java.game.components.StatComponent;
-import main.java.game.items.Item;
-import main.java.game.items.ItemInfo;
-import main.java.game.items.ItemSet;
-import main.java.game.models.combat.CombatSetup;
+import database.DBConnector;
+import game.components.EquipmentComponent;
+import game.components.GraphicsComponent;
+import game.components.StatComponent;
+import game.items.Item;
+import game.items.ItemInfo;
+import game.items.ItemSet;
+import game.models.combat.CombatSetup;
 
-import static main.java.game.constants.TexturePaths.ICEMAGE_IDLE_TEXTURE;
-import static main.java.game.constants.TexturePaths.KNIGHT_IDLE_TEXTURE;
+import static game.constants.TexturePaths.ICEMAGE_IDLE_TEXTURE;
+import static game.constants.TexturePaths.KNIGHT_IDLE_TEXTURE;
 
 public class CharacterFactory {
 

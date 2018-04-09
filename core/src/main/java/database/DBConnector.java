@@ -1,7 +1,7 @@
-package main.java.database;
+package database;
 
 import main.java.database.model.HeroSetup;
-import main.java.game.components.StatComponent;
+import game.components.StatComponent;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
