@@ -29,14 +29,14 @@ public class SpellGroup extends Group {
 
     private void createSpellSlots() {
         spellSlots[0] = new SpellSlot(900, 140, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
-        spellSlots[1] = new SpellSlot(952, 140, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
-        spellSlots[2] = new SpellSlot(1004, 140, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
-        spellSlots[3] = new SpellSlot(900, 88, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
-        spellSlots[4] = new SpellSlot(952, 88, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
-        spellSlots[5] = new SpellSlot(1004, 88, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
-        spellSlots[6] = new SpellSlot(900, 36, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
-        spellSlots[7] = new SpellSlot(952, 36, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
-        spellSlots[8] = new SpellSlot(1004, 36, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
+        spellSlots[1] = new SpellSlot(950, 140, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
+        spellSlots[2] = new SpellSlot(1000, 140, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
+        spellSlots[3] = new SpellSlot(900, 90, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
+        spellSlots[4] = new SpellSlot(950, 90, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
+        spellSlots[5] = new SpellSlot(1000, 90, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
+        spellSlots[6] = new SpellSlot(900, 40, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
+        spellSlots[7] = new SpellSlot(950, 40, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
+        spellSlots[8] = new SpellSlot(1000, 40, SPELL_SLOT_WIDTH, SPELL_SLOT_HEIGHT);
 
         for (Slot spellSlot : spellSlots) {
             spellSlot.setSr(sr); // we are reusing our current shaperenderer, because it's an expensive object
