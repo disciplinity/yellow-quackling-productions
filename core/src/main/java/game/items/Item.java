@@ -56,7 +56,7 @@ public class Item extends Actor {
     public void draw(Batch batch, float parentAlpha) {
 
         batch.begin();
-        batch.draw(itemInfo.getTxr(), is.getX(), is.getY(), is.getWidth(), is.getHeight());
+        batch.draw(itemInfo.getTxr(), is.getX() + 1, is.getY() + 1, is.getWidth() - 2, is.getHeight() - 2);
         batch.end();
 
         if (hovered) {

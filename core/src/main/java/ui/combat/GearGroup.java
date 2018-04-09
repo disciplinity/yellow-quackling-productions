@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import game.actors.GameCharacter;
+import game.actors.Slot;
 import game.components.EquipmentComponent;
 import game.components.GraphicsComponent;
 import game.constants.TexturePaths;
@@ -20,11 +21,13 @@ public class GearGroup extends Group {
 
     private Texture leonardo;
     private TextureRegion[][] items;
-    private static ItemSlot[] itemSlots;
-    private final int TOTAL_ITEM_SLOTS = 7;
+    private static Slot[] itemSlots;
     private static ShapeRenderer sr;
 
     private static GearGroup reference;
+    private final int ITEM_SLOT_WIDTH = 50;
+    private final int ITEM_SLOT_HEIGHT = 50;
+    private final int TOTAL_ITEM_SLOTS = 7;
 
 
     public GearGroup(ShapeRenderer sr) {
@@ -45,7 +48,7 @@ public class GearGroup extends Group {
         batch.end();
 
         drawBorderAroundLeonardo();
-        for (ItemSlot itemSlot : itemSlots) {
+        for (Slot itemSlot : itemSlots) {
             itemSlot.draw(batch, parentAlpha);
         }
 
@@ -62,14 +65,14 @@ public class GearGroup extends Group {
     }
 
     private void createItemSlots() {
-        itemSlots[0] = new ItemSlot(115, 150); // helm
-        itemSlots[1] = new ItemSlot(50, 130); // main
-        itemSlots[2] = new ItemSlot(180, 130); // off
-        itemSlots[3] = new ItemSlot(115, 85); // chest
-        itemSlots[4] = new ItemSlot(50, 20); // gloves
-        itemSlots[5] = new ItemSlot(180, 20); // boots
-        itemSlots[6] = new ItemSlot(115, 20); // legs
-        for (ItemSlot itemSlot : itemSlots) {
+        itemSlots[0] = new ItemSlot(115, 150, ITEM_SLOT_WIDTH, ITEM_SLOT_HEIGHT); // helm
+        itemSlots[1] = new ItemSlot(50, 130, ITEM_SLOT_WIDTH, ITEM_SLOT_HEIGHT); // main
+        itemSlots[2] = new ItemSlot(180, 130, ITEM_SLOT_WIDTH, ITEM_SLOT_HEIGHT); // off
+        itemSlots[3] = new ItemSlot(115, 85, ITEM_SLOT_WIDTH, ITEM_SLOT_HEIGHT); // chest
+        itemSlots[4] = new ItemSlot(50, 20, ITEM_SLOT_WIDTH, ITEM_SLOT_HEIGHT); // gloves
+        itemSlots[5] = new ItemSlot(180, 20, ITEM_SLOT_WIDTH, ITEM_SLOT_HEIGHT); // boots
+        itemSlots[6] = new ItemSlot(115, 20, ITEM_SLOT_WIDTH, ITEM_SLOT_HEIGHT); // legs
+        for (Slot itemSlot : itemSlots) {
             itemSlot.setSr(sr); // we are reusing our current shaperenderer, because it's an expensive object
             this.addActor(itemSlot);
         }
@@ -85,18 +88,18 @@ public class GearGroup extends Group {
         EquipmentComponent ec = GameCharacter.currentlyChosen.getEquipmentComponent();
         List<Item> items = ec.getItemSet().getAllItems();
         int c = 0;
-        for (ItemSlot is : itemSlots) {
+        for (Slot is : itemSlots) {
             Item item = items.get(c);
-            if (is.getItem() != null && is.getItem() != item ) {
-                reference.removeActor(is.getItem());
+            if (is.getActorOnThisSlot() != null && is.getActorOnThisSlot() != item ) {
+                reference.removeActor(is.getActorOnThisSlot());
             }
 
             if (item != null) {
-                item.setIs(is);
+                item.setIs((ItemSlot) is);
                 item.setSr(sr);
                 reference.addActor(item);
             }
-            is.setItem(item);
+            is.setActorOnThisSlot(item);
             c++;
         }
     }

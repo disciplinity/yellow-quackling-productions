@@ -14,6 +14,7 @@ public class UIBarGroup extends Group {
     private Texture cardTexture;
     private TextureRegion[][] elements;
     private GearGroup gearGroup;
+    private SpellGroup spellGroup;
     private UIDrawer drawer;
 
     public UIBarGroup() {
@@ -26,6 +27,10 @@ public class UIBarGroup extends Group {
 
         gearGroup = new GearGroup(shapeRenderer);
         this.addActor(gearGroup);
+
+        spellGroup = new SpellGroup(shapeRenderer);
+        this.addActor(spellGroup);
+
     }
 
 
@@ -43,6 +48,7 @@ public class UIBarGroup extends Group {
         if (friendlyCharacterIsChosen()) {
             drawer.drawStats(batch);
             gearGroup.draw(batch, parentAlpha);
+            spellGroup.draw(batch, parentAlpha);
 
         }
     }
