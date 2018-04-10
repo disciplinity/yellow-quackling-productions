@@ -11,6 +11,7 @@ import game.actors.GameCharacter;
 import lombok.Data;
 import lombok.Getter;
 import ui.combat.GearGroup;
+import ui.combat.SpellGroup;
 
 @Data
 public class GraphicsComponent {
@@ -54,7 +55,12 @@ public class GraphicsComponent {
             public void clicked(InputEvent event, float x, float y) {
                 // TODO: Some set method for this (in controller/view of combat screen of course)
                 GameCharacter.currentlyChosen = reference;
+                if (SpellBookComponent.currentSpellChosen != null) {
+                    SpellBookComponent.currentSpellChosen.setClicked(false);
+                }
+                SpellBookComponent.currentSpellChosen = null;
                 GearGroup.fillItemSlots();
+                SpellGroup.fillSpellSlots();
             }
         };
     }

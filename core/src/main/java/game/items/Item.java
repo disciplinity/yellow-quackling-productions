@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import game.utils.FontGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -22,18 +23,13 @@ public class Item extends Actor {
 
     private ItemSlot is;
     private ShapeRenderer sr;
-
-    private FreeTypeFontGenerator generator;
-    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    private BitmapFont font12;
+    private FontGenerator fontGenerator;
 
     public Item(ItemInfo itemInfo) {
 
         this.itemInfo = itemInfo;
-
         hovered = false;
-        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Raleway-Medium.ttf"));
-        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
 
         this.addListener(new InputListener() {
             @Override
@@ -86,24 +82,24 @@ public class Item extends Actor {
         batch.begin();
 
         // Name of the item
-        parameter.size = 16;
-        parameter.color = Color.FOREST;
-        parameter.borderWidth = 3;
-        parameter.borderColor = Color.BLACK;
+        fontGenerator.getParameter().size = 16;
+        fontGenerator.getParameter().color = Color.FOREST;
+        fontGenerator.getParameter().borderWidth = 3;
+        fontGenerator.getParameter().borderColor = Color.BLACK;
 
 
-        font12 = generator.generateFont(parameter);
-        font12.draw(batch, itemInfo.getName(), getX() + 30, getY() + 240);
+        fontGenerator.setFont12(fontGenerator.getGenerator().generateFont(fontGenerator.getParameter()));
+        fontGenerator.getFont12().draw(batch, itemInfo.getName(), getX() + 30, getY() + 240);
 
         // Description of the item
-        parameter.size = 15;
-        parameter.color = Color.valueOf("e06328");
-        parameter.borderWidth = 2;
+        fontGenerator.getParameter().size = 15;
+        fontGenerator.getParameter().color = Color.valueOf("e06328");
+        fontGenerator.getParameter().borderWidth = 2;
 
-        parameter.shadowColor = Color.valueOf("682708");
+        fontGenerator.getParameter().shadowColor = Color.valueOf("682708");
 
-        font12 = generator.generateFont(parameter);
-        font12.draw(batch, itemInfo.getDescription(), getX() + 30, getY() + 220);
+        fontGenerator.setFont12(fontGenerator.getGenerator().generateFont(fontGenerator.getParameter()));
+        fontGenerator.getFont12().draw(batch, itemInfo.getDescription(), getX() + 30, getY() + 220);
 
         batch.end();
     }

@@ -3,13 +3,29 @@ package game.spells;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import game.actors.Slot;
+import game.components.SpellBookComponent;
 
 public class SpellSlot extends Slot {
 
 
     public SpellSlot(int x, int y, int width, int height) {
         super(x, y, width, height);
+
+        this.addListener(new ClickListener() {
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (SpellBookComponent.currentSpellChosen != null) {
+                    SpellBookComponent.currentSpellChosen.setClicked(false);
+                    SpellBookComponent.currentSpellChosen = null;
+                }
+            }
+        });
+
     }
 
     @Override

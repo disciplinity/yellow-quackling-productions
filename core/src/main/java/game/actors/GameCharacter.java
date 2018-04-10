@@ -2,6 +2,8 @@ package game.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import game.components.SpellBookComponent;
+import game.spells.Spell;
 import lombok.ToString;
 import game.components.EquipmentComponent;
 import game.components.StatComponent;
@@ -22,9 +24,21 @@ public class GameCharacter extends Actor {
     private StatComponent statComponent;
     @Getter
     private GraphicsComponent graphicsComponent;
-
+    @Getter
+    private SpellBookComponent spellBookComponent;
 
     public static GameCharacter currentlyChosen = null;
+
+    public GameCharacter(StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent, SpellBookComponent spellBookComponent) {
+        this.setSize(graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());
+        this.statComponent = statComponent;
+        this.graphicsComponent = graphicsComponent;
+        this.equipmentComponent = equipmentComponent;
+        this.spellBookComponent = spellBookComponent;
+
+        this.addListener(graphicsComponent.getTouchListener(this));
+
+    }
 
     public GameCharacter(StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent) {
         this.setSize(graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());

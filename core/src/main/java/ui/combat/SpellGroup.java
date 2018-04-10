@@ -2,10 +2,17 @@ package ui.combat;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import game.actors.GameCharacter;
 import game.actors.Slot;
+import game.components.GraphicsComponent;
+import game.components.SpellBookComponent;
+import game.spells.Spell;
 import game.spells.SpellSlot;
+
+import java.util.List;
 
 public class SpellGroup extends Group {
 
@@ -15,14 +22,18 @@ public class SpellGroup extends Group {
     private final int SPELL_SLOT_HEIGHT = 50;
     @SuppressWarnings("FieldCanBeLocal")
     private final int SPELL_SLOT_AMOUNT = 9;
+    private TextureRegion[][] spells;
 
-    private Slot[] spellSlots;
-    private ShapeRenderer sr;
+    private static Slot[] spellSlots;
+    private static SpellGroup reference;
+    private static ShapeRenderer sr;
 
     public SpellGroup(ShapeRenderer sr) {
         spellSlots = new SpellSlot[SPELL_SLOT_AMOUNT];
         this.sr = sr;
-//        Gdx.gl.glLineWidth(2);
+        reference = this;
+        spells = new GraphicsComponent("spells.png", 15, 11, 736, 539, 15).getTextureRegions();
+
 
         createSpellSlots();
     }
@@ -52,5 +63,29 @@ public class SpellGroup extends Group {
             spellSlot.draw(batch, parentAlpha);
         }
         batch.begin();
+    }
+
+    public static void fillSpellSlots() {
+
+        if (GameCharacter.currentlyChosen.getGraphicsComponent().isOpponent()) return;
+        if (GameCharacter.currentlyChosen.getSpellBookComponent() == null) return;
+
+        SpellBookComponent sc = GameCharacter.currentlyChosen.getSpellBookComponent();
+        List<Spell> items = sc.getSpellSet().getAllSpells();
+        int c = 0;
+        for (Slot spellSlot : spellSlots) {
+            Spell spell = items.get(c);
+            if (spellSlot.getActorOnThisSlot() != null && spellSlot.getActorOnThisSlot() != spell ) {
+                reference.removeActor(spellSlot.getActorOnThisSlot());
+            }
+
+            if (spell != null) {
+                spell.setSpellSlot((SpellSlot) spellSlot);
+                spell.setSr(sr);
+                reference.addActor(spell);
+            }
+            spellSlot.setActorOnThisSlot(spell);
+            c++;
+        }
     }
 }
