@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -28,10 +29,13 @@ public class Spell extends Actor {
     private boolean clicked;
 
     private Spell reference;
+    ParticleEffect pe;
+
 
     public Spell(SpellInfo spellInfo) {
         this.spellInfo = spellInfo;
         this.reference = this;
+
 
         this.addListener(new InputListener() {
             @Override
@@ -72,8 +76,10 @@ public class Spell extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-
+//        pe.update(Gdx.graphics.getDeltaTime());
+//        pe.setPosition(prev, Gdx.graphics.getHeight() / 2);
         batch.begin();
+//        pe.draw(batch);
         batch.draw(spellInfo.getTxr(), spellSlot.getX() + 1, spellSlot.getY() + 1, spellSlot.getWidth() - 2, spellSlot.getHeight() - 2);
         batch.end();
 
@@ -83,17 +89,19 @@ public class Spell extends Actor {
         }
 
         if (clicked) {
-            sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.setColor(Color.GREEN);
-            sr.rect(getX() + 2, getY() + 2, 46, 46);
-            sr.end();
-            Gdx.gl.glDisable(GL20.GL_BLEND);
+            drawBorderAroundSpell();
         }
+
+
 
     }
 
     private void drawBorderAroundSpell() {
-
+        sr.begin(ShapeRenderer.ShapeType.Line);
+        sr.setColor(Color.GREEN);
+        sr.rect(getX() + 2, getY() + 2, 46, 46);
+        sr.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
     private void drawTextBox() {
@@ -116,24 +124,24 @@ public class Spell extends Actor {
         batch.begin();
 
         // Name of the item
-        fontGenerator.getParameter().size = 16;
-        fontGenerator.getParameter().color = Color.FOREST;
-        fontGenerator.getParameter().borderWidth = 3;
-        fontGenerator.getParameter().borderColor = Color.BLACK;
+        fontGenerator.parameter.size = 16;
+        fontGenerator.parameter.color = Color.FOREST;
+        fontGenerator.parameter.borderWidth = 3;
+        fontGenerator.parameter.borderColor = Color.BLACK;
 
 
-        fontGenerator.setFont12(fontGenerator.getGenerator().generateFont(fontGenerator.getParameter()));
-        fontGenerator.getFont12().draw(batch, spellInfo.getName(), getX() + 30, getY() + 240);
+        fontGenerator.font12 = fontGenerator.getGenerator().generateFont(fontGenerator.getParameter());
+        fontGenerator.font12.draw(batch, spellInfo.getName(), getX() + 30, getY() + 240);
 
         // Description of the item
-        fontGenerator.getParameter().size = 15;
-        fontGenerator.getParameter().color = Color.valueOf("e06328");
-        fontGenerator.getParameter().borderWidth = 2;
+        fontGenerator.parameter.size = 15;
+        fontGenerator.parameter.color = Color.valueOf("e06328");
+        fontGenerator.parameter.borderWidth = 2;
 
-        fontGenerator.getParameter().shadowColor = Color.valueOf("682708");
+        fontGenerator.parameter.shadowColor = Color.valueOf("682708");
 
-        fontGenerator.setFont12(fontGenerator.getGenerator().generateFont(fontGenerator.getParameter()));
-        fontGenerator.getFont12().draw(batch, spellInfo.getDescription(), getX() + 30, getY() + 220);
+        fontGenerator.font12 = fontGenerator.getGenerator().generateFont(fontGenerator.getParameter());
+        fontGenerator.font12.draw(batch, spellInfo.getDescription(), getX() + 30, getY() + 220);
 
         batch.end();
     }

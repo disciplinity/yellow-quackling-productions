@@ -54,13 +54,27 @@ public class GraphicsComponent {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // TODO: Some set method for this (in controller/view of combat screen of course)
+                GameCharacter whoClicked = GameCharacter.currentlyChosen;
                 GameCharacter.currentlyChosen = reference;
                 if (SpellBookComponent.currentSpellChosen != null) {
+                    System.out.println("A");
                     SpellBookComponent.currentSpellChosen.setClicked(false);
+                    if (reference.getGraphicsComponent().isOpponent) {
+                        System.out.println("B");
+                        whoClicked.setSpellStartX(whoClicked.getX() + whoClicked.getWidth());
+                        whoClicked.setSpellVelocityX(whoClicked.getSpellStartX());
+                        whoClicked.setSpellEndX(reference.getX() + reference.getWidth());
+                        whoClicked.setSpellStartY(whoClicked.getY() + whoClicked.getHeight() / 4);
+                        whoClicked.setSpellVelocityY(whoClicked.getSpellStartY());
+                        whoClicked.setSpellEndY(reference.getY() + reference.getHeight() / 4);
+                        whoClicked.setCastingSpell(true);
+
+                    }
                 }
                 SpellBookComponent.currentSpellChosen = null;
                 GearGroup.fillItemSlots();
                 SpellGroup.fillSpellSlots();
+
             }
         };
     }

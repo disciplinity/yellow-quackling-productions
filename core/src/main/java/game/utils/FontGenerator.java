@@ -8,9 +8,9 @@ import lombok.Data;
 @Data
 public class FontGenerator {
 
-    private FreeTypeFontGenerator generator;
-    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    private BitmapFont font12;
+    public FreeTypeFontGenerator generator;
+    public FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+    public BitmapFont font12;
 
     public FontGenerator(String fontPath) {
         this.generator = new FreeTypeFontGenerator(Gdx.files.internal(fontPath));

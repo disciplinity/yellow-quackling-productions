@@ -1,10 +1,12 @@
 package game.actors;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import game.components.SpellBookComponent;
-import game.spells.Spell;
-import lombok.ToString;
+import lombok.Setter;
 import game.components.EquipmentComponent;
 import game.components.StatComponent;
 import game.components.GraphicsComponent;
@@ -28,6 +30,26 @@ public class GameCharacter extends Actor {
     private SpellBookComponent spellBookComponent;
 
     public static GameCharacter currentlyChosen = null;
+    private ParticleEffect pe = new ParticleEffect();
+    @Setter @Getter
+    private boolean isCastingSpell = false;
+    @Setter @Getter
+    private float spellStartX;
+    @Setter @Getter
+    private float spellStartY;
+    @Setter
+    private float spellVelocityX;
+    @Setter
+    private float spellVelocityY;
+    @Setter @Getter
+    private float spellEndX;
+    @Setter @Getter
+    private float spellEndY;
+    private boolean started = false;
+
+    private Sound fireBallSound;
+
+
 
     public GameCharacter(StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent, SpellBookComponent spellBookComponent) {
         this.setSize(graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());
@@ -36,7 +58,18 @@ public class GameCharacter extends Actor {
         this.equipmentComponent = equipmentComponent;
         this.spellBookComponent = spellBookComponent;
 
+        this.spellStartX = getX() + getWidth();
+        this.spellStartY = getY() + (getHeight() / 2) + 210;
+        spellVelocityX = spellStartX;
+        spellVelocityY = spellStartY;
+
+        fireBallSound = Gdx.audio.newSound(Gdx.files.internal("sounds/fireball_sound.wav"));
+
+        pe.load(Gdx.files.internal("particles/fireball_particle"), Gdx.files.internal(""));
+
+
         this.addListener(graphicsComponent.getTouchListener(this));
+
 
     }
 
@@ -61,7 +94,44 @@ public class GameCharacter extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        batch.end();
+
+
+
+        batch.begin();
+
+        if (isCastingSpell) {
+            castSpell(batch);
+
+        }
         graphicsComponent.draw(batch, parentAlpha, getX(), getY(), getWidth(), getHeight());
     }
+
+    public void castSpell(Batch batch) {
+        if (!started) {
+            started = true;
+            pe.getEmitters().first().setPosition(spellStartX, spellStartY);
+            pe.start();
+            fireBallSound.play(1.0f);
+        }
+        pe.update(Gdx.graphics.getDeltaTime());
+        pe.setPosition(spellVelocityX, spellVelocityY);
+
+        pe.draw(batch);
+        if (spellVelocityX >= spellEndX) {
+            pe.reset();
+            isCastingSpell = false;
+            spellVelocityX = spellStartX;
+            spellVelocityY = spellStartY;
+            started = false;
+        }
+
+        spellVelocityX += 15;
+        spellVelocityY += (spellEndY - spellStartY) / 50;
+
+    }
+
+
+
 
 }
