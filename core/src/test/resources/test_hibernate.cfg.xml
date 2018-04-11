@@ -25,7 +25,7 @@
         <!-- Set the current session context -->
         <property name="current_session_context_class">thread</property>
 
-        <mapping class="database.entity.Entity"/>
+        <mapping class="network.database.entity.Entity"/>
     </session-factory>
 
 </hibernate-configuration>

@@ -1,7 +1,6 @@
 package game.actors;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import database.DBConnector;
 import game.components.EquipmentComponent;
 import game.components.GraphicsComponent;
 import game.components.SpellBookComponent;
@@ -39,27 +38,35 @@ public class CharacterFactory {
     }
 
     public static CombatSetup createCombatGroupExample2() {
-        // TODO: should be DBConnector.fetchCombatSetup(playerId) -> model to store heroId at slot 1, 2 & 3 with it's stats OR do 3 different request to the DB server
-        GameCharacter a1 = createKnight(0); // if 2nd variant(3 diff request to DBserver):
+        // TODO: should be DBConnector.fetchCombatSetup(playerId) -> entity to store heroId at slot 1, 2 & 3 with it's stats OR do 3 different request to the DB server
+        GameCharacter a1 = createKnight(new StatComponent(12, 32, 23)); // if 2nd variant(3 diff request to DBserver):
         //                                  createHero(playerId); and method decides which hero to create either it should be mage or knight
-        GameCharacter a2 = createKnight(0);
-        GameCharacter a3 = createIceMage(1);
+        GameCharacter a2 = createKnight(new StatComponent(12, 23, 34));
+        GameCharacter a3 = createIceMage(new StatComponent(43, 32, 21));
         return new CombatSetup(a1, a2, a3);
     }
 
     //TODO: MOAAAR COMPONENTS! BETTER CONSTRUCTORS!!! VOTE KALJULAID!
-    // Here argument should be already fetched stats, because they should be fetched for 3 heroes at once from the database
+    // Here argument should be already fetched stats, because they should be fetched for 3 heroes at once from the network.database
     // TODO: Flow should be the following:
-    // TODO: 1. Fetch data of the pack of 3 combat heroes of the player within his/her id from the database
+    // TODO: 1. Fetch data of the pack of 3 combat heroes of the player within his/her id from the network.database
     // TODO: 2. Send data to the method that determines which hero should be created and create it with proper stats.
     // To do this db should fetch data to some object, that could store variable for hero id (1 for mage, 2 for knight etc.)
-    //and be able to connect this id to stats (so hero id and it's stats in one model, in this case our created StatComponent doesn't fit)
-    public static GameCharacter createIceMage(int playerId) {
+    //and be able to connect this id to stats (so hero id and it's stats in one entity, in this case our created StatComponent doesn't fit)
+    public static GameCharacter createIceMage(StatComponent stats) {
 
         GraphicsComponent graphicsComponent = new GraphicsComponent(ICEMAGE_IDLE_TEXTURE,
                 10, 1, 220, 200, 10);
 
-        return new GameCharacter(createStatComponentFromFetchedStats(playerId), graphicsComponent);
+        return new GameCharacter(stats, graphicsComponent);
+    }
+
+    public static GameCharacter createKnight(StatComponent stats) {
+
+        GraphicsComponent graphicsComponent = new GraphicsComponent(KNIGHT_IDLE_TEXTURE,
+                6, 1, 146, 102, 6);
+
+        return new GameCharacter(stats, graphicsComponent);
     }
 
     public static GameCharacter createMockIceMage() {
@@ -83,18 +90,6 @@ public class CharacterFactory {
         SpellBookComponent spellBookComponent = createMockSpellBookComponentForKnight();
 
         return new GameCharacter(new StatComponent(12, 22, 16), graphicsComponent, equipmentComponent, spellBookComponent);
-    }
-
-    public static GameCharacter createKnight(int playerId) {
-
-        GraphicsComponent graphicsComponent = new GraphicsComponent(KNIGHT_IDLE_TEXTURE,
-                6, 1, 146, 102, 6);
-
-        return new GameCharacter(new StatComponent(10, 10, 10), graphicsComponent);
-    }
-
-    private static StatComponent createStatComponentFromFetchedStats(int playerId) {
-        return new DBConnector().fetchStats(playerId);
     }
 
     private static EquipmentComponent createMockEquipmentComponentForMage() {
