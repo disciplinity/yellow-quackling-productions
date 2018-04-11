@@ -1,6 +1,6 @@
-package database;
+package network.database;
 
-import database.entity.QueryResultConstructorTest;
+import network.database.entity.QueryResultConstructorTest;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

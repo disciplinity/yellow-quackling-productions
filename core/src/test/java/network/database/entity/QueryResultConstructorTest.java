@@ -1,4 +1,4 @@
-package database.entity;
+package network.database.entity;
 
 import lombok.ToString;
 

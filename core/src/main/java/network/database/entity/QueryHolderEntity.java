@@ -1,11 +1,11 @@
-package main.java.database.model;
+package network.database.entity;
 
 import lombok.Data;
 
 import javax.persistence.*;
 
 /**
- * This Entity is just Annotation holder. It is never used as is. I suppose there is no other solution, so it exists.
+ * This Entity is just Annotation holder. It is never used as Object. I suppose there is no other solution, so it exists.
  */
 @NamedNativeQueries({
         @NamedNativeQuery(name = "HeroCombatQuery", query = "SELECT HC.name, S.intelligence, S.strength, S.agility " +
@@ -22,7 +22,7 @@ import javax.persistence.*;
         @SqlResultSetMapping(
                 name = "HeroSetupMapping",
                 classes = @ConstructorResult(
-                        targetClass = HeroSetup.class,
+                        targetClass = HeroSetupEntity.class,
                         columns = {
                                 @ColumnResult(name = "name"),
                                 @ColumnResult(name = "intelligence"),
@@ -31,7 +31,7 @@ import javax.persistence.*;
 })
 @Data
 @Entity
-public class Account {
+public class QueryHolderEntity {
 
     @Id
     @Column(name = "id", updatable = false, nullable = false)

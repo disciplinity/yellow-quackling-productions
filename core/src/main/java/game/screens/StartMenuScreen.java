@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
 import ui.menu.ButtonCreator;
-import ui.connection.ConnectionTestScreen;
 
 
 public class StartMenuScreen implements Screen {
@@ -55,7 +54,7 @@ public class StartMenuScreen implements Screen {
 
         startButton = new Texture(Gdx.files.internal("ui/start.jpg"));
         startButtonActive = new Texture(Gdx.files.internal("ui/start_active.jpg"));
-        registerButton = new Texture(Gdx.files.internal("ui/register.jpg"));
+        registerButton = new Texture(Gdx.files.internal("ui/manager.jpg"));
         exitButton = new Texture(Gdx.files.internal("ui/exit.jpg"));
 
         // create buttons
@@ -83,7 +82,7 @@ public class StartMenuScreen implements Screen {
 
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
-                game.setScreen(new ConnectionTestScreen(game));
+                game.setScreen(new ConnectionTestScreen());
                 dispose();
                 return true;
             }
