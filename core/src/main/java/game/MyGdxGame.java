@@ -2,13 +2,14 @@ package game;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.*;
-import game.actors.GameCharacter;
 import game.models.combat.BattleStageGroup;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import game.screens.StartMenuScreen;
 import lombok.Getter;
 import game.models.combat.CombatSetup;
 import game.screens.CombatScreen;
+
 
 import static game.actors.CharacterFactory.createCombatGroupMock1;
 import static game.actors.CharacterFactory.createCombatGroupMock2;
@@ -22,6 +23,7 @@ public class MyGdxGame extends Game {
     private SpriteBatch spriteBatch;
     private Music music;
     private Cursor customCursor;
+
 
 
     public void create() {
@@ -47,9 +49,9 @@ public class MyGdxGame extends Game {
         CombatSetup cso = createCombatGroupMock2();
         BattleStageGroup battleStageGroup = new BattleStageGroup("fairy-forest.jpg", cs, cso);
         ////////// ::::DANGER ZONE:::::
+        this.setScreen(new StartMenuScreen(this));
 
-        this.setScreen(new CombatScreen(this, battleStageGroup));
-//        this.setScreen(new StartMenuScreen(this));
+//        this.setScreen(new CombatScreen(this, battleStageGroup));
     }
 
 

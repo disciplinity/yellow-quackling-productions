@@ -10,8 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
+import game.models.combat.BattleStageGroup;
+import game.models.combat.CombatSetup;
 import ui.menu.ButtonCreator;
 import ui.connection.ConnectionTestScreen;
+
+import static game.actors.CharacterFactory.createCombatGroupMock1;
+import static game.actors.CharacterFactory.createCombatGroupMock2;
 
 
 public class StartMenuScreen implements Screen {
@@ -83,7 +88,13 @@ public class StartMenuScreen implements Screen {
 
             @Override
             public boolean touchDown(InputEvent inputEvent, float x, float y, int pointer, int button) {
-                game.setScreen(new ConnectionTestScreen(game));
+                ////////// ::::DANGER ZONE:::::
+                CombatSetup cs = createCombatGroupMock1();
+                CombatSetup cso = createCombatGroupMock2();
+                BattleStageGroup battleStageGroup = new BattleStageGroup("fairy-forest.jpg", cs, cso);
+                ////////// ::::DANGER ZONE:::::
+//                game.setScreen(new ConnectionTestScreen(game));
+                game.setScreen(new CombatScreen(game, battleStageGroup));
                 dispose();
                 return true;
             }
