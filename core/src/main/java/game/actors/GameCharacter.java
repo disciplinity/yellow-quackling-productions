@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import game.components.SpellBookComponent;
+import game.models.combat.HealthBar;
 import lombok.Setter;
 import game.components.EquipmentComponent;
 import game.components.StatComponent;
@@ -29,6 +31,9 @@ public class GameCharacter extends Actor {
     @Getter
     private SpellBookComponent spellBookComponent;
 
+    @Getter
+    private HealthBar healthBar;
+
     public static GameCharacter currentlyChosen = null;
     private ParticleEffect pe = new ParticleEffect();
     @Setter @Getter
@@ -48,10 +53,13 @@ public class GameCharacter extends Actor {
     private boolean started = false;
 
     private Sound fireBallSound;
+    private static ShapeRenderer commonShapeRenderer = new ShapeRenderer();
 
 
 
     public GameCharacter(StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent, SpellBookComponent spellBookComponent) {
+
+        hp = 100;
         this.setSize(graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());
         this.statComponent = statComponent;
         this.graphicsComponent = graphicsComponent;
@@ -69,6 +77,7 @@ public class GameCharacter extends Actor {
 
 
         this.addListener(graphicsComponent.getTouchListener(this));
+        this.healthBar = new HealthBar(commonShapeRenderer, getX(), getY() + getHeight() + 15);
 
 
     }
@@ -96,6 +105,7 @@ public class GameCharacter extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         batch.end();
 
+        healthBar.draw(batch, parentAlpha);
 
 
         batch.begin();

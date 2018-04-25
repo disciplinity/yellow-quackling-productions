@@ -49,7 +49,6 @@ public class UIBarGroup extends Group {
             drawer.drawStats(batch);
             gearGroup.draw(batch, parentAlpha);
             spellGroup.draw(batch, parentAlpha);
-
         }
     }
 

@@ -71,6 +71,7 @@ public class BattleStageGroup extends Group {
             actor.getGraphicsComponent().setBounds(actor);
             characterSlots[i].putActor(actor);
             this.addActor(actor);
+            this.addActor(actor.getHealthBar());
         }
     }
 
