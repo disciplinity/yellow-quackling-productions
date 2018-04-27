@@ -49,24 +49,26 @@ public class GameServer {
                 if (object instanceof NetworkManager.CheckCredentialRequest) {
                     NetworkManager.CheckCredentialRequest credentials = (NetworkManager.CheckCredentialRequest) object;
 
+
+                    Log.debug("[Log] GOT CHECK CREDS.");
                     NetworkManager.SessionTokenResponse response = new NetworkManager.SessionTokenResponse();
                     System.out.println(credentials.getUsername());
                     AccountEntity acc = fetchUserCredentials(credentials.getUsername(), HibernateSessionFactory.getSessionFactory());
 
                     if (acc == null) {
-                        Log.trace("[Log] Wrong Username.");
+                        Log.error("[Log] Wrong Username.");
                         response.setUserToken(null);  // OR STRING CODE VALUE?
+                        server.sendToTCP(connection.getID(), response);
                         return;
                     }
                     if (!credentials.getPassword().equals(acc.getPwd())) {
                         System.err.println("Wrong Password");
-                        Log.trace("[Log] Wrong Password.");
+                        Log.error("[Log] Wrong Password.");
                         response.setUserToken(null);  // OR STRING CODE VALUE?
                         server.sendToTCP(connection.getID(), response);
                     } else {
                         System.err.println("OK");
-                        Log.trace("[Log trace] OK.");
-                        Log.info("[Log info] OK.");
+                        Log.error("[Log trace] OK.");
                         loggedIn.put(connection.userToken, acc.getId());
                         response.setUserToken(connection.userToken);
                         server.sendToTCP(connection.getID(), response);

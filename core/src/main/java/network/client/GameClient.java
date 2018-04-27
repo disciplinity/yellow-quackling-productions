@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import game.MyGdxGame;
+import game.screens.ConnectionTestScreen;
 import network.manager.NetworkManager.*;
 import network.manager.NetworkManager;
 
@@ -17,7 +18,7 @@ public class GameClient {
     String userToken;
 
     // TODO: Think about merging this class with main game class (or leave it as it is, because here is where client connection is managed)
-    public GameClient() {
+    public GameClient() throws IOException {
         client = new Client();
         client.start();
         game = MyGdxGame.getInstance();
@@ -36,6 +37,7 @@ public class GameClient {
                     SessionTokenResponse response = (SessionTokenResponse) object;
                     if (response.getUserToken() == null) {
                         System.err.println("Wrong Password");
+                        ((ConnectionTestScreen) MyGdxGame.getInstance().getCurrentScreen()).setAlert("Wrong Password or Username");
                         return;
                     }
                     userToken = response.getUserToken();
@@ -49,13 +51,14 @@ public class GameClient {
             }
         });
 
-        try {
-            client.connect(5000, host, NetworkManager.port);
-            // Server communication after connection can go here, or in Listener#connected().
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(1);
-        }
+        client.connect(5000, host, NetworkManager.port);
+//        try {
+//
+//            // Server communication after connection can go here, or in Listener#connected().
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//            System.exit(1);
+//        }
     }
 
     public void sendCredentials(String username, String password) {

@@ -31,6 +31,9 @@ public class MyGdxGame extends Game {
     @Setter
     private GameClient client;
 
+    @Getter
+    private Screen currentScreen;
+
     public static class MyGdxGameHolder {
         static final MyGdxGame HOLDER_INSTANCE = new MyGdxGame();
     }
@@ -60,10 +63,11 @@ public class MyGdxGame extends Game {
         ////////// ::::DANGER ZONE:::::
 
 //        this.setScreen(new CombatScreen(this, battleStageGroup));
-        this.setScreen(new ConnectionTestScreen());
+        currentScreen = new ConnectionTestScreen();
+        this.setScreen(currentScreen);
+
 //        this.setScreen(new StartMenuScreen(this));
     }
-
 
     public void resize(int width, int height) {
     }
