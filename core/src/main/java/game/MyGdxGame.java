@@ -12,6 +12,7 @@ import game.models.combat.CombatSetup;
 import lombok.Setter;
 import network.client.GameClient;
 
+
 import static game.actors.CharacterFactory.createCombatGroupMock1;
 import static game.actors.CharacterFactory.createCombatGroupMock2;
 
