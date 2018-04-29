@@ -3,6 +3,9 @@ package network.manager;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import lombok.Data;
+import network.database.entity.HeroSetupEntity;
+
+import java.util.ArrayList;
 
 /**
  * This class is a convenient place to keep things common(e.g. protocols) to both the client and server.
@@ -18,6 +21,11 @@ public class NetworkManager {
         Kryo kryo = endPoint.getKryo();
         kryo.register(CheckCredentialRequest.class);
         kryo.register(SessionTokenResponse.class);
+        kryo.register(JoinBattleRequest.class);
+        kryo.register(PlayerCombatInfo.class);
+        kryo.register(HeroSetupEntity.class);
+        kryo.register(ArrayList.class);
+        kryo.register(BeginBattleResponse.class);
     }
 
     /* Protocols: */
@@ -64,6 +72,7 @@ public class NetworkManager {
      */
     @Data
     static public class DealDamageRequest {
+        private String dealerUserToken;
         private int dealerSlotId;
         private int targetSlotId;
         private int castedSpellId;

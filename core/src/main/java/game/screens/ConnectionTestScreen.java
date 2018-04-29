@@ -4,14 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
-import network.client.GameClient;
-
-import java.io.IOException;
 
 public class ConnectionTestScreen implements Screen{
     private Stage stage;
@@ -20,10 +16,10 @@ public class ConnectionTestScreen implements Screen{
     private Table table;
     private Label nameLabel;
     private Label passLabel;
-    private TextField nameField;
-    private TextField passField;
-    private TextButton connectButton;
     private Label alertField;
+    TextField nameField;
+    TextField passField;
+    TextButton connectButton;
 
 
     public ConnectionTestScreen() {
@@ -55,21 +51,7 @@ public class ConnectionTestScreen implements Screen{
         connectButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                if (!connectButton.isDisabled()) {
-                    try {
-                        setAlert("Connecting...");
-//                        connectButton.setDisabled(true);
-                        connectButton.setTouchable(Touchable.disabled);
-                        // TODO: connect here?
-                        GameClient client = new GameClient();
-                        MyGdxGame.getInstance().setClient(client);
-                        client.sendCredentials(nameField.getText(), passField.getText());
-                    } catch (IOException e) {
-                        setAlert("No connection to the server");
-//                        connectButton.setDisabled(false);
-                        connectButton.setTouchable(Touchable.enabled);
-                    }
-//                }
+                ScreenController.authorize();
             }
         });
     }
@@ -96,7 +78,7 @@ public class ConnectionTestScreen implements Screen{
      * Set alert message according to the request (bad login/password)
      * @param message alert message
      */
-    public void setAlert(String message) {
+    void setAlert(String message) {
         alertField.setText(message);
     }
 

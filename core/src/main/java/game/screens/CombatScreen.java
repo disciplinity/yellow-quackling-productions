@@ -29,8 +29,8 @@ public class CombatScreen implements Screen {
     private InputMultiplexer inputMultiplexer;
 
     // TODO: May be pass something else but BattleStageGroup?
-    public CombatScreen(MyGdxGame game, BattleStageGroup battleStageGroup) {
-        this.game = game;
+    public CombatScreen(BattleStageGroup battleStageGroup) {
+        this.game = MyGdxGame.getInstance();
         this.spriteBatch = this.game.getSpriteBatch();
 
         // create stages
