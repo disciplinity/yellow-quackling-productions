@@ -16,4 +16,10 @@ public class CombatSetup {
         combatSetup.add(hero2);
     }
 
+    public CombatSetup(GameCharacter[] heroes) {
+        combatSetup.add(heroes[0]);
+        combatSetup.add(heroes[1]);
+        combatSetup.add(heroes[2]);
+    }
+
 }

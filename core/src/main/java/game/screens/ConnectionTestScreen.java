@@ -8,81 +8,79 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
-import network.client.GameClient;
 
 public class ConnectionTestScreen implements Screen{
-    private MyGdxGame game;
     private Stage stage;
     private Skin skin;
 
     private Table table;
     private Label nameLabel;
     private Label passLabel;
-    private TextField nameField;
-    private TextField passField;
-    private TextButton connectButton;
+    private Label alertField;
+    TextField nameField;
+    TextField passField;
+    TextButton connectButton;
 
-//    private TextButton heroPackOneButton;
-//    private TextButton heroPackTwoButton;
-
-//    private String chosenCombatSetupId;
 
     public ConnectionTestScreen() {
-        this.game = MyGdxGame.getInstance();
-
-        skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-        stage = new Stage(new ScreenViewport());
-
         drawTestConnectionMenu();
 
-        // InputMultiplexer im = new InputMultiplexer(stage); excessive
-        Gdx.input.setInputProcessor(stage); // in case multiplexer is needed it is passed as an arg here
+        Gdx.input.setInputProcessor(stage);
     }
 
-    private void drawTestConnectionMenu() {
+    /**
+     * Initialize elements to draw on the screen.
+     */
+    private void initMenuElements() {
+        skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        stage = new Stage(new ScreenViewport());
         table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
 
-        nameField = new TextField("", skin);
+        alertField = new Label("", skin);
+        nameField = new TextField("Jaro", skin);
         nameLabel = new Label("Username:", skin);
-        passField = new TextField("localhost", skin);
+        passField = new TextField("secret", skin);
         passLabel = new Label("Password:", skin);
         connectButton = new TextButton("Connect", skin);
 
-
-        /* LEGACY */
-//        heroPackOneButton = new TextButton("Hero pack one", skin);
-//        heroPackTwoButton = new TextButton("Hero pack two", skin);
-//        ButtonGroup<TextButton> buttonGroup = new ButtonGroup<>(heroPackOneButton, heroPackTwoButton);
-//        buttonGroup.setMaxCheckCount(1);
-//        buttonGroup.setMinCheckCount(0);
-//        buttonGroup.setUncheckLast(true);
-
+        /*
+         * Connect to a server with entered credentials to a server.
+         */
         connectButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameClient client = new GameClient();
-                MyGdxGame.getInstance().setClient(client);
-                client.sendCredentials(nameField.getMessageText() , passField.getMessageText());
+                ScreenController.authorize();
             }
         });
+    }
+
+    /**
+     * Draw initialized items.
+     */
+    private void drawTestConnectionMenu() {
+        initMenuElements();
 
         table.defaults().uniform().space(10).width(100);
+        table.add(alertField);
+        table.row();
         table.add(nameLabel);
         table.add(nameField);
         table.row();
         table.add(passLabel);
         table.add(passField);
-//        table.row();
-//        table.add(heroPackOneButton).colspan(2);
-//        table.row();
-//        table.add(heroPackTwoButton).colspan(2);
         table.row();
         table.add(connectButton).colspan(2);
     }
 
-
+    /**
+     * Set alert message according to the request (bad login/password)
+     * @param message alert message
+     */
+    void setAlert(String message) {
+        alertField.setText(message);
+    }
 
 
     @Override

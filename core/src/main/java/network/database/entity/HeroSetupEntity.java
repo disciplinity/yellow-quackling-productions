@@ -9,6 +9,8 @@ public class HeroSetupEntity {
     private int strength;
     private int agility;
 
+    public HeroSetupEntity() {}
+
     public HeroSetupEntity(String heroName, int intelligence, int strength, int agility) {
         this.heroName = heroName;
         this.intelligence = intelligence;

@@ -13,6 +13,9 @@ import game.spells.Spell;
 import game.spells.SpellInfo;
 import game.spells.SpellSet;
 import game.utils.FontGenerator;
+import network.database.entity.HeroSetupEntity;
+
+import java.util.List;
 
 import static game.constants.TexturePaths.ICEMAGE_IDLE_TEXTURE;
 import static game.constants.TexturePaths.KNIGHT_IDLE_TEXTURE;
@@ -37,6 +40,7 @@ public class CharacterFactory {
         return new CombatSetup(a1, a2, a3);
     }
 
+
     public static CombatSetup createCombatGroupExample2() {
         // TODO: should be DBConnector.fetchCombatSetup(playerId) -> entity to store heroId at slot 1, 2 & 3 with it's stats OR do 3 different request to the DB server
         GameCharacter a1 = createKnight(new StatComponent(12, 32, 23)); // if 2nd variant(3 diff request to DBserver):
@@ -44,6 +48,25 @@ public class CharacterFactory {
         GameCharacter a2 = createKnight(new StatComponent(12, 23, 34));
         GameCharacter a3 = createIceMage(new StatComponent(43, 32, 21));
         return new CombatSetup(a1, a2, a3);
+    }
+
+    public static CombatSetup createCombatSetupFrom(List<HeroSetupEntity> heroes) {
+        GameCharacter[] chars = new GameCharacter[3];
+        for (int i = 0; i < heroes.size(); i++) {
+            HeroSetupEntity hero = heroes.get(i);
+            String name = hero.getHeroName();
+            StatComponent stats = new StatComponent(hero.getIntelligence(), hero.getStrength(), hero.getAgility());
+            if (name.equals("Warrior")) {
+                chars[i] = createKnight(stats);
+            }
+            if (name.equals("Archer")) {
+                chars[i] = createKnight(stats);
+            }
+            if (name.equals("Mage")) {
+                chars[i] = createIceMage(stats);
+            }
+        }
+        return new CombatSetup(chars);
     }
 
     //TODO: MOAAAR COMPONENTS! BETTER CONSTRUCTORS!!! VOTE KALJULAID!
@@ -58,7 +81,12 @@ public class CharacterFactory {
         GraphicsComponent graphicsComponent = new GraphicsComponent(ICEMAGE_IDLE_TEXTURE,
                 10, 1, 220, 200, 10);
 
-        return new GameCharacter(stats, graphicsComponent);
+        // TODO:
+        EquipmentComponent equipmentComponent = createMockEquipmentComponentForMage();
+        SpellBookComponent spellBookComponent = createMockSpellBookComponentForMage();
+        //
+
+        return new GameCharacter(stats, graphicsComponent, equipmentComponent, spellBookComponent);
     }
 
     public static GameCharacter createKnight(StatComponent stats) {
@@ -66,7 +94,11 @@ public class CharacterFactory {
         GraphicsComponent graphicsComponent = new GraphicsComponent(KNIGHT_IDLE_TEXTURE,
                 6, 1, 146, 102, 6);
 
-        return new GameCharacter(stats, graphicsComponent);
+        // TODO:
+        EquipmentComponent equipmentComponent = createMockEquipmentComponentForKnight();
+        SpellBookComponent spellBookComponent = createMockSpellBookComponentForKnight();
+        //
+        return new GameCharacter(stats, graphicsComponent, equipmentComponent, spellBookComponent);
     }
 
     public static GameCharacter createMockIceMage() {
@@ -205,4 +237,5 @@ public class CharacterFactory {
 
         return new SpellBookComponent(spellSet);
     }
+
 }

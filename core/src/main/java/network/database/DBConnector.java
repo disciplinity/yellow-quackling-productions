@@ -2,6 +2,7 @@ package network.database;
 
 import network.database.entity.AccountEntity;
 import network.database.entity.HeroSetupEntity;
+import network.manager.PlayerCombatInfo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -9,6 +10,7 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 public class DBConnector {
+
 
 
     public static List<HeroSetupEntity> fetchCombatSetup(int playerId, SessionFactory factory) {
@@ -38,18 +40,4 @@ public class DBConnector {
         return account;
     }
 
-    // TODO: No main, refactor
-    public static void main(String[] args) {
-
-        try (SessionFactory factory = HibernateSessionFactory.getSessionFactory()) {
-
-            List<HeroSetupEntity> results = fetchCombatSetup(2 , factory);
-
-            results.forEach((record) -> {
-                System.out.println(record.getHeroName());
-            });
-            AccountEntity acc = fetchUserCredentials("Jaro1", factory);
-            System.out.println(acc.getPwd());
-        }
-    }
 }
