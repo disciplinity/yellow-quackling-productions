@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- JDBC Database connection settings -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11225282?useSSL=false</property>
+        <property name="connection.username">sql11225282</property>
+        <property name="connection.password">VA8eNT8N2L</property>
+
+        <!-- JDBC connection pool settings ... using built-in test pool -->
+        <property name="connection.pool_size">4</property>
+
+        <!-- Select our SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- Echo the SQL to stdout -->
+        <property name="show_sql">true</property>
+
+        <!-- Set the current session context -->
+        <property name="current_session_context_class">thread</property>
+
+        <mapping class="network.database.entity.QueryHolderEntity"/>
+        <mapping class="network.database.entity.AccountEntity"/>
+        <mapping class="network.database.entity.EquipmentEntity"/>
+        <!--<mapping class="network.database.entityy.HeroSetupEntity"/>-->
+    </session-factory>
+
+</hibernate-configuration>
