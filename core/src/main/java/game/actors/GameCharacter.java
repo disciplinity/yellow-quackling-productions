@@ -18,6 +18,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class GameCharacter extends Actor {
 
+    @Setter @Getter
+    private String name;
+
     private double hp;
     private double force;
     //    private SpellBookComponent spellBookComponent;
@@ -57,8 +60,8 @@ public class GameCharacter extends Actor {
 
 
 
-    public GameCharacter(StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent, SpellBookComponent spellBookComponent) {
-
+    public GameCharacter(String name, StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent, SpellBookComponent spellBookComponent) {
+        this.name = name;
         hp = 100;
         this.setSize(graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());
         this.statComponent = statComponent;
