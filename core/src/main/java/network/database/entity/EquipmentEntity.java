@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Equipment", schema = "sql11225282", catalog = "")
+@Table(name = "Equipment", schema = "sql7237787", catalog = "")
 public class EquipmentEntity {
     private int id;
     private String helm;
