@@ -25,21 +25,15 @@ public class CharacterSetup extends Group {
     }
 
     private void setCharacterPositionOnPlatform() {
-        characterSlots[0] = new CharacterSlot(-200, -70);
-        characterSlots[1] = new CharacterSlot(-200, 150);
-        characterSlots[2] = new CharacterSlot(-200, 370);
+        characterSlots[0] = new CharacterSlot(140, -80); // new CharacterSlot(-200, -70);
+        characterSlots[1] = new CharacterSlot(140, 150); // new CharacterSlot(-200, 150);
+        characterSlots[2] = new CharacterSlot(200, 400); // new CharacterSlot(-200, 370);
     }
 
     private void spawnCharacters() {
         for (int i = 0; i < characterSlots.length; i++) {
             GameCharacter character;
-            if (i <= 1) {
-                character = characters.get(i);
-            } else {
-                character = opponentCharacters.get(i);
-                character.getGraphicsComponent().setOpponent();
-            }
-
+            character = characters.get(i);
             character.getGraphicsComponent().setPosition(character, characterSlots[i].getX(), characterSlots[i].getY());
             character.getGraphicsComponent().setBounds(character);
             characterSlots[i].putActor(character);

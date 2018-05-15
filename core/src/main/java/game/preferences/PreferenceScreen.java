@@ -1,5 +1,7 @@
 package game.preferences;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -20,6 +22,8 @@ public class PreferenceScreen implements Screen {
     private Texture background;
     private Texture platformTexture;
 
+    private InputMultiplexer inputMultiplexer;
+
     public PreferenceScreen(CharacterSetup characterSetup) {
         this.game = MyGdxGame.getInstance();
         this.spriteBatch = this.game.getSpriteBatch();
@@ -27,16 +31,17 @@ public class PreferenceScreen implements Screen {
 
         background = new Texture(START_TREE_BG);
         platformTexture = new Texture(PLATFORM);
-        createPlatforms();
 
-        // fill stage by characters
+        inputMultiplexer = new InputMultiplexer(preferenceStage);
+        createPlatforms();
+        // fill preferences stage by characters
         preferenceStage.addActor(characterSetup);
 
     }
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     @Override
@@ -52,7 +57,7 @@ public class PreferenceScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        preferenceStage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -72,7 +77,7 @@ public class PreferenceScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        preferenceStage.dispose();
     }
 
     private void createPlatforms() {
