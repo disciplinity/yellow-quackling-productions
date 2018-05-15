@@ -13,6 +13,7 @@ import javax.swing.*;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import game.models.combat.BattleStageGroup;
 import network.database.HibernateSessionFactory;
 import network.database.entity.AccountEntity;
 import network.manager.NetworkManager;
@@ -107,6 +108,13 @@ public class GameServer {
 //                    }
 //                    updateNames();
                 }
+
+                if (object instanceof NetworkManager.DealDamageRequest) {
+                    NetworkManager.DealDamageRequest request = (NetworkManager.DealDamageRequest) object;
+
+                }
+
+
             }
 
             private boolean isValid (String value) {

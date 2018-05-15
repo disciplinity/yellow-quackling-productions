@@ -36,8 +36,6 @@ public class UIBarGroup extends Group {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-//        drawer.drawGrayBackground(batch);
-
         batch.end();
         drawer.drawGrayBackground(shapeRenderer);
         batch.begin();

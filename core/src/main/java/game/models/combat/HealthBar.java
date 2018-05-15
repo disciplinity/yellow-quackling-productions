@@ -13,15 +13,17 @@ public class HealthBar extends Actor {
 
     public HealthBar(ShapeRenderer sr, float x, float y) {
         this.sr = sr;
-        this.x = x;
-        this.y = y + 230;
+        this.setX(x);
+        this.setY(y + 230);
+//        this.x = x;
+//        this.y = y + 230;
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.RED);
-        sr.rect(x , y, 100, 20);
+        sr.rect(getX(), getY(), 100, 10);
         sr.end();
     }
 }

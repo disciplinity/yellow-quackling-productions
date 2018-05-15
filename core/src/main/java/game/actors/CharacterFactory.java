@@ -52,6 +52,9 @@ public class CharacterFactory {
 
     public static CombatSetup createCombatSetupFrom(List<HeroSetupEntity> heroes) {
         GameCharacter[] chars = new GameCharacter[3];
+        for (HeroSetupEntity heroSetupEntity : heroes) {
+            System.out.println( heroSetupEntity.getHeroName() + " " + heroSetupEntity.getAgility() + " " + heroSetupEntity.getIntelligence() + " " + heroSetupEntity.getStrength());
+        }
         for (int i = 0; i < heroes.size(); i++) {
             HeroSetupEntity hero = heroes.get(i);
             String name = hero.getHeroName();

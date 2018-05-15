@@ -79,4 +79,9 @@ public class ScreenController {
                     MyGdxGame.getInstance().setScreen(new CombatScreen(new BattleStageGroup(stageName, playerCS, opponentCS)));
                 });
     }
+
+    public static void displayCombatActionResult() {
+    }
+
+
 }

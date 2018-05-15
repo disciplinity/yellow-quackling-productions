@@ -18,7 +18,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class GameCharacter extends Actor {
 
-    private double hp;
+    private double hp = 100;
     private double force;
     //    private SpellBookComponent spellBookComponent;
 
@@ -33,6 +33,9 @@ public class GameCharacter extends Actor {
 
     @Getter
     private HealthBar healthBar;
+
+    @Getter @Setter
+    private int slotId;
 
     public static GameCharacter currentlyChosen = null;
     private ParticleEffect pe = new ParticleEffect();
@@ -61,6 +64,7 @@ public class GameCharacter extends Actor {
 
         hp = 100;
         this.setSize(graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());
+        this.setBounds(getX(), getY(), graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());
         this.statComponent = statComponent;
         this.graphicsComponent = graphicsComponent;
         this.equipmentComponent = equipmentComponent;
@@ -77,7 +81,8 @@ public class GameCharacter extends Actor {
 
 
         this.addListener(graphicsComponent.getTouchListener(this));
-        this.healthBar = new HealthBar(commonShapeRenderer, getX(), getY() + getHeight() + 15);
+//        this.healthBar = new HealthBar(commonShapeRenderer, getX(), getY() + getHeight() + 15);
+//        System.out.println("Healthbar: x = " + healthBar.getX() + ", y = " + healthBar.getY());
 
 
     }
@@ -103,12 +108,12 @@ public class GameCharacter extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.end();
+//        batch.end();
 
-        healthBar.draw(batch, parentAlpha);
+//        healthBar.draw(batch, parentAlpha);
 
 
-        batch.begin();
+//        batch.begin();
 
         if (isCastingSpell) {
             castSpell(batch);
@@ -140,6 +145,10 @@ public class GameCharacter extends Actor {
         spellVelocityY += (spellEndY - spellStartY) / 50;
 
     }
+
+//    public GameCharacter getGameCharacterBySlotId(int id) {
+//
+//    }
 
 
 

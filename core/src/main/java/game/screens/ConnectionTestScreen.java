@@ -39,9 +39,9 @@ public class ConnectionTestScreen implements Screen{
         stage.addActor(table);
 
         alertField = new Label("", skin);
-        nameField = new TextField("Jaro", skin);
+        nameField = new TextField("jaroslav", skin);
         nameLabel = new Label("Username:", skin);
-        passField = new TextField("secret", skin);
+        passField = new TextField("123", skin);
         passLabel = new Label("Password:", skin);
         connectButton = new TextButton("Connect", skin);
 

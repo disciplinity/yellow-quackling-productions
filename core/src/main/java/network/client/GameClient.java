@@ -92,6 +92,11 @@ public class GameClient {
         client.sendTCP(request);
     }
 
+    public void sendDamageRequest(int dealerSlotId, int targetSlotId, int spellId, int damage) {
+        DealDamageRequest dealDamageRequest = new DealDamageRequest(dealerSlotId, targetSlotId, spellId, damage);
+        client.sendTCP(dealDamageRequest);
+    }
+
 
 
     // TODO: Drawing new info at the screen must not be here!

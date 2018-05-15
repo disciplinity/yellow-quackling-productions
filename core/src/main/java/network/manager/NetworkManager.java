@@ -2,6 +2,7 @@ package network.manager;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import network.database.entity.HeroSetupEntity;
 
@@ -71,11 +72,12 @@ public class NetworkManager {
      * Request to perform an action of dealing damage.
      */
     @Data
+    @AllArgsConstructor
     static public class DealDamageRequest {
-        private String dealerUserToken;
         private int dealerSlotId;
         private int targetSlotId;
         private int castedSpellId;
+        private int damageDealt;
     }
 
     /**

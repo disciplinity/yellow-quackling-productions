@@ -59,6 +59,7 @@ public class GraphicsComponent {
                 if (SpellBookComponent.currentSpellChosen != null) {
                     SpellBookComponent.currentSpellChosen.setClicked(false);
                     if (reference.getGraphicsComponent().isOpponent) {
+
                         whoClicked.setSpellStartX(whoClicked.getX() + whoClicked.getWidth());
                         whoClicked.setSpellVelocityX(whoClicked.getSpellStartX());
                         whoClicked.setSpellEndX(reference.getX() + reference.getWidth());

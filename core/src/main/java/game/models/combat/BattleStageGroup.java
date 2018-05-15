@@ -70,8 +70,9 @@ public class BattleStageGroup extends Group {
             actor.getGraphicsComponent().setPosition(actor, characterSlots[i].getX(), characterSlots[i].getY());
             actor.getGraphicsComponent().setBounds(actor);
             characterSlots[i].putActor(actor);
+            actor.setSlotId(i);
             this.addActor(actor);
-            this.addActor(actor.getHealthBar());
+//            this.addActor(actor.getHealthBar());
         }
     }
 
@@ -82,4 +83,23 @@ public class BattleStageGroup extends Group {
         }
     }
 
+    public static int[] getSlotCoordinatesById(int id) {
+        switch(id) {
+            case 0:
+                return new int[]{0, 230};
+            case 1:
+                return new int[]{100, 330};
+            case 2:
+                return new int[]{250, 430};
+            case 3:
+                return new int[]{1000, 250};
+            case 4:
+                return new int[]{900, 330};
+            case 5:
+                return new int[]{800, 430};
+
+            default:
+                return null;
+        }
+    }
 }
