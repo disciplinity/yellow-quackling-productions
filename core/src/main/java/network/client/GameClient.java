@@ -6,7 +6,6 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import game.MyGdxGame;
 import game.screens.ScreenController;
-import game.session.CombatSession;
 import game.session.GameSession;
 import game.spells.SpellType;
 import network.manager.NetworkManager.*;

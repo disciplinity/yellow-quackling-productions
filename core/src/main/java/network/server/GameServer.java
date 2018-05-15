@@ -148,7 +148,7 @@ public class GameServer {
     private void manageTurnsForPlayers(GameConnection con) {
         try {
             Room room = playerPool.findRoomByPlayerConnection(con);
-            if (room.isPlayersTurn(con)) {
+            if (!room.isPlayersTurn(con)) {
                 Log.error("[CHEATS!?] End Turn Request from player whose turn is finished.");
                 return;
             }
@@ -180,7 +180,7 @@ public class GameServer {
     private void processDamageRequest(GameConnection con, NetworkManager.DealDamageRequest request) {
         try {
             Room room = playerPool.findRoomByPlayerConnection(con);
-            if (room.isPlayersTurn(con)) {
+            if (!room.isPlayersTurn(con)) {
                 Log.error("[CHEATS!?] Damage Deal Request from player whose turn is finished.");
                 return;
             }
