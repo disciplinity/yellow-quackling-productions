@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
+import game.session.GameSession;
 
 public class LobbyScreen implements Screen {
     private MyGdxGame game;
@@ -18,6 +19,7 @@ public class LobbyScreen implements Screen {
     private Table table;
     private TextButton joinBattleButton;
     private Label alertField;
+    private Label setupLabel;
 
     public LobbyScreen() {
         this.game = MyGdxGame.getInstance();
@@ -37,6 +39,7 @@ public class LobbyScreen implements Screen {
         stage.addActor(table);
 
         alertField = new Label("", skin);
+        setupLabel = new Label("Your setup: " + GameSession.getInstance().getPlayerCombatSetup().getCombatSetup(), skin);
         joinBattleButton = new TextButton("Join Battle!", skin);
 
 

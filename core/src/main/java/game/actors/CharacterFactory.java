@@ -17,38 +17,11 @@ import network.database.entity.HeroSetupEntity;
 
 import java.util.List;
 
-import static game.constants.TexturePaths.ICEMAGE_IDLE_TEXTURE;
-import static game.constants.TexturePaths.KNIGHT_IDLE_TEXTURE;
-
 public class CharacterFactory {
 
     private static TextureRegion[][] items = new GraphicsComponent("items.png", 13, 7, 476, 246, 13).getTextureRegions();
     private static TextureRegion[][] spells = new GraphicsComponent("spells.png", 15, 11, 736, 539, 15).getTextureRegions();
     private static FontGenerator fontGenerator = new FontGenerator("fonts/Raleway-Medium.ttf");
-
-    public static CombatSetup createCombatGroupMock1() {
-        GameCharacter a1 = createMockIceMage();
-        GameCharacter a2 = createMockIceMage();
-        GameCharacter a3 = createMockKnight();
-        return new CombatSetup(a1, a2, a3);
-    }
-
-    public static CombatSetup createCombatGroupMock2() {
-        GameCharacter a1 = createMockKnight();
-        GameCharacter a2 = createMockIceMage();
-        GameCharacter a3 = createMockKnight();
-        return new CombatSetup(a1, a2, a3);
-    }
-
-
-    public static CombatSetup createCombatGroupExample2() {
-        // TODO: should be DBConnector.fetchCombatSetup(playerId) -> entity to store heroId at slot 1, 2 & 3 with it's stats OR do 3 different request to the DB server
-        GameCharacter a1 = createKnight(new StatComponent(12, 32, 23)); // if 2nd variant(3 diff request to DBserver):
-        //                                  createHero(playerId); and method decides which hero to create either it should be mage or knight
-        GameCharacter a2 = createKnight(new StatComponent(12, 23, 34));
-        GameCharacter a3 = createIceMage(new StatComponent(43, 32, 21));
-        return new CombatSetup(a1, a2, a3);
-    }
 
     public static CombatSetup createCombatSetupFrom(List<HeroSetupEntity> heroes) {
         GameCharacter[] chars = new GameCharacter[3];
@@ -59,73 +32,24 @@ public class CharacterFactory {
             HeroSetupEntity hero = heroes.get(i);
             String name = hero.getHeroName();
             StatComponent stats = new StatComponent(hero.getIntelligence(), hero.getStrength(), hero.getAgility());
-            if (name.equals("Warrior")) {
-                chars[i] = createKnight(stats);
-            }
-            if (name.equals("Archer")) {
-                chars[i] = createKnight(stats);
-            }
-            if (name.equals("Mage")) {
-                chars[i] = createIceMage(stats);
-            }
+            chars[i] = createChar(GameCharacterType.valueOf(name), stats);
+
         }
         return new CombatSetup(chars);
     }
 
-    //TODO: MOAAAR COMPONENTS! BETTER CONSTRUCTORS!!! VOTE KALJULAID!
-    // Here argument should be already fetched stats, because they should be fetched for 3 heroes at once from the network.database
-    // TODO: Flow should be the following:
-    // TODO: 1. Fetch data of the pack of 3 combat heroes of the player within his/her id from the network.database
-    // TODO: 2. Send data to the method that determines which hero should be created and create it with proper stats.
-    // To do this db should fetch data to some object, that could store variable for hero id (1 for mage, 2 for knight etc.)
-    //and be able to connect this id to stats (so hero id and it's stats in one entity, in this case our created StatComponent doesn't fit)
-    public static GameCharacter createIceMage(StatComponent stats) {
+    private static GameCharacter createChar(GameCharacterType type, StatComponent stats) {
 
-        GraphicsComponent graphicsComponent = new GraphicsComponent(ICEMAGE_IDLE_TEXTURE,
-                10, 1, 220, 200, 10);
+        GraphicsComponent graphicsComponent = new GraphicsComponent(type.texturePath, type.columnAmount, type.rowAmount, type.width, type.height, type.endColumn);
 
         // TODO:
         EquipmentComponent equipmentComponent = createMockEquipmentComponentForMage();
         SpellBookComponent spellBookComponent = createMockSpellBookComponentForMage();
         //
 
-        return new GameCharacter(stats, graphicsComponent, equipmentComponent, spellBookComponent);
+        return new GameCharacter(type.name, stats, graphicsComponent, equipmentComponent, spellBookComponent);
     }
 
-    public static GameCharacter createKnight(StatComponent stats) {
-
-        GraphicsComponent graphicsComponent = new GraphicsComponent(KNIGHT_IDLE_TEXTURE,
-                6, 1, 146, 102, 6);
-
-        // TODO:
-        EquipmentComponent equipmentComponent = createMockEquipmentComponentForKnight();
-        SpellBookComponent spellBookComponent = createMockSpellBookComponentForKnight();
-        //
-        return new GameCharacter(stats, graphicsComponent, equipmentComponent, spellBookComponent);
-    }
-
-    public static GameCharacter createMockIceMage() {
-
-
-        GraphicsComponent graphicsComponent = new GraphicsComponent(ICEMAGE_IDLE_TEXTURE,
-                10, 1, 220, 200, 10);
-
-        EquipmentComponent equipmentComponent = createMockEquipmentComponentForMage();
-        SpellBookComponent spellBookComponent = createMockSpellBookComponentForMage();
-
-        return new GameCharacter(new StatComponent(35, 8, 11), graphicsComponent, equipmentComponent, spellBookComponent);
-    }
-
-    public static GameCharacter createMockKnight() {
-
-        GraphicsComponent graphicsComponent = new GraphicsComponent(KNIGHT_IDLE_TEXTURE,
-                6, 1, 170, 115, 6);
-
-        EquipmentComponent equipmentComponent = createMockEquipmentComponentForKnight();
-        SpellBookComponent spellBookComponent = createMockSpellBookComponentForKnight();
-
-        return new GameCharacter(new StatComponent(12, 22, 16), graphicsComponent, equipmentComponent, spellBookComponent);
-    }
 
     private static EquipmentComponent createMockEquipmentComponentForMage() {
         ItemInfo helmInfo = new ItemInfo("Helm of the Fallen", "\nDefense: +5\nResist: +2%", items[5][1]);

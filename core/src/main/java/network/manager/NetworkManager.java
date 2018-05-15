@@ -2,7 +2,7 @@ package network.manager;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
-import lombok.AllArgsConstructor;
+import game.spells.SpellType;
 import lombok.Data;
 import network.database.entity.HeroSetupEntity;
 
@@ -27,6 +27,11 @@ public class NetworkManager {
         kryo.register(HeroSetupEntity.class);
         kryo.register(ArrayList.class);
         kryo.register(BeginBattleResponse.class);
+        kryo.register(GetCombatSetupRequest.class);
+        kryo.register(GetCombatSetupResponse.class);
+        kryo.register(DealDamageRequest.class);
+        kryo.register(DealDamageResponse.class);
+        kryo.register(SpellType.class);
     }
 
     /* Protocols: */
@@ -39,6 +44,23 @@ public class NetworkManager {
     static public class CheckCredentialRequest {
         private String username;
         private String password;
+    }
+
+    /**
+     * Request player combat setup to reuse it for drawing in lobby.
+     */
+    @Data
+    static public class GetCombatSetupRequest {
+        private String userToken;
+    }
+
+
+    /**
+     * Return this player setup.
+     */
+    @Data
+    static public class GetCombatSetupResponse {
+        private PlayerCombatInfo playerCombatInfo;
     }
 
     /**
@@ -72,12 +94,11 @@ public class NetworkManager {
      * Request to perform an action of dealing damage.
      */
     @Data
-    @AllArgsConstructor
     static public class DealDamageRequest {
+        private String userToken;
         private int dealerSlotId;
         private int targetSlotId;
-        private int castedSpellId;
-        private int damageDealt;
+        private SpellType castedSpellType;
     }
 
     /**
@@ -87,7 +108,7 @@ public class NetworkManager {
     static public class DealDamageResponse {
         private int dealerSlotId;
         private int targetSlotId;
-        private int castedSpellId;
+        private SpellType castedSpellType;
         private double dealtDamage;
     }
 

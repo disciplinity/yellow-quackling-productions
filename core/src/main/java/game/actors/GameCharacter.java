@@ -18,7 +18,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public class GameCharacter extends Actor {
 
-    private double hp = 100;
+    @Setter @Getter
+    private String name;
+
+    private double hp;
     private double force;
     //    private SpellBookComponent spellBookComponent;
 
@@ -31,10 +34,10 @@ public class GameCharacter extends Actor {
     @Getter
     private SpellBookComponent spellBookComponent;
 
-    @Getter
-    private HealthBar healthBar;
+//    @Getter
+//    private HealthBar healthBar;
 
-    @Getter @Setter
+    @Setter @Getter
     private int slotId;
 
     public static GameCharacter currentlyChosen = null;
@@ -60,11 +63,10 @@ public class GameCharacter extends Actor {
 
 
 
-    public GameCharacter(StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent, SpellBookComponent spellBookComponent) {
-
+    public GameCharacter(String name, StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent, SpellBookComponent spellBookComponent) {
+        this.name = name;
         hp = 100;
         this.setSize(graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());
-        this.setBounds(getX(), getY(), graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());
         this.statComponent = statComponent;
         this.graphicsComponent = graphicsComponent;
         this.equipmentComponent = equipmentComponent;
@@ -82,7 +84,6 @@ public class GameCharacter extends Actor {
 
         this.addListener(graphicsComponent.getTouchListener(this));
 //        this.healthBar = new HealthBar(commonShapeRenderer, getX(), getY() + getHeight() + 15);
-//        System.out.println("Healthbar: x = " + healthBar.getX() + ", y = " + healthBar.getY());
 
 
     }
@@ -92,7 +93,6 @@ public class GameCharacter extends Actor {
         this.statComponent = statComponent;
         this.graphicsComponent = graphicsComponent;
         this.equipmentComponent = equipmentComponent;
-
         this.addListener(graphicsComponent.getTouchListener(this));
 
     }
@@ -108,12 +108,12 @@ public class GameCharacter extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-//        batch.end();
+        batch.end();
 
 //        healthBar.draw(batch, parentAlpha);
 
 
-//        batch.begin();
+        batch.begin();
 
         if (isCastingSpell) {
             castSpell(batch);
@@ -145,10 +145,6 @@ public class GameCharacter extends Actor {
         spellVelocityY += (spellEndY - spellStartY) / 50;
 
     }
-
-//    public GameCharacter getGameCharacterBySlotId(int id) {
-//
-//    }
 
 
 
