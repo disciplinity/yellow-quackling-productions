@@ -2,21 +2,16 @@ package game;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.*;
-import game.actors.CharacterFactory;
 import game.models.combat.BattleStageGroup;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import game.preferences.CharacterSetup;
-import game.preferences.PreferenceScreen;
+import game.screens.ConnectionTestScreen;
 import game.screens.LobbyScreen;
-import game.screens.ScreenController;
-import game.screens.StartMenuScreen;
+import game.session.CombatSession;
 import lombok.Getter;
 import game.models.combat.CombatSetup;
 import lombok.Setter;
 import network.client.GameClient;
-import network.manager.NetworkManager;
-import network.manager.PlayerCombatInfo;
 
 
 public class MyGdxGame extends Game {
@@ -30,6 +25,10 @@ public class MyGdxGame extends Game {
     @Getter
     @Setter
     private GameClient client;
+
+    //TODO: Create a new Game class to separate graphic and game logic
+    @Getter
+    private CombatSession combatSession = new CombatSession(false);
 
 
     /**
@@ -53,22 +52,12 @@ public class MyGdxGame extends Game {
 
         customCursor = Gdx.graphics.newCursor(pixmap, 0, 5);
         Gdx.graphics.setCursor(customCursor);
-//        Pixmap pm = new Pixmap(Gdx.files.internal("cursor.png"));
-//        Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 30, 255));
-//        pm.dispose();
 
-        ////////// ::::DANGER ZONE:::::
-//        CombatSetup cs = createCombatGroupMock1();
-//        CombatSetup cso = createCombatGroupMock2();
-//        BattleStageGroup battleStageGroup = new BattleStageGroup("fairy-forest.jpg", cs, cso);
-//        this.setScreen(new CombatScreen(this, battleStageGroup));
-        ////////// ::::DANGER ZONE:::::
+        this.setScreen(new ConnectionTestScreen());
+    }
 
-        //this.setScreen(new ConnectionTestScreen());
-        //this.setScreen(new PreferenceScreen());
-
-
-        this.setScreen(new StartMenuScreen(this));
+    public void createCombatSession(boolean myTurn) {
+        combatSession = new CombatSession(myTurn);
     }
 
 //    /**
@@ -85,6 +74,11 @@ public class MyGdxGame extends Game {
         this.setScreen(new LobbyScreen());
     }
 
+    public void setBattleScreen() {
+
+//        BattleStageGroup battleStageGroup = new BattleStageGroup("fairy-forest.jpg", cs, cso);
+//        this.setScreen(new CombatScreen(this, bsg));
+    }
 
 
     public void render() {

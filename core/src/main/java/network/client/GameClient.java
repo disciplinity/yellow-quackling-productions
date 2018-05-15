@@ -4,8 +4,11 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
+import game.MyGdxGame;
 import game.screens.ScreenController;
+import game.session.CombatSession;
 import game.session.GameSession;
+import game.spells.SpellType;
 import network.manager.NetworkManager.*;
 import network.manager.NetworkManager;
 import network.manager.PlayerCombatInfo;
@@ -56,12 +59,25 @@ public class GameClient {
                     startLobby(response.getPlayerCombatInfo());
                 }
 
+                // TODO:
                 if (object instanceof BeginBattleResponse) {
                     BeginBattleResponse response = (BeginBattleResponse) object;
                     Log.debug("[DEBUG] Got Begin Battle Response.");
                     Log.debug("Halo there" + response.getPlayerCombatInfo().toString());
                     Log.debug("Halo there" + response.getOpponentCombatInfo().toString());
                     beginBattle(response.getPlayerCombatInfo(), response.getOpponentCombatInfo());
+                }
+
+                if (object instanceof DealDamageResponse) {
+                    DealDamageResponse response = (DealDamageResponse) object;
+                    MyGdxGame.getInstance().getCombatSession()
+                            .getHeroHealthAtSlot()[response.getTargetSlotId()] -= response.getDealtDamage();
+                    //TODO: Render Fireball and new health value [Jaro]
+                }
+
+                if (object instanceof PlayerTurnResponse) {
+                    PlayerTurnResponse response = (PlayerTurnResponse) object;
+                    MyGdxGame.getInstance().getCombatSession().setMyTurn(response.isYourTurn());
                 }
             }
 
@@ -78,6 +94,29 @@ public class GameClient {
 //            ex.printStackTrace();
 //            System.exit(1);
 //        }
+    }
+
+
+    // TODO: Use this, Jaro! :)
+    /**
+     *
+     * @param spellType Type from enum
+     * @param casterSlotId casterSlot [value from 0 to 2]
+     * @param targetSlotId targetSlot [value from 3 to 5]
+     */
+    private void sendDamageRequest(SpellType spellType, int casterSlotId, int targetSlotId) {
+        DealDamageRequest request = new DealDamageRequest();
+        request.setCastedSpellType(spellType);
+        request.setDealerSlotId(casterSlotId);
+        request.setTargetSlotId(targetSlotId);
+        request.setUserToken(userToken);
+        client.sendTCP(request);
+    }
+
+    // TODO: Jaro, use this one too for the button! :)
+    private void endTurn() {
+        TurnEndRequest request = new TurnEndRequest();
+        client.sendTCP(request);
     }
 
     private void startSession() {

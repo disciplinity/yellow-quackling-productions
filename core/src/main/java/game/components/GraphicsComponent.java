@@ -57,8 +57,10 @@ public class GraphicsComponent {
                 GameCharacter whoClicked = GameCharacter.currentlyChosen;
                 GameCharacter.currentlyChosen = reference;
                 if (SpellBookComponent.currentSpellChosen != null) {
+                    System.out.println("A");
                     SpellBookComponent.currentSpellChosen.setClicked(false);
                     if (reference.getGraphicsComponent().isOpponent) {
+                        System.out.println("B");
                         whoClicked.setSpellStartX(whoClicked.getX() + whoClicked.getWidth());
                         whoClicked.setSpellVelocityX(whoClicked.getSpellStartX());
                         whoClicked.setSpellEndX(reference.getX() + reference.getWidth());
@@ -66,13 +68,13 @@ public class GraphicsComponent {
                         whoClicked.setSpellVelocityY(whoClicked.getSpellStartY());
                         whoClicked.setSpellEndY(reference.getY() + reference.getHeight() / 4);
                         whoClicked.setCastingSpell(true);
-                        GameCharacter.currentlyChosen = whoClicked;
+
                     }
                 }
-
                 SpellBookComponent.currentSpellChosen = null;
                 GearGroup.fillItemSlots();
                 SpellGroup.fillSpellSlots();
+
             }
         };
     }

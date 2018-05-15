@@ -109,6 +109,10 @@ public class GameServer {
                 }
 
                 // TODO: turns
+                if (object instanceof NetworkManager.TurnEndRequest) {
+                    /* I think we don't even need loggedIn check here */
+                    manageTurnsForPlayers(connection);
+                }
             }
 
             private boolean isValid (String value) {
@@ -141,6 +145,31 @@ public class GameServer {
         frame.setVisible(true);
     }
 
+    private void manageTurnsForPlayers(GameConnection con) {
+        try {
+            Room room = playerPool.findRoomByPlayerConnection(con);
+            if (room.isPlayersTurn(con)) {
+                Log.error("[CHEATS!?] End Turn Request from player whose turn is finished.");
+                return;
+            }
+
+            NetworkManager.PlayerTurnResponse endTurnResponse = new NetworkManager.PlayerTurnResponse();
+            endTurnResponse.setYourTurn(false);
+
+            Log.debug("[Turn] Ends turn server side and then sends end turn notification to the users to rotate");
+            room.getCombatLogic().endTurn();
+            server.sendToTCP(con.getID(), endTurnResponse);
+
+
+            NetworkManager.PlayerTurnResponse startTurnResponse = new NetworkManager.PlayerTurnResponse();
+            endTurnResponse.setYourTurn(true);
+
+            server.sendToTCP(room.getOpponentConnection(con).getID(), startTurnResponse);
+        } catch (NetworkException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Find room where requesting player is.
      * Get room CombatLogicController.
@@ -151,14 +180,25 @@ public class GameServer {
     private void processDamageRequest(GameConnection con, NetworkManager.DealDamageRequest request) {
         try {
             Room room = playerPool.findRoomByPlayerConnection(con);
-            double damage = room.getCombatLogicController()
+            if (room.isPlayersTurn(con)) {
+                Log.error("[CHEATS!?] Damage Deal Request from player whose turn is finished.");
+                return;
+            }
+            double damage = room.getCombatLogic()
                     .calculateDamage(request.getCastedSpellType(), request.getDealerSlotId(), request.getTargetSlotId());
 
-            NetworkManager.DealDamageResponse response = new NetworkManager.DealDamageResponse();
-            response.setDealtDamage(damage);
-            response.setDealerSlotId(request.getDealerSlotId());
-            response.setTargetSlotId(request.getTargetSlotId());
-            server.sendToTCP(con.getID(), response);
+
+            NetworkManager.DealDamageResponse casterResponse = new NetworkManager.DealDamageResponse();
+            casterResponse.setDealtDamage(damage);
+            casterResponse.setDealerSlotId(request.getDealerSlotId());
+            casterResponse.setTargetSlotId(request.getTargetSlotId());
+            server.sendToTCP(con.getID(), casterResponse);
+
+            NetworkManager.DealDamageResponse targetResponse = new NetworkManager.DealDamageResponse();
+            targetResponse.setDealtDamage(damage);
+            targetResponse.setDealerSlotId(request.getTargetSlotId());
+            targetResponse.setTargetSlotId(request.getDealerSlotId());
+            server.sendToTCP(room.getOpponentConnection(con).getID(), targetResponse);
         } catch (NetworkException e) {
             Log.error("[Log] Not existing room.");
         }
@@ -207,6 +247,11 @@ public class GameServer {
         response.setOpponentCombatInfo(room.getSecondPlayerCombatInfo());
         Log.debug("[Log] SENDING TO 1ST PLAYER." + room.getFirstPlayerCombatInfo());
         server.sendToTCP(con1.getID(), response);
+        /* Player created room has a right for the first turn */
+        NetworkManager.PlayerTurnResponse firstTurnResponse = new NetworkManager.PlayerTurnResponse();
+        firstTurnResponse.setYourTurn(true);
+        room.getCombatLogic().setPlayerOneTurn(true);
+        server.sendToTCP(con1.getID(), firstTurnResponse);
 
         response = new NetworkManager.BeginBattleResponse();
         response.setPlayerCombatInfo(room.getSecondPlayerCombatInfo());
