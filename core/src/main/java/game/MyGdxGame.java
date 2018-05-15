@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.*;
 import game.models.combat.BattleStageGroup;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import game.preferences.CharacterSetup;
+import game.preferences.PreferenceScreen;
 import game.screens.ConnectionTestScreen;
 import game.screens.LobbyScreen;
 import lombok.Getter;
@@ -63,6 +65,8 @@ public class MyGdxGame extends Game {
         ////////// ::::DANGER ZONE:::::
 
         this.setScreen(new ConnectionTestScreen());
+        CharacterSetup characterSetup = new CharacterSetup(cs, cso);
+        this.setScreen(new PreferenceScreen(characterSetup));
 
 //        this.setScreen(new StartMenuScreen(this));
     }

@@ -15,7 +15,7 @@ import static game.constants.TexturePaths.START_TREE_BG;
 public class PreferenceScreen implements Screen {
     private MyGdxGame game;
     private SpriteBatch spriteBatch;
-    private Stage stage;
+    private Stage preferenceStage;
 
     private Texture background;
     private Texture platformTexture;
@@ -23,13 +23,14 @@ public class PreferenceScreen implements Screen {
     public PreferenceScreen(CharacterSetup characterSetup) {
         this.game = MyGdxGame.getInstance();
         this.spriteBatch = this.game.getSpriteBatch();
-        this.stage = new Stage(new ScreenViewport(), spriteBatch);
+        this.preferenceStage = new Stage(new ScreenViewport(), spriteBatch);
 
         background = new Texture(START_TREE_BG);
         platformTexture = new Texture(PLATFORM);
         createPlatforms();
 
-        stage.addActor(characterSetup);
+        // fill stage by characters
+        preferenceStage.addActor(characterSetup);
 
     }
 
@@ -44,8 +45,9 @@ public class PreferenceScreen implements Screen {
         spriteBatch.draw(background, 0, 0);
         spriteBatch.end();
 
-        stage.draw();
-        stage.act();
+        preferenceStage.act();
+        preferenceStage.draw();
+
     }
 
     @Override
@@ -77,7 +79,7 @@ public class PreferenceScreen implements Screen {
         for (int i = 0; i < 3; i++) {
             Platform platform = new Platform();
             platform.setPosition(-200, -70 + i * 220);
-            stage.addActor(platform);
+            preferenceStage.addActor(platform);
         }
     }
 
