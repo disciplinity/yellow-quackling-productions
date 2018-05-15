@@ -151,14 +151,25 @@ public class GameServer {
     private void processDamageRequest(GameConnection con, NetworkManager.DealDamageRequest request) {
         try {
             Room room = playerPool.findRoomByPlayerConnection(con);
-            double damage = room.getCombatLogicController()
+            if (room.isPlayersTurn(con)) {
+                Log.error("[CHEATS!?] Damage Deal Request from player whose turn is finished.");
+                return;
+            }
+            double damage = room.getCombatLogic()
                     .calculateDamage(request.getCastedSpellType(), request.getDealerSlotId(), request.getTargetSlotId());
 
-            NetworkManager.DealDamageResponse response = new NetworkManager.DealDamageResponse();
-            response.setDealtDamage(damage);
-            response.setDealerSlotId(request.getDealerSlotId());
-            response.setTargetSlotId(request.getTargetSlotId());
-            server.sendToTCP(con.getID(), response);
+
+            NetworkManager.DealDamageResponse casterResponse = new NetworkManager.DealDamageResponse();
+            casterResponse.setDealtDamage(damage);
+            casterResponse.setDealerSlotId(request.getDealerSlotId());
+            casterResponse.setTargetSlotId(request.getTargetSlotId());
+            server.sendToTCP(con.getID(), casterResponse);
+
+            NetworkManager.DealDamageResponse targetResponse = new NetworkManager.DealDamageResponse();
+            targetResponse.setDealtDamage(damage);
+            targetResponse.setDealerSlotId(request.getTargetSlotId());
+            targetResponse.setTargetSlotId(request.getDealerSlotId());
+            server.sendToTCP(room.getOpponentConnection(con).getID(), targetResponse);
         } catch (NetworkException e) {
             Log.error("[Log] Not existing room.");
         }

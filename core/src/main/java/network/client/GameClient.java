@@ -63,6 +63,10 @@ public class GameClient {
                     Log.debug("Halo there" + response.getOpponentCombatInfo().toString());
                     beginBattle(response.getPlayerCombatInfo(), response.getOpponentCombatInfo());
                 }
+
+                if (object instanceof BeginBattleResponse) {
+
+                }
             }
 
             public void disconnected(Connection connection) {
