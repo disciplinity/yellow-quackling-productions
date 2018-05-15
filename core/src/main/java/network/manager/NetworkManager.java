@@ -32,6 +32,8 @@ public class NetworkManager {
         kryo.register(DealDamageRequest.class);
         kryo.register(DealDamageResponse.class);
         kryo.register(SpellType.class);
+        kryo.register(PlayerTurnResponse.class);
+        kryo.register(TurnEndRequest.class);
     }
 
     /* Protocols: */
@@ -117,14 +119,14 @@ public class NetworkManager {
      */
     @Data
     static public class TurnEndRequest {
-        private String endTurnPlayerToken;
+//        private String endTurnPlayerToken;
     }
 
     /**
      * When either player finished his/her turn this is sent from the server.
      */
     @Data
-    static public class TurnBeginResponse {
-        private String whosTurnPlayerToken;
+    static public class PlayerTurnResponse {
+        private boolean yourTurn;
     }
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import game.screens.ConnectionTestScreen;
 import game.screens.LobbyScreen;
+import game.session.CombatSession;
 import lombok.Getter;
 import game.models.combat.CombatSetup;
 import lombok.Setter;
@@ -24,6 +25,10 @@ public class MyGdxGame extends Game {
     @Getter
     @Setter
     private GameClient client;
+
+    //TODO: Create a new Game class to separate graphic and game logic
+    @Getter
+    private CombatSession combatSession = new CombatSession(false);
 
 
     /**
@@ -47,20 +52,12 @@ public class MyGdxGame extends Game {
 
         customCursor = Gdx.graphics.newCursor(pixmap, 0, 5);
         Gdx.graphics.setCursor(customCursor);
-//        Pixmap pm = new Pixmap(Gdx.files.internal("cursor.png"));
-//        Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 30, 255));
-//        pm.dispose();
-
-        ////////// ::::DANGER ZONE:::::
-//        CombatSetup cs = createCombatGroupMock1();
-//        CombatSetup cso = createCombatGroupMock2();
-//        BattleStageGroup battleStageGroup = new BattleStageGroup("fairy-forest.jpg", cs, cso);
-//        this.setScreen(new CombatScreen(this, battleStageGroup));
-        ////////// ::::DANGER ZONE:::::
 
         this.setScreen(new ConnectionTestScreen());
+    }
 
-//        this.setScreen(new StartMenuScreen(this));
+    public void createCombatSession(boolean myTurn) {
+        combatSession = new CombatSession(myTurn);
     }
 
 //    /**

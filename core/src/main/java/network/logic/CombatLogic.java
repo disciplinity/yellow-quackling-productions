@@ -1,11 +1,13 @@
 package network.logic;
 
 import game.spells.SpellType;
+import lombok.Setter;
 import network.database.entity.HeroSetupEntity;
 import network.manager.PlayerCombatInfo;
 
 // TODO: Separate into Model(which would be common(Server-Client)) and two Controllers(server and client)
 public class CombatLogic {
+    @Setter
     private boolean playerOneTurn;
     //TODO: Bad repeated encapsulation
     private PlayerCombatInfo playerOneCombatSetup, playerTwoCombatSetup;
