@@ -9,9 +9,9 @@
 
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11225282?useSSL=false</property>
-        <property name="connection.username">sql11225282</property>
-        <property name="connection.password">VA8eNT8N2L</property>
+        <property name="connection.url">jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7237787?useSSL=false</property>
+        <property name="connection.username">sql7237787</property>
+        <property name="connection.password">8d85MfKNkX</property>
 
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="connection.pool_size">1</property>

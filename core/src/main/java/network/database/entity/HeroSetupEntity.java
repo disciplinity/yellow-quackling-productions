@@ -8,6 +8,7 @@ public class HeroSetupEntity {
     private int intelligence;
     private int strength;
     private int agility;
+    private double health;
 
     public HeroSetupEntity() {}
 
@@ -16,5 +17,7 @@ public class HeroSetupEntity {
         this.intelligence = intelligence;
         this.strength = strength;
         this.agility = agility;
+        //TODO: vitality stat or what?
+        this.health = strength;
     }
 }

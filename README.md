@@ -30,5 +30,5 @@ Registration form is realized in separate web application based in Spring MVC.
 
 ## Authors
 * **Veronika Zamakhova** - *Front-end developer* [zamakhovav](https://github.com/zamakhovav)
-* **Artur Bassov** - *Network developer* []()
-* **Jaroslav Gorshkov** - *Back-end developer* []()
+* **Artur Bassov** - *Network developer* [artiku](https://github.com/artiku)
+* **Jaroslav Gorshkov** - *Back-end developer* [disciplinity](https://github.com/disciplinity)

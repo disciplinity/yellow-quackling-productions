@@ -22,4 +22,14 @@ public class CombatSetup {
         combatSetup.add(heroes[2]);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (GameCharacter c:
+        combatSetup) {
+            sb.append(c.getName()).append(" ");
+        }
+        return sb.toString();
+    }
+
 }
