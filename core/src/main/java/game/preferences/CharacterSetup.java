@@ -13,12 +13,10 @@ public class CharacterSetup extends Group {
     @Getter
     private CharacterSlot[] characterSlots;
     private List<GameCharacter> characters;
-    private List<GameCharacter> opponentCharacters;
 
     public CharacterSetup(CombatSetup combatSetup, CombatSetup opponentCombatSetup) {
         characterSlots = new CharacterSlot[3];
         characters = combatSetup.getCombatSetup();
-        opponentCharacters = opponentCombatSetup.getCombatSetup();
 
         setCharacterPositionOnPlatform();
         spawnCharacters();

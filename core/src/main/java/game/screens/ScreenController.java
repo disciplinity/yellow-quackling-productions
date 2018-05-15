@@ -7,7 +7,10 @@ import game.MyGdxGame;
 import game.actors.CharacterFactory;
 import game.models.combat.BattleStageGroup;
 import game.models.combat.CombatSetup;
+import game.preferences.CharacterSetup;
+import game.preferences.PreferenceScreen;
 import network.client.GameClient;
+import network.manager.NetworkManager;
 import network.manager.PlayerCombatInfo;
 
 import java.io.IOException;
@@ -18,9 +21,16 @@ public class ScreenController {
      * If screen has an alert field, bar, etc. set it's message
      */
     public static void setScreenAlert(String message) {
-        ConnectionTestScreen screen;
+        /*ConnectionTestScreen screen;
         if (MyGdxGame.getInstance().getScreen() instanceof  ConnectionTestScreen) {
             screen = (ConnectionTestScreen) MyGdxGame.getInstance().getScreen();
+            screen.setAlert(message);
+            screen.connectButton.setTouchable(Touchable.enabled);
+        }
+        Log.error("Wrong game screen");*/
+        StartMenuScreen screen;
+        if (MyGdxGame.getInstance().getScreen() instanceof StartMenuScreen) {
+            screen = (StartMenuScreen) MyGdxGame.getInstance().getScreen();
             screen.setAlert(message);
             screen.connectButton.setTouchable(Touchable.enabled);
         }
@@ -31,14 +41,21 @@ public class ScreenController {
      * Action from Connection Screen. Create Client and try to connect to the server. Act accordingly to the response.
      */
     static void authorize() {
-        ConnectionTestScreen screen;
+        /*ConnectionTestScreen screen;
         if (!(MyGdxGame.getInstance().getScreen() instanceof  ConnectionTestScreen)) {
             return;
         }
         screen = (ConnectionTestScreen) MyGdxGame.getInstance().getScreen();
         screen.setAlert("Connecting...");
-        screen.connectButton.setTouchable(Touchable.disabled);
+        screen.connectButton.setTouchable(Touchable.disabled);*/
 
+        StartMenuScreen screen;
+        if (!(MyGdxGame.getInstance().getScreen() instanceof  StartMenuScreen)) {
+            return;
+        }
+        screen = (StartMenuScreen) MyGdxGame.getInstance().getScreen();
+        screen.setAlert("Connecting...");
+        screen.connectButton.setTouchable(Touchable.disabled);
         /* Should it be this way here? Thread is needed for async actions like networking. */
         new Thread(() -> {
             try {

@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
-public class ButtonCreator extends Actor {
+public class ImageCreator extends Actor {
 
     Rectangle bounds;
     Sprite object;
@@ -22,7 +22,7 @@ public class ButtonCreator extends Actor {
      * @param width width of image
      * @param height height of image
      */
-    public ButtonCreator(Texture texture, float x, float y, float width, float height) {
+    public ImageCreator(Texture texture, float x, float y, float width, float height) {
         bounds = new Rectangle(x, y, width, height);
         this.texture = texture;
 

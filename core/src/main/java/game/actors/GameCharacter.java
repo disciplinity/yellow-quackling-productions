@@ -59,7 +59,6 @@ public class GameCharacter extends Actor {
     private static ShapeRenderer commonShapeRenderer = new ShapeRenderer();
 
 
-
     public GameCharacter(String name, StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent, SpellBookComponent spellBookComponent) {
         this.name = name;
         hp = 100;

@@ -1,17 +1,27 @@
 package game.screens;
-
+/*
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.tools.bmfont.BitmapFontWriter;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
 
 public class ConnectionTestScreen implements Screen{
     private Stage stage;
     private Skin skin;
+    private Texture background;
+
+    private SpriteBatch batch;
+    private MyGdxGame game;
 
     private Table table;
     private Label nameLabel;
@@ -22,18 +32,18 @@ public class ConnectionTestScreen implements Screen{
     TextButton connectButton;
 
 
-    public ConnectionTestScreen() {
-        drawTestConnectionMenu();
 
-        Gdx.input.setInputProcessor(stage);
+    public ConnectionTestScreen(MyGdxGame game) {
+        this.game = game;
+        this.batch = this.game.getSpriteBatch();
+        stage = new Stage(new ScreenViewport());
+        background = new Texture(Gdx.files.internal("ui/background.jpg"));
+
+        drawTestConnectionMenu();
     }
 
-    /**
-     * Initialize elements to draw on the screen.
-     */
     private void initMenuElements() {
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-        stage = new Stage(new ScreenViewport());
         table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
@@ -45,9 +55,7 @@ public class ConnectionTestScreen implements Screen{
         passLabel = new Label("Password:", skin);
         connectButton = new TextButton("Connect", skin);
 
-        /*
-         * Connect to a server with entered credentials to a server.
-         */
+
         connectButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -56,9 +64,7 @@ public class ConnectionTestScreen implements Screen{
         });
     }
 
-    /**
-     * Draw initialized items.
-     */
+
     private void drawTestConnectionMenu() {
         initMenuElements();
 
@@ -74,23 +80,24 @@ public class ConnectionTestScreen implements Screen{
         table.add(connectButton).colspan(2);
     }
 
-    /**
-     * Set alert message according to the request (bad login/password)
-     * @param message alert message
-     */
     void setAlert(String message) {
         alertField.setText(message);
     }
 
-
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void render(float delta) {
 //        stage.act(Gdx.graphics.getDeltaTime()); is it needed?
+
+        batch.begin();
+        batch.draw(background, 0, 0, 1280, 800);
+        batch.end();
+
+        stage.act();
         stage.draw();
     }
 
@@ -119,3 +126,4 @@ public class ConnectionTestScreen implements Screen{
         stage.dispose();
     }
 }
+*/

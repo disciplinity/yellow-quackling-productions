@@ -10,6 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
+import game.actors.CharacterFactory;
+import game.models.combat.BattleStageGroup;
+import game.models.combat.CombatSetup;
+import game.screens.CombatScreen;
+import network.manager.PlayerCombatInfo;
 
 import static game.constants.TexturePaths.PLATFORM;
 import static game.constants.TexturePaths.START_TREE_BG;

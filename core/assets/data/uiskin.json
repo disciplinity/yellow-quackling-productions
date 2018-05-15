@@ -67,4 +67,9 @@
       background: default-pane, wrapWidth: 150
     }
   },
+  com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+    "logIn": { down: default-round-down, up: default-round },
+    "signUp": { down: default-round-down, up: default-round },
+    "exit": { down: default-round-down, up: default-round }
+  }
 }

@@ -97,6 +97,10 @@ public class GameClient {
         ScreenController.setBattleScreen(player, opponent);
     }
 
+    private void createPreferencesWithCharacters(PlayerCombatInfo player, PlayerCombatInfo opponent) {
+        ScreenController.setBattleScreen(player, opponent);
+    }
+
 
     public void sendCredentials(String username, String password) {
         CheckCredentialRequest request = new CheckCredentialRequest();

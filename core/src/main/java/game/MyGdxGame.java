@@ -2,17 +2,21 @@ package game;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.*;
+import game.actors.CharacterFactory;
 import game.models.combat.BattleStageGroup;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import game.preferences.CharacterSetup;
 import game.preferences.PreferenceScreen;
-import game.screens.ConnectionTestScreen;
 import game.screens.LobbyScreen;
+import game.screens.ScreenController;
+import game.screens.StartMenuScreen;
 import lombok.Getter;
 import game.models.combat.CombatSetup;
 import lombok.Setter;
 import network.client.GameClient;
+import network.manager.NetworkManager;
+import network.manager.PlayerCombatInfo;
 
 
 public class MyGdxGame extends Game {
@@ -60,11 +64,11 @@ public class MyGdxGame extends Game {
 //        this.setScreen(new CombatScreen(this, battleStageGroup));
         ////////// ::::DANGER ZONE:::::
 
-        this.setScreen(new ConnectionTestScreen());
-        CharacterSetup characterSetup = new CharacterSetup(cs, cso);
-        this.setScreen(new PreferenceScreen(characterSetup));
+        //this.setScreen(new ConnectionTestScreen());
+        //this.setScreen(new PreferenceScreen());
 
-//        this.setScreen(new StartMenuScreen(this));
+
+        this.setScreen(new StartMenuScreen(this));
     }
 
 //    /**
@@ -81,11 +85,6 @@ public class MyGdxGame extends Game {
         this.setScreen(new LobbyScreen());
     }
 
-    public void setBattleScreen() {
-
-//        BattleStageGroup battleStageGroup = new BattleStageGroup("fairy-forest.jpg", cs, cso);
-//        this.setScreen(new CombatScreen(this, bsg));
-    }
 
 
     public void render() {
