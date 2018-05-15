@@ -1,12 +1,19 @@
 package game.preferences;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import game.actors.GameCharacter;
+import game.actors.GameCharacterType;
 import game.models.combat.CharacterSlot;
 import game.models.combat.CombatSetup;
+import game.session.GameSession;
 import lombok.Getter;
+import network.client.GameClient;
+import network.database.entity.HeroSetupEntity;
+import network.manager.PlayerCombatInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CharacterSetup extends Group {
@@ -14,9 +21,10 @@ public class CharacterSetup extends Group {
     private CharacterSlot[] characterSlots;
     private List<GameCharacter> characters;
 
-    public CharacterSetup(CombatSetup combatSetup, CombatSetup opponentCombatSetup) {
+    public CharacterSetup() {
         characterSlots = new CharacterSlot[3];
-        characters = combatSetup.getCombatSetup();
+        characters = GameSession.getInstance().getPlayerCombatSetup().getCombatSetup();
+
 
         setCharacterPositionOnPlatform();
         spawnCharacters();

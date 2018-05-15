@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
 import game.actors.CharacterFactory;
+import game.actors.GameCharacter;
 import game.models.combat.BattleStageGroup;
 import game.models.combat.CombatSetup;
 import game.screens.CombatScreen;
@@ -41,6 +42,10 @@ public class PreferenceScreen implements Screen {
         createPlatforms();
         // fill preferences stage by characters
         preferenceStage.addActor(characterSetup);
+
+    }
+
+    private void loadCharacters() {
 
     }
 
