@@ -15,16 +15,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import game.MyGdxGame;
 import ui.menu.ImageCreator;
 
+import static game.constants.MenuComponentsSize.*;
+
 public class StartMenuScreen implements Screen {
-
-    private static final int BUTTON_WIDTH = 280;
-    private static final int BUTTON_HEIGHT = 70;
-    private static final int BUTTON_X = 510;
-
-    private static final int SIGN_IN_Y = 531;
-    private static final int SIGN_UP_Y = 431;
-    private static final int EXIT_BUTTON_Y = 331;
-
     private MyGdxGame game;
     private SpriteBatch batch;
     private Stage menuStage;
@@ -35,7 +28,7 @@ public class StartMenuScreen implements Screen {
     private Texture background, woodBoard;
     private Table table;
     private Label nameLabel, passLabel, alertField;
-    private ImageCreator woodBoardActor;
+    private ImageCreator woodBoardActor, bgActor;
     TextField nameField, passField;
     TextButton connectButton;
 
@@ -58,9 +51,11 @@ public class StartMenuScreen implements Screen {
 
     private void loadImages() {
         background = new Texture(Gdx.files.internal("ui/background.jpg"));
-        woodBoard = new Texture(Gdx.files.internal("ui/wood-board.png"));
+        woodBoard = new Texture(Gdx.files.internal("ui/wood.jpg"));
+
 
         woodBoardActor = new ImageCreator(woodBoard, 490 , 251 , 300, 300);
+        bgActor = new ImageCreator(background, 0, 0, background.getWidth(), background.getHeight());
     }
 
     private void createLoginButton() {
@@ -92,13 +87,11 @@ public class StartMenuScreen implements Screen {
         signUp.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
         signUp.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/signup.jpg"))));
         signUp.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/start.jpg"))));
-        signUp.setPosition(BUTTON_X, SIGN_UP_Y);
+        signUp.setPosition(BUTTON_X, CENTER_BUTTON_Y_CORD);
         signUp.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button ) {
-                //menuStage.addActor(woodBoardActor);
-                //drawTestConnectionMenu();
-                //loginIn.remove();
+
             }
 
             @Override

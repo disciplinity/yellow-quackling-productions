@@ -2,12 +2,17 @@ package game;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.*;
+import game.actors.GameCharacter;
+import game.actors.GameCharacterType;
 import game.models.combat.BattleStageGroup;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import game.screens.ConnectionTestScreen;
+import game.preferences.CharacterSetup;
+import game.preferences.PreferenceScreen;
 import game.screens.LobbyScreen;
+import game.screens.StartMenuScreen;
 import game.session.CombatSession;
+import game.session.GameSession;
 import lombok.Getter;
 import game.models.combat.CombatSetup;
 import lombok.Setter;
@@ -53,7 +58,8 @@ public class MyGdxGame extends Game {
         customCursor = Gdx.graphics.newCursor(pixmap, 0, 5);
         Gdx.graphics.setCursor(customCursor);
 
-        this.setScreen(new ConnectionTestScreen());
+        this.setScreen(new StartMenuScreen(this));
+        //setPreferenceScreen();
     }
 
     public void createCombatSession(boolean myTurn) {
@@ -71,6 +77,8 @@ public class MyGdxGame extends Game {
      */
     public void setLobbyScreen() {
         this.screen.dispose();
+        //CharacterSetup characterSetup = new CharacterSetup();
+        //this.setScreen(new PreferenceScreen(characterSetup));
         this.setScreen(new LobbyScreen());
     }
 
@@ -80,12 +88,17 @@ public class MyGdxGame extends Game {
 //        this.setScreen(new CombatScreen(this, bsg));
     }
 
+    public void setPreferenceScreen() {
+        CharacterSetup characterSetup = new CharacterSetup();
+        this.setScreen(new PreferenceScreen(characterSetup));
+    }
+
 
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//        screen.render(0.033f);
-        screen.render(Gdx.graphics.getDeltaTime());
+        screen.render(0.033f);
+        //screen.render(Gdx.graphics.getDeltaTime());
     }
 
 
