@@ -80,6 +80,15 @@ public class GameServer {
                     return;
                 }
 
+                if (object instanceof NetworkManager.GetCombatSetupRequest) {
+                    NetworkManager.GetCombatSetupRequest request = (NetworkManager.GetCombatSetupRequest) object;
+                    if (!loggedIn.containsKey(request.getUserToken())) {
+                        Log.error("[Log trace] Get Combat Setup Request from not logged user.");
+                        return;
+                    }
+                    sendGetCombatSetupResponse(connection);
+                }
+
                 if (object instanceof NetworkManager.JoinBattleRequest) {
                     NetworkManager.JoinBattleRequest request = (NetworkManager.JoinBattleRequest) object;
                     if (!loggedIn.containsKey(request.getUserToken())) {
@@ -90,23 +99,16 @@ public class GameServer {
                     return;
                 }
 
-                // TODO: Damage
-                if (object instanceof NetworkManager.CheckCredentialRequest) {
-                    /**
-                     connectionPool + 1 player;
-                     if == 2 -> draw screen
-                     send first about second. second about first.
-                     server.sendToAllExceptTCP(connection.getID(), chatMessage);
-                     */
-
-//                    EnterRoomWithSetup setup = (EnterRoomWithSetup) object;
-//                    combatSetupsInARoom.add(setup);
-//                    if (connectionPool.size() > 1) {
-//                        server.sendToTCP(connectionPool.get(0).getID(), combatSetupsInARoom.get(1));
-//                        server.sendToTCP(connectionPool.get(1).getID(), combatSetupsInARoom.get(0));
-//                    }
-//                    updateNames();
+                if (object instanceof NetworkManager.DealDamageRequest) {
+                    NetworkManager.DealDamageRequest request = (NetworkManager.DealDamageRequest) object;
+                    if (!loggedIn.containsKey(request.getUserToken())) {
+                        Log.error("[Log trace] Deal Damage Request from not logged user.");
+                        return;
+                    }
+                    processDamageRequest(connection, request);
                 }
+
+                // TODO: turns
             }
 
             private boolean isValid (String value) {
@@ -119,10 +121,6 @@ public class GameServer {
                 GameConnection connection = (GameConnection) c;
                 if (connection.userToken != null) {
                     loggedIn.remove(connection.userToken);
-
-//                    RemoveCharacter removeCharacter = new RemoveCharacter();
-//                    removeCharacter.id = connection.character.id;
-//                    server.sendToAllTCP(removeCharacter);
                 }
             }
         });
@@ -141,6 +139,41 @@ public class GameServer {
         frame.setSize(320, 200);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    /**
+     * Find room where requesting player is.
+     * Get room CombatLogicController.
+     * Calculate Damage.
+     * Send Response.
+     * @param con
+     */
+    private void processDamageRequest(GameConnection con, NetworkManager.DealDamageRequest request) {
+        try {
+            Room room = playerPool.findRoomByPlayerConnection(con);
+            double damage = room.getCombatLogicController()
+                    .calculateDamage(request.getCastedSpellType(), request.getDealerSlotId(), request.getTargetSlotId());
+
+            NetworkManager.DealDamageResponse response = new NetworkManager.DealDamageResponse();
+            response.setDealtDamage(damage);
+            response.setDealerSlotId(request.getDealerSlotId());
+            response.setTargetSlotId(request.getTargetSlotId());
+            server.sendToTCP(con.getID(), response);
+        } catch (NetworkException e) {
+            Log.error("[Log] Not existing room.");
+        }
+    }
+
+    private void sendGetCombatSetupResponse(GameConnection connection) {
+
+        NetworkManager.GetCombatSetupResponse response = new NetworkManager.GetCombatSetupResponse();
+        int playerId = loggedIn.get(connection.userToken);
+
+        Log.debug("[Log] Player requesting setup Id: " + playerId);
+        response.setPlayerCombatInfo(new PlayerCombatInfo(
+                connection.username,
+                fetchCombatSetup(playerId, HibernateSessionFactory.getSessionFactory())));
+        server.sendToTCP(connection.getID(), response);
     }
 
     /**
@@ -182,19 +215,6 @@ public class GameServer {
         server.sendToTCP(con2.getID(), response);
     }
 
-//    void updateNames () {
-//        // Collect the names for each connection.
-//        Connection[] connections = server.getConnections();
-//        ArrayList names = new ArrayList(connections.length);
-//        for (int i = connections.length - 1; i >= 0; i--) {
-//            GameConnection connection = (GameConnection)connections[i];
-//            names.add(connection.name);
-//        }
-//        // Send the names to everyone.
-//        UpdateNames updateNames = new UpdateNames();
-//        updateNames.names = (String[])names.toArray(new String[names.size()]);
-//        server.sendToAllTCP(updateNames);
-//    }
 
     /**
      * This holds per connection state.

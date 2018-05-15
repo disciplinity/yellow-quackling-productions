@@ -5,6 +5,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import game.screens.ScreenController;
+import game.session.GameSession;
 import network.manager.NetworkManager.*;
 import network.manager.NetworkManager;
 import network.manager.PlayerCombatInfo;
@@ -44,8 +45,15 @@ public class GameClient {
                         return;
                     }
                     Log.debug("HELLO THERE! Sent credentials and setting lobby screen");
-                    ScreenController.setLobbyScreen();
+
+                    startSession();
                     return;
+                }
+
+                if (object instanceof GetCombatSetupResponse) {
+                    GetCombatSetupResponse response = (GetCombatSetupResponse) object;
+                    Log.debug("[DEBUG] Got player combat info.");
+                    startLobby(response.getPlayerCombatInfo());
                 }
 
                 if (object instanceof BeginBattleResponse) {
@@ -72,6 +80,19 @@ public class GameClient {
 //        }
     }
 
+    private void startSession() {
+        Log.debug("Requesting combat setup");
+        GetCombatSetupRequest request = new GetCombatSetupRequest();
+        request.setUserToken(userToken);
+        client.sendTCP(request);
+    }
+
+    private void startLobby(PlayerCombatInfo playerInfo) {
+        GameSession gs = GameSession.getInstance();
+        gs.setPlayerCombatSetup(playerInfo);
+        ScreenController.setLobbyScreen();
+    }
+
     private void beginBattle(PlayerCombatInfo player, PlayerCombatInfo opponent) {
         ScreenController.setBattleScreen(player, opponent);
     }
@@ -91,36 +112,5 @@ public class GameClient {
         Log.debug("[DEBUG] Sent Join Battle Request");
         client.sendTCP(request);
     }
-
-
-
-    // TODO: Drawing new info at the screen must not be here!
-//    private void changeToBattleScene(EnterRoomWithSetup opponentInRoom, String chosenGlobalSetupId) {
-//        Gdx.app.postRunnable(() -> {
-//            CombatSetup playerCS;
-//            CombatSetup opponentCS;
-//
-//            if (chosenGlobalSetupId.equals("1")) {
-//                System.err.println("here1");
-////                playerCS = createCombatGroupExample1();
-//            } else {
-//                System.err.println("here2");
-////                    playerCS = createCombatGroupExample2();
-//            }
-//
-//
-//            if (opponentInRoom.globalSetupId.equals("1")) {
-//                System.err.println("here3");
-////                    opponentCS =createCombatGroupExample1();
-//            } else {
-//                System.err.println("here4");
-////                    opponentCS = createCombatGroupExample2();
-//            }
-//
-//            // TODO: game.setBattleScreen();
-////            BattleStageGroup bsg = new BattleStageGroup("fairy-forest.jpg", playerCS, opponentCS);
-////            game.setScreen(new CombatScreen(game, bsg));
-//        });
-//    }
 
 }

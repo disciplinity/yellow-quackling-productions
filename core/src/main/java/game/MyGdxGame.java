@@ -15,10 +15,6 @@ import lombok.Setter;
 import network.client.GameClient;
 
 
-import static game.actors.CharacterFactory.createCombatGroupMock1;
-import static game.actors.CharacterFactory.createCombatGroupMock2;
-
-
 public class MyGdxGame extends Game {
 
     @Getter
@@ -58,9 +54,9 @@ public class MyGdxGame extends Game {
 //        pm.dispose();
 
         ////////// ::::DANGER ZONE:::::
-        CombatSetup cs = createCombatGroupMock1();
-        CombatSetup cso = createCombatGroupMock2();
-        BattleStageGroup battleStageGroup = new BattleStageGroup("fairy-forest.jpg", cs, cso);
+//        CombatSetup cs = createCombatGroupMock1();
+//        CombatSetup cso = createCombatGroupMock2();
+//        BattleStageGroup battleStageGroup = new BattleStageGroup("fairy-forest.jpg", cs, cso);
 //        this.setScreen(new CombatScreen(this, battleStageGroup));
         ////////// ::::DANGER ZONE:::::
 

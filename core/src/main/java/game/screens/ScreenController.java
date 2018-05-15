@@ -58,14 +58,6 @@ public class ScreenController {
     public static void setLobbyScreen() {
         Gdx.app.postRunnable(() -> MyGdxGame.getInstance().setLobbyScreen());
     }
-//
-//    /**
-//     * Join battle after pressing Join Battle button at lobby
-//     */
-//    static void joinBattle() {
-//        // TODO: no connection here
-//        MyGdxGame.getInstance().getClient().joinBattle();
-//    }
 
     /**
      * Draw Battle Screen for the player.

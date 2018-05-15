@@ -26,7 +26,13 @@ public class PlayerPool {
                 return;
             }
         }
-        rooms.add(new Room(playerConnection));
+        Room room = new Room(playerConnection);
+        playerToRoomId.put(playerConnection, room.getId());
+        rooms.add(room);
+    }
+
+    public Room findRoomByPlayerConnection(GameServer.GameConnection con) throws NetworkException {
+        return getRoomById(playerToRoomId.get(con));
     }
 
     public Room getRoomById(int id) throws NetworkException {

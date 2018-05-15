@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Data
 @Entity
-@Table(name = "Account", schema = "sql11225282", catalog = "")
+@Table(name = "Account", schema = "sql7237787", catalog = "")
 public class AccountEntity {
 
     @Id
