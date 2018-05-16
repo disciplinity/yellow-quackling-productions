@@ -24,7 +24,7 @@ Registration form is realized in separate web application based in Spring MVC.
 ## Build With
 * [LibGdx](https://libgdx.badlogicgames.com) - game-development application framework
 * [Hibernate](http://hibernate.org) - A library providing Object/Relational Mapping (ORM) support to applications, libraries and frameworks.
-* [Kryonet] (https://github.com/EsotericSoftware/kryonet) - KryoNet is a Java library that provides a clean and simple API for efficient TCP and UDP client/server network communication using NIO.
+* [Kryonet](https://github.com/EsotericSoftware/kryonet) - KryoNet is a Java library that provides a clean and simple API for efficient TCP and UDP client/server network communication using NIO.
 * [Gradle](https://gradle.org) - Dependency Management
 * [Spring MVC](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html) - The web framework used
 * [Maven](https://maven.apache.org/) - Dependency Management
