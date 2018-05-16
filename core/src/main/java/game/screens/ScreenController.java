@@ -7,10 +7,7 @@ import game.MyGdxGame;
 import game.actors.CharacterFactory;
 import game.models.combat.BattleStageGroup;
 import game.models.combat.CombatSetup;
-import game.preferences.CharacterSetup;
-import game.preferences.PreferenceScreen;
 import network.client.GameClient;
-import network.manager.NetworkManager;
 import network.manager.PlayerCombatInfo;
 
 import java.io.IOException;

@@ -2,14 +2,12 @@ package game;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.*;
-import game.models.combat.BattleStageGroup;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import game.screens.ConnectionTestScreen;
-import game.screens.LobbyScreen;
+import game.screens.preferences.PreferenceScreen;
+import game.screens.StartMenuScreen;
 import game.session.CombatSession;
 import lombok.Getter;
-import game.models.combat.CombatSetup;
 import lombok.Setter;
 import network.client.GameClient;
 
@@ -53,7 +51,7 @@ public class MyGdxGame extends Game {
         customCursor = Gdx.graphics.newCursor(pixmap, 0, 5);
         Gdx.graphics.setCursor(customCursor);
 
-        this.setScreen(new ConnectionTestScreen());
+        this.setScreen(new StartMenuScreen(this));
     }
 
     public void createCombatSession(boolean myTurn) {
@@ -71,7 +69,7 @@ public class MyGdxGame extends Game {
      */
     public void setLobbyScreen() {
         this.screen.dispose();
-        this.setScreen(new LobbyScreen());
+        this.setScreen(new PreferenceScreen());
     }
 
     public void setBattleScreen() {
