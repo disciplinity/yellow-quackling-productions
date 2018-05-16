@@ -196,8 +196,8 @@ public class GameServer {
 
             NetworkManager.DealDamageResponse targetResponse = new NetworkManager.DealDamageResponse();
             targetResponse.setDealtDamage(damage);
-            targetResponse.setDealerSlotId(request.getDealerSlotId() - 3);
-            targetResponse.setTargetSlotId(request.getTargetSlotId() + 3);
+            targetResponse.setDealerSlotId(request.getDealerSlotId());
+            targetResponse.setTargetSlotId(request.getTargetSlotId());
             server.sendToTCP(room.getOpponentConnection(con).getID(), targetResponse);
         } catch (NetworkException e) {
             Log.error("[Log] Not existing room.");
