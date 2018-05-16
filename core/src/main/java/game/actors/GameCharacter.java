@@ -24,6 +24,9 @@ public class GameCharacter extends Actor {
     @Setter @Getter
     private String name;
 
+    @Getter @Setter
+    private double health;
+
     @Getter
     private EquipmentComponent equipmentComponent;
     @Getter
@@ -59,6 +62,7 @@ public class GameCharacter extends Actor {
 
     public GameCharacter(String name, StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent, SpellBookComponent spellBookComponent) {
         this.name = name;
+        this.health = 100;
 
         this.setSize(graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());
         this.statComponent = statComponent;
@@ -66,8 +70,8 @@ public class GameCharacter extends Actor {
         this.equipmentComponent = equipmentComponent;
         this.spellBookComponent = spellBookComponent;
 
-        prepareFireballAnimation();
-
+//        prepareFireballAnimation();
+        spellBookComponent.getSpellSet().getAllSpells().get(0).setSpellAnimation(new FireballAnimation());
 
 
 
@@ -103,38 +107,39 @@ public class GameCharacter extends Actor {
         if (isCastingSpell) {
             castSpell(batch);
 
+
+
         }
         graphicsComponent.draw(batch, parentAlpha, getX(), getY(), getWidth(), getHeight());
     }
 
     public void castSpell(Batch batch) {
-        System.out.println("CASTING SPELL");
         spellBookComponent.getSpellSet().getAllSpells().get(0).getSpellAnimation().draw(batch);
 
     }
 
-    private void prepareFireballAnimation() {
-
-        for (int i = 0; i < spellBookComponent.getSpellSet().getAllSpells().size(); i++) {
-            Spell fireBall = spellBookComponent.getSpellSet().getAllSpells().get(i);
-            if (fireBall == null) continue;
-            fireBall.setSpellAnimation(new FireballAnimation());
-            SpellAnimation fireballAnimation = fireBall.getSpellAnimation();
-
-            fireballAnimation.setSpellStartX(getX() + getWidth());
-            fireballAnimation.setSpellStartY(getY() + (getHeight() / 2) + 210);
-            fireballAnimation.setSpellVelocityX(fireballAnimation.getSpellStartX());
-            fireballAnimation.setSpellVelocityY(fireballAnimation.getSpellStartY());
-            fireballAnimation.setSpellSound(Gdx.audio.newSound(Gdx.files.internal("sounds/fireball_sound.wav")));
-            fireballAnimation.getPe().load(Gdx.files.internal("particles/fireball_particle"), Gdx.files.internal(""));
-
-
-        }
-
-
-
-    }
-
+//    private void prepareFireballAnimation() {
+//
+//        for (int i = 0; i < spellBookComponent.getSpellSet().getAllSpells().size(); i++) {
+//            Spell fireBall = spellBookComponent.getSpellSet().getAllSpells().get(i);
+//            if (fireBall == null) continue;
+//            fireBall.setSpellAnimation(new FireballAnimation());
+//            SpellAnimation fireballAnimation = fireBall.getSpellAnimation();
+//
+//            fireballAnimation.setSpellStartX(getX() + getWidth());
+//            fireballAnimation.setSpellStartY(getY() + (getHeight() / 2) + 210);
+//            fireballAnimation.setSpellVelocityX(fireballAnimation.getSpellStartX());
+//            fireballAnimation.setSpellVelocityY(fireballAnimation.getSpellStartY());
+//            fireballAnimation.setSpellSound(Gdx.audio.newSound(Gdx.files.internal("sounds/fireball_sound.wav")));
+//            fireballAnimation.getPe().load(Gdx.files.internal("particles/fireball_particle"), Gdx.files.internal(""));
+//
+//
+//        }
+//
+//
+//
+//    }
+//
 
 
 

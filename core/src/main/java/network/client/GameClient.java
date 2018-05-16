@@ -1,16 +1,24 @@
 package network.client;
 
+import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import game.MyGdxGame;
+import game.actors.GameCharacter;
+import game.components.SpellBookComponent;
+import game.models.combat.BattleStageGroup;
 import game.screens.ScreenController;
+import game.session.CombatSession;
 import game.session.GameSession;
 import game.spells.SpellType;
+import game.spells.animations.SpellAnimation;
 import network.manager.NetworkManager.*;
 import network.manager.NetworkManager;
 import network.manager.PlayerCombatInfo;
+import ui.combat.GearGroup;
+import ui.combat.SpellGroup;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -72,8 +80,111 @@ public class GameClient {
                     DealDamageResponse response = (DealDamageResponse) object;
                     MyGdxGame.getInstance().getCombatSession()
                             .getHeroHealthAtSlot()[response.getTargetSlotId()] -= response.getDealtDamage();
-                    //TODO: Render Fireball and new health value [Jaro]
-                }
+                    BattleStageGroup.characterSlots[response.getTargetSlotId()].getActor().setHealth(BattleStageGroup.characterSlots[response.getTargetSlotId()].getActor().getHealth() - response.getDealtDamage());
+                    //                    //TODO: Render Fireball and new health value [Jaro]
+
+//                    if (SpellBookComponent.currentSpellChosen != null) {
+//                        SpellBookComponent.currentSpellChosen.setClicked(false);
+//                    }
+
+                    GameCharacter whoClicked = BattleStageGroup.characterSlots[response.getDealerSlotId()].getActor();
+                    GameCharacter reference = BattleStageGroup.characterSlots[response.getTargetSlotId()].getActor();
+
+//                    if (whoClicked.getGraphicsComponent().isOpponent()) {
+//                        if (whoClicked.getSlotId() == 0) {
+//                            whoClicked.setSlotId(3);
+//                        }
+//                        else if (whoClicked.getSlotId() == 1) {
+//                            whoClicked.setSlotId(4);
+//                        }
+//                        else if (whoClicked.getSlotId() == 2) {
+//                            whoClicked.setSlotId(5);
+//                        }
+//
+//                        reference.setSlotId(reference.getSlotId() - 3);
+//
+//                    }
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Gdx.app.postRunnable(new Runnable() {
+                                @Override
+                                public void run() {
+//                                    if (!whoClicked.getGraphicsComponent().isOpponent())
+//                                    if (SpellBookComponent.currentSpellChosen == null) return;
+                                    SpellAnimation spellAnimation = whoClicked.getSpellBookComponent().getSpellSet().getAllSpells().get(0).getSpellAnimation();
+                                    if (whoClicked.getGraphicsComponent().isOpponent()) {
+                                        spellAnimation.setEnemyAnimation(true);
+                                    }
+                                    else {
+                                        spellAnimation.setEnemyAnimation(false);
+                                    }
+                                    spellAnimation.setSpellStartX(whoClicked.getX() + whoClicked.getWidth() );
+                                    spellAnimation.setSpellStartY(whoClicked.getY() + (whoClicked.getHeight() / 2));
+                                    spellAnimation.setSpellVelocityX(spellAnimation.getSpellStartX());
+                                    spellAnimation.setSpellVelocityY(spellAnimation.getSpellStartY());
+                                    spellAnimation.setSpellEndX(reference.getX() + reference.getWidth());
+                                    spellAnimation.setSpellEndY(reference.getY() + reference.getHeight() / 4);
+//                                    if (spellAnimation == null) return;
+
+//                                    spellAnimation.setSpellStartX(whoClicked.getX() + whoClicked.getWidth() );
+//                                    spellAnimation.setSpellStartY(whoClicked.getY() + (whoClicked.getHeight() / 2));
+//                                    spellAnimation.setSpellVelocityX(spellAnimation.getSpellStartX());
+//                                    spellAnimation.setSpellVelocityY(spellAnimation.getSpellStartY());
+//                                    spellAnimation.setSpellEndX(reference.getX() + reference.getWidth());
+//                                    spellAnimation.setSpellEndY(reference.getY() + reference.getHeight() / 4);
+                                    spellAnimation.setSpellSound(Gdx.audio.newSound(Gdx.files.internal("sounds/fireball_sound.wav")));
+                                    spellAnimation.getPe().load(Gdx.files.internal("particles/fireball_particle"), Gdx.files.internal(""));
+
+                                    spellAnimation.setCaster(whoClicked);
+                                    whoClicked.setCastingSpell(true);
+                                    reference.setHealth(reference.getHealth() - response.getDealtDamage());
+
+                                    SpellBookComponent.currentSpellChosen = null;
+
+                                    if (GameCharacter.currentlyChosen != null && !GameCharacter.currentlyChosen.getGraphicsComponent().isOpponent()) {
+                                        GearGroup.fillItemSlots();
+                                        SpellGroup.fillSpellSlots();
+                                    }
+
+                                }
+                            });
+                        }
+                    }).start();
+
+                    if (whoClicked.getHealth() < 0 || reference.getHealth() < 0) {
+                        System.out.println("DEAD");
+                    }
+
+//                    MyGdxGame.getInstance().startNewRenderThread(whoClicked, reference, response);
+
+
+
+
+
+//                        if (whoClicked.getGraphicsComponent().isOpponent()) {
+//                            SpellAnimation spellAnimation = whoClicked.getSpellBookComponent().getSpellSet().getAllSpells().get(0).getSpellAnimation();
+//                            if (spellAnimation == null) return;
+//                            spellAnimation.setSpellStartX(whoClicked.getX() + whoClicked.getWidth());
+//                            spellAnimation.setSpellStartY(whoClicked.getY() + (whoClicked.getHeight() / 2));
+//                            spellAnimation.setSpellVelocityX(spellAnimation.getSpellStartX());
+//                            spellAnimation.setSpellVelocityY(spellAnimation.getSpellStartY());
+//                            spellAnimation.setSpellSound(Gdx.audio.newSound(Gdx.files.internal("sounds/fireball_sound.wav")));
+//                            spellAnimation.getPe().load(Gdx.files.internal("particles/fireball_particle"), Gdx.files.internal(""));
+//                            spellAnimation.setSpellEndX(reference.getX() + reference.getWidth());
+//                            spellAnimation.setSpellEndY(reference.getY() + reference.getHeight() / 4);
+//                            spellAnimation.setCaster(whoClicked);
+//                            whoClicked.setCastingSpell(true);
+//                        }
+//
+//                    reference.setHealth(reference.getHealth() - response.getDealtDamage());
+//                    SpellBookComponent.currentSpellChosen = null;
+//                    GearGroup.fillItemSlots();
+//                    SpellGroup.fillSpellSlots();
+                    }
+
+
 
                 if (object instanceof PlayerTurnResponse) {
                     PlayerTurnResponse response = (PlayerTurnResponse) object;
@@ -104,7 +215,7 @@ public class GameClient {
      * @param casterSlotId casterSlot [value from 0 to 2]
      * @param targetSlotId targetSlot [value from 3 to 5]
      */
-    private void sendDamageRequest(SpellType spellType, int casterSlotId, int targetSlotId) {
+    public void sendDamageRequest(SpellType spellType, int casterSlotId, int targetSlotId) {
         DealDamageRequest request = new DealDamageRequest();
         request.setCastedSpellType(spellType);
         request.setDealerSlotId(casterSlotId);

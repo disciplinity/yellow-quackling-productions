@@ -23,8 +23,8 @@ import java.util.List;
 public class BattleStageGroup extends Group {
 
     // TODO: method that will fill character slots (pass PlayerCombatHeroSetup)
-    @Getter
-    private CharacterSlot[] characterSlots;
+//    @Getter
+    public static CharacterSlot[] characterSlots;
     private List<GameCharacter> actorGroup;
 
     private List<GameCharacter> opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated;

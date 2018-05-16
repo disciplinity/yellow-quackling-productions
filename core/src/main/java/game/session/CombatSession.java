@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class CombatSession {
     private boolean myTurn;
-    private double[] heroHealthAtSlot = new double[5];
+    private double[] heroHealthAtSlot = new double[6];
 
     public CombatSession(boolean myTurn) {
         this.myTurn = myTurn;

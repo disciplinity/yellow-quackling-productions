@@ -37,6 +37,9 @@ public abstract class SpellAnimation extends Actor {
     @Setter @Getter
     protected GameCharacter caster;
 
+    @Getter @Setter
+    private boolean enemyAnimation;
+
     public SpellAnimation() {
         pe = new ParticleEffect();
 

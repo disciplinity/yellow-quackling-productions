@@ -7,10 +7,6 @@ import game.actors.GameCharacter;
 public class FireballAnimation extends SpellAnimation {
 
 
-    public FireballAnimation() {
-        super();
-    }
-
 //    private static ShapeRenderer commonShapeRenderer = new ShapeRenderer();
 
 
@@ -26,7 +22,8 @@ public class FireballAnimation extends SpellAnimation {
         pe.setPosition(spellVelocityX, spellVelocityY);
 
         pe.draw(batch);
-        if (spellVelocityX >= spellEndX) {
+        if ((spellVelocityX <= spellEndX && isEnemyAnimation())
+                || (spellVelocityX >= spellEndX && !isEnemyAnimation())) {
             pe.reset();
             caster.setCastingSpell(false);
             spellVelocityX = spellStartX;
@@ -34,9 +31,15 @@ public class FireballAnimation extends SpellAnimation {
             started = false;
         }
 
-        spellVelocityX += 15;
-        spellVelocityY += (spellEndY - spellStartY) / 50;
-    }
 
+        if (isEnemyAnimation()) {
+            spellVelocityX -= 15;
+            spellVelocityY += (spellEndY - spellStartY) / 50;
+        } else {
+            spellVelocityX += 15;
+            spellVelocityY += (spellEndY - spellStartY) / 50;
+        }
+
+    }
 
 }

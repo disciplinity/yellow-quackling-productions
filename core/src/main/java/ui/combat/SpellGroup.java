@@ -66,7 +66,7 @@ public class SpellGroup extends Group {
     }
 
     public static void fillSpellSlots() {
-
+        if (GameCharacter.currentlyChosen == null) return;
         if (GameCharacter.currentlyChosen.getGraphicsComponent().isOpponent()) return;
         if (GameCharacter.currentlyChosen.getSpellBookComponent() == null) return;
 

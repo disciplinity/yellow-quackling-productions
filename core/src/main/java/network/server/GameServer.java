@@ -101,10 +101,10 @@ public class GameServer {
 
                 if (object instanceof NetworkManager.DealDamageRequest) {
                     NetworkManager.DealDamageRequest request = (NetworkManager.DealDamageRequest) object;
-                    if (!loggedIn.containsKey(request.getUserToken())) {
-                        Log.error("[Log trace] Deal Damage Request from not logged user.");
-                        return;
-                    }
+//                    if (!loggedIn.containsKey(request.getUserToken())) {
+//                        Log.error("[Log trace] Deal Damage Request from not logged user.");
+//                        return;
+//                    }
                     processDamageRequest(connection, request);
                 }
 
@@ -180,10 +180,10 @@ public class GameServer {
     private void processDamageRequest(GameConnection con, NetworkManager.DealDamageRequest request) {
         try {
             Room room = playerPool.findRoomByPlayerConnection(con);
-            if (!room.isPlayersTurn(con)) {
-                Log.error("[CHEATS!?] Damage Deal Request from player whose turn is finished.");
-                return;
-            }
+//            if (!room.isPlayersTurn(con)) {
+//                Log.error("[CHEATS!?] Damage Deal Request from player whose turn is finished.");
+//                return;
+//            }
             double damage = room.getCombatLogic()
                     .calculateDamage(request.getCastedSpellType(), request.getDealerSlotId(), request.getTargetSlotId());
 
@@ -196,8 +196,8 @@ public class GameServer {
 
             NetworkManager.DealDamageResponse targetResponse = new NetworkManager.DealDamageResponse();
             targetResponse.setDealtDamage(damage);
-            targetResponse.setDealerSlotId(request.getTargetSlotId());
-            targetResponse.setTargetSlotId(request.getDealerSlotId());
+            targetResponse.setDealerSlotId(request.getDealerSlotId() - 3);
+            targetResponse.setTargetSlotId(request.getTargetSlotId() + 3);
             server.sendToTCP(room.getOpponentConnection(con).getID(), targetResponse);
         } catch (NetworkException e) {
             Log.error("[Log] Not existing room.");

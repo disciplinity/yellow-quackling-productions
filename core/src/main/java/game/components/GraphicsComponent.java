@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import game.MyGdxGame;
 import game.actors.GameCharacter;
+import game.spells.SpellType;
 import game.spells.animations.SpellAnimation;
 import lombok.Data;
 import lombok.Getter;
@@ -55,19 +57,39 @@ public class GraphicsComponent {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // TODO: Some set method for this (in controller/view of combat screen of course)
-                GameCharacter whoClicked = GameCharacter.currentlyChosen;
-                GameCharacter.currentlyChosen = reference;
-                if (SpellBookComponent.currentSpellChosen != null) {
-                    SpellBookComponent.currentSpellChosen.setClicked(false);
-                    if (reference.getGraphicsComponent().isOpponent) {
-                        SpellAnimation spellAnimation = whoClicked.getSpellBookComponent().getSpellSet().getAllSpells().get(0).getSpellAnimation();
-                        spellAnimation.setSpellEndX(reference.getX() + reference.getWidth());
-                        spellAnimation.setSpellEndY(reference.getY() + reference.getHeight() / 4);
-                        whoClicked.setCastingSpell(true);
-                        spellAnimation.setCaster(whoClicked);
-                    }
+                if (GameCharacter.currentlyChosen != null && reference.getGraphicsComponent().isOpponent) {
+                    MyGdxGame.getInstance().getClient().sendDamageRequest(SpellType.FIREBALL, GameCharacter.currentlyChosen.getSlotId(), reference.getSlotId());
+//                    SpellBookComponent.currentSpellChosen.setClicked(false);
+                    SpellBookComponent.currentSpellChosen = null;
+
+                } else if (!reference.getGraphicsComponent().isOpponent) {
+                    GameCharacter.currentlyChosen = reference;
                 }
-                SpellBookComponent.currentSpellChosen = null;
+
+//                if (SpellBookComponent.currentSpellChosen != null) {
+//                    SpellBookComponent.currentSpellChosen.setClicked(false);
+//                }
+
+//                GameCharacter whoClicked = GameCharacter.currentlyChosen;
+//                GameCharacter.currentlyChosen = reference;
+//                if (SpellBookComponent.currentSpellChosen != null) {
+//                    SpellBookComponent.currentSpellChosen.setClicked(false);
+//                    if (reference.getGraphicsComponent().isOpponent) {
+//                        SpellAnimation spellAnimation = whoClicked.getSpellBookComponent().getSpellSet().getAllSpells().get(0).getSpellAnimation();
+//                        if (spellAnimation == null) return;
+//                        spellAnimation.setSpellStartX(whoClicked.getX() + whoClicked.getWidth());
+//                        System.out.println("X: " + spellAnimation.getSpellStartX());
+//                        spellAnimation.setSpellStartY(whoClicked.getY() + (whoClicked.getHeight() / 2));
+//                        spellAnimation.setSpellVelocityX(spellAnimation.getSpellStartX());
+//                        spellAnimation.setSpellVelocityY(spellAnimation.getSpellStartY());
+//                        spellAnimation.setSpellSound(Gdx.audio.newSound(Gdx.files.internal("sounds/fireball_sound.wav")));
+//                        spellAnimation.getPe().load(Gdx.files.internal("particles/fireball_particle"), Gdx.files.internal(""));
+//                        spellAnimation.setSpellEndX(reference.getX() + reference.getWidth());
+//                        spellAnimation.setSpellEndY(reference.getY() + reference.getHeight() / 4);
+//                        spellAnimation.setCaster(whoClicked);
+//                        whoClicked.setCastingSpell(true);
+//                    }
+//                }
                 GearGroup.fillItemSlots();
                 SpellGroup.fillSpellSlots();
 

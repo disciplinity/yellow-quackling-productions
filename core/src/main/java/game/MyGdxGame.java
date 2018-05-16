@@ -4,20 +4,24 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.*;
 import game.actors.GameCharacter;
 import game.actors.GameCharacterType;
+import game.components.SpellBookComponent;
 import game.models.combat.BattleStageGroup;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import game.screens.preferences.CharacterSetup;
 import game.screens.preferences.PreferenceScreen;
 import game.screens.StartMenuScreen;
-import game.preferences.CharacterSetup;
-import game.preferences.PreferenceScreen;
 import game.screens.LobbyScreen;
 import game.screens.StartMenuScreen;
 import game.session.CombatSession;
 import game.session.GameSession;
+import game.spells.animations.SpellAnimation;
 import lombok.Getter;
 import lombok.Setter;
 import network.client.GameClient;
+import network.manager.NetworkManager;
+import ui.combat.GearGroup;
+import ui.combat.SpellGroup;
 
 
 public class MyGdxGame extends Game {
@@ -47,6 +51,8 @@ public class MyGdxGame extends Game {
     public static MyGdxGame getInstance() {
         return MyGdxGameHolder.HOLDER_INSTANCE;
     }
+
+    public static Thread spellRenderThread;
 
 
     public void create() {
@@ -107,6 +113,29 @@ public class MyGdxGame extends Game {
         screen.dispose();
         spriteBatch.dispose();
     }
-
-
+//
+//    public void startNewRenderThread(GameCharacter whoClicked, GameCharacter target, NetworkManager.DealDamageResponse dealDamageResponse) {
+//        Thread th = new Thread(() -> {
+//            if (whoClicked.getGraphicsComponent().isOpponent()) {
+//                SpellAnimation spellAnimation = whoClicked.getSpellBookComponent().getSpellSet().getAllSpells().get(0).getSpellAnimation();
+//                if (spellAnimation == null) return;
+//                spellAnimation.setSpellStartX(whoClicked.getX() + whoClicked.getWidth());
+//                spellAnimation.setSpellStartY(whoClicked.getY() + (whoClicked.getHeight() / 2));
+//                spellAnimation.setSpellVelocityX(spellAnimation.getSpellStartX());
+//                spellAnimation.setSpellVelocityY(spellAnimation.getSpellStartY());
+//                spellAnimation.setSpellSound(Gdx.audio.newSound(Gdx.files.internal("sounds/fireball_sound.wav")));
+//                spellAnimation.getPe().load(Gdx.files.internal("particles/fireball_particle"), Gdx.files.internal(""));
+//                spellAnimation.setSpellEndX(target.getX() + target.getWidth());
+//                spellAnimation.setSpellEndY(target.getY() + target.getHeight() / 4);
+//                spellAnimation.setCaster(whoClicked);
+//                whoClicked.setCastingSpell(true);
+//            }
+//
+//            target.setHealth(target.getHealth() - dealDamageResponse.getDealtDamage());
+//            SpellBookComponent.currentSpellChosen = null;
+//            GearGroup.fillItemSlots();
+//            SpellGroup.fillSpellSlots();
+//        });
+//        th.start();
+//    }
 }
