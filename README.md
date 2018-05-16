@@ -9,7 +9,7 @@ Each player should create an account to play.<br>
 Registration form is realized in separate web application based in Spring MVC. 
 <br>Are you ready to join the elite? If so, go to this [link](https://github.com/zamakhovav/YellowQuacklingProductionWeb).
 <br>
-![Registration form](https://image.ibb.co/cEPr6x/Screen_Shot_2018_04_25_at_2_57_57_PM.png)
+<!--![Registration form](https://image.ibb.co/cEPr6x/Screen_Shot_2018_04_25_at_2_57_57_PM.png) -->
 
 ## User story
 * As a user, I am able to register an accout that will be saved in a database.
@@ -24,6 +24,7 @@ Registration form is realized in separate web application based in Spring MVC.
 ## Build With
 * [LibGdx](https://libgdx.badlogicgames.com) - game-development application framework
 * [Hibernate](http://hibernate.org) - A library providing Object/Relational Mapping (ORM) support to applications, libraries and frameworks.
+* [Kryonet](https://github.com/EsotericSoftware/kryonet) - KryoNet is a Java library that provides a clean and simple API for efficient TCP and UDP client/server network communication using NIO.
 * [Gradle](https://gradle.org) - Dependency Management
 * [Spring MVC](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html) - The web framework used
 * [Maven](https://maven.apache.org/) - Dependency Management

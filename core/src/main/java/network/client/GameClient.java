@@ -4,13 +4,17 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
+import game.MyGdxGame;
 import game.screens.ScreenController;
+import game.session.CombatSession;
 import game.session.GameSession;
+import game.spells.SpellType;
 import network.manager.NetworkManager.*;
 import network.manager.NetworkManager;
 import network.manager.PlayerCombatInfo;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Game client class manages every action should be performed due to received responses from the server.
@@ -56,6 +60,7 @@ public class GameClient {
                     startLobby(response.getPlayerCombatInfo());
                 }
 
+                // TODO:
                 if (object instanceof BeginBattleResponse) {
                     BeginBattleResponse response = (BeginBattleResponse) object;
                     Log.debug("[DEBUG] Got Begin Battle Response.");
@@ -64,8 +69,16 @@ public class GameClient {
                     beginBattle(response.getPlayerCombatInfo(), response.getOpponentCombatInfo());
                 }
 
-                if (object instanceof BeginBattleResponse) {
+                if (object instanceof DealDamageResponse) {
+                    DealDamageResponse response = (DealDamageResponse) object;
+                    MyGdxGame.getInstance().getCombatSession()
+                            .getHeroHealthAtSlot()[response.getTargetSlotId()] -= response.getDealtDamage();
+                    //TODO: Render Fireball and new health value [Jaro]
+                }
 
+                if (object instanceof PlayerTurnResponse) {
+                    PlayerTurnResponse response = (PlayerTurnResponse) object;
+                    MyGdxGame.getInstance().getCombatSession().setMyTurn(response.isYourTurn());
                 }
             }
 
@@ -84,6 +97,29 @@ public class GameClient {
 //        }
     }
 
+
+    // TODO: Use this, Jaro! :)
+    /**
+     *
+     * @param spellType Type from enum
+     * @param casterSlotId casterSlot [value from 0 to 2]
+     * @param targetSlotId targetSlot [value from 3 to 5]
+     */
+    private void sendDamageRequest(SpellType spellType, int casterSlotId, int targetSlotId) {
+        DealDamageRequest request = new DealDamageRequest();
+        request.setCastedSpellType(spellType);
+        request.setDealerSlotId(casterSlotId);
+        request.setTargetSlotId(targetSlotId);
+        request.setUserToken(userToken);
+        client.sendTCP(request);
+    }
+
+    // TODO: Jaro, use this one too for the button! :)
+    private void endTurn() {
+        TurnEndRequest request = new TurnEndRequest();
+        client.sendTCP(request);
+    }
+
     private void startSession() {
         Log.debug("Requesting combat setup");
         GetCombatSetupRequest request = new GetCombatSetupRequest();
@@ -99,6 +135,16 @@ public class GameClient {
 
     private void beginBattle(PlayerCombatInfo player, PlayerCombatInfo opponent) {
         ScreenController.setBattleScreen(player, opponent);
+        CombatSession combatSession = MyGdxGame.getInstance().getCombatSession();
+
+        PlayerCombatInfo playerCombatInfo = player;
+        for (int i = 0, j = 0; i < 5; i++, j++) {
+            if (i > 2) playerCombatInfo = opponent;
+            if (j > 2) j = 0;
+
+            combatSession.getHeroHealthAtSlot()[i] = playerCombatInfo.getHeroes().get(j).getHealth();
+        }
+
     }
 
 

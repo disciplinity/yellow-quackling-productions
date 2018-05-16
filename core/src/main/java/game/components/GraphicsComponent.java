@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import game.actors.GameCharacter;
+import game.spells.animations.SpellAnimation;
 import lombok.Data;
 import lombok.Getter;
 import ui.combat.GearGroup;
@@ -59,21 +60,17 @@ public class GraphicsComponent {
                 if (SpellBookComponent.currentSpellChosen != null) {
                     SpellBookComponent.currentSpellChosen.setClicked(false);
                     if (reference.getGraphicsComponent().isOpponent) {
-
-                        whoClicked.setSpellStartX(whoClicked.getX() + whoClicked.getWidth());
-                        whoClicked.setSpellVelocityX(whoClicked.getSpellStartX());
-                        whoClicked.setSpellEndX(reference.getX() + reference.getWidth());
-                        whoClicked.setSpellStartY(whoClicked.getY() + whoClicked.getHeight() / 4);
-                        whoClicked.setSpellVelocityY(whoClicked.getSpellStartY());
-                        whoClicked.setSpellEndY(reference.getY() + reference.getHeight() / 4);
+                        SpellAnimation spellAnimation = whoClicked.getSpellBookComponent().getSpellSet().getAllSpells().get(0).getSpellAnimation();
+                        spellAnimation.setSpellEndX(reference.getX() + reference.getWidth());
+                        spellAnimation.setSpellEndY(reference.getY() + reference.getHeight() / 4);
                         whoClicked.setCastingSpell(true);
-                        GameCharacter.currentlyChosen = whoClicked;
+                        spellAnimation.setCaster(whoClicked);
                     }
                 }
-
                 SpellBookComponent.currentSpellChosen = null;
                 GearGroup.fillItemSlots();
                 SpellGroup.fillSpellSlots();
+
             }
         };
     }

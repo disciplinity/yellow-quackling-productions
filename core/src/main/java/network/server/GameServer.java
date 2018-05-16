@@ -109,6 +109,10 @@ public class GameServer {
                 }
 
                 // TODO: turns
+                if (object instanceof NetworkManager.TurnEndRequest) {
+                    /* I think we don't even need loggedIn check here */
+                    manageTurnsForPlayers(connection);
+                }
             }
 
             private boolean isValid (String value) {
@@ -141,6 +145,31 @@ public class GameServer {
         frame.setVisible(true);
     }
 
+    private void manageTurnsForPlayers(GameConnection con) {
+        try {
+            Room room = playerPool.findRoomByPlayerConnection(con);
+            if (!room.isPlayersTurn(con)) {
+                Log.error("[CHEATS!?] End Turn Request from player whose turn is finished.");
+                return;
+            }
+
+            NetworkManager.PlayerTurnResponse endTurnResponse = new NetworkManager.PlayerTurnResponse();
+            endTurnResponse.setYourTurn(false);
+
+            Log.debug("[Turn] Ends turn server side and then sends end turn notification to the users to rotate");
+            room.getCombatLogic().endTurn();
+            server.sendToTCP(con.getID(), endTurnResponse);
+
+
+            NetworkManager.PlayerTurnResponse startTurnResponse = new NetworkManager.PlayerTurnResponse();
+            endTurnResponse.setYourTurn(true);
+
+            server.sendToTCP(room.getOpponentConnection(con).getID(), startTurnResponse);
+        } catch (NetworkException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Find room where requesting player is.
      * Get room CombatLogicController.
@@ -151,7 +180,7 @@ public class GameServer {
     private void processDamageRequest(GameConnection con, NetworkManager.DealDamageRequest request) {
         try {
             Room room = playerPool.findRoomByPlayerConnection(con);
-            if (room.isPlayersTurn(con)) {
+            if (!room.isPlayersTurn(con)) {
                 Log.error("[CHEATS!?] Damage Deal Request from player whose turn is finished.");
                 return;
             }
@@ -218,6 +247,11 @@ public class GameServer {
         response.setOpponentCombatInfo(room.getSecondPlayerCombatInfo());
         Log.debug("[Log] SENDING TO 1ST PLAYER." + room.getFirstPlayerCombatInfo());
         server.sendToTCP(con1.getID(), response);
+        /* Player created room has a right for the first turn */
+        NetworkManager.PlayerTurnResponse firstTurnResponse = new NetworkManager.PlayerTurnResponse();
+        firstTurnResponse.setYourTurn(true);
+        room.getCombatLogic().setPlayerOneTurn(true);
+        server.sendToTCP(con1.getID(), firstTurnResponse);
 
         response = new NetworkManager.BeginBattleResponse();
         response.setPlayerCombatInfo(room.getSecondPlayerCombatInfo());

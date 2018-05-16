@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import game.components.SpellBookComponent;
 import game.models.combat.HealthBar;
+import game.spells.Spell;
+import game.spells.animations.FireballAnimation;
+import game.spells.animations.SpellAnimation;
 import lombok.Setter;
 import game.components.EquipmentComponent;
 import game.components.StatComponent;
@@ -21,10 +24,6 @@ public class GameCharacter extends Actor {
     @Setter @Getter
     private String name;
 
-    private double hp;
-    private double force;
-    //    private SpellBookComponent spellBookComponent;
-
     @Getter
     private EquipmentComponent equipmentComponent;
     @Getter
@@ -34,6 +33,8 @@ public class GameCharacter extends Actor {
     @Getter
     private SpellBookComponent spellBookComponent;
 
+
+
 //    @Getter
 //    private HealthBar healthBar;
 
@@ -41,45 +42,34 @@ public class GameCharacter extends Actor {
     private int slotId;
 
     public static GameCharacter currentlyChosen = null;
-    private ParticleEffect pe = new ParticleEffect();
     @Setter @Getter
     private boolean isCastingSpell = false;
-    @Setter @Getter
-    private float spellStartX;
-    @Setter @Getter
-    private float spellStartY;
-    @Setter
-    private float spellVelocityX;
-    @Setter
-    private float spellVelocityY;
-    @Setter @Getter
-    private float spellEndX;
-    @Setter @Getter
-    private float spellEndY;
-    private boolean started = false;
+//    @Setter @Getter
+//    private float spellStartX;
+//    @Setter @Getter
+//    private float spellStartY;
+//
+//    @Setter @Getter
+//    private float spellEndX;
+//    @Setter @Getter
+//    private float spellEndY;
 
-    private Sound fireBallSound;
-    private static ShapeRenderer commonShapeRenderer = new ShapeRenderer();
+//    private static ShapeRenderer commonShapeRenderer = new ShapeRenderer();
 
 
 
     public GameCharacter(String name, StatComponent statComponent, GraphicsComponent graphicsComponent, EquipmentComponent equipmentComponent, SpellBookComponent spellBookComponent) {
         this.name = name;
-        hp = 100;
+
         this.setSize(graphicsComponent.getSizeWidth(), graphicsComponent.getSizeHeight());
         this.statComponent = statComponent;
         this.graphicsComponent = graphicsComponent;
         this.equipmentComponent = equipmentComponent;
         this.spellBookComponent = spellBookComponent;
 
-        this.spellStartX = getX() + getWidth();
-        this.spellStartY = getY() + (getHeight() / 2) + 210;
-        spellVelocityX = spellStartX;
-        spellVelocityY = spellStartY;
+        prepareFireballAnimation();
 
-        fireBallSound = Gdx.audio.newSound(Gdx.files.internal("sounds/fireball_sound.wav"));
 
-        pe.load(Gdx.files.internal("particles/fireball_particle"), Gdx.files.internal(""));
 
 
         this.addListener(graphicsComponent.getTouchListener(this));
@@ -109,10 +99,6 @@ public class GameCharacter extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.end();
-
-//        healthBar.draw(batch, parentAlpha);
-
-
         batch.begin();
 
         if (isCastingSpell) {
@@ -123,26 +109,30 @@ public class GameCharacter extends Actor {
     }
 
     public void castSpell(Batch batch) {
-        if (!started) {
-            started = true;
-            pe.getEmitters().first().setPosition(spellStartX, spellStartY);
-            pe.start();
-            fireBallSound.play(1.0f);
-        }
-        pe.update(Gdx.graphics.getDeltaTime());
-        pe.setPosition(spellVelocityX, spellVelocityY);
+        System.out.println("CASTING SPELL");
+        spellBookComponent.getSpellSet().getAllSpells().get(0).getSpellAnimation().draw(batch);
 
-        pe.draw(batch);
-        if (spellVelocityX >= spellEndX) {
-            pe.reset();
-            isCastingSpell = false;
-            spellVelocityX = spellStartX;
-            spellVelocityY = spellStartY;
-            started = false;
+    }
+
+    private void prepareFireballAnimation() {
+
+        for (int i = 0; i < spellBookComponent.getSpellSet().getAllSpells().size(); i++) {
+            Spell fireBall = spellBookComponent.getSpellSet().getAllSpells().get(i);
+            if (fireBall == null) continue;
+            fireBall.setSpellAnimation(new FireballAnimation());
+            SpellAnimation fireballAnimation = fireBall.getSpellAnimation();
+
+            fireballAnimation.setSpellStartX(getX() + getWidth());
+            fireballAnimation.setSpellStartY(getY() + (getHeight() / 2) + 210);
+            fireballAnimation.setSpellVelocityX(fireballAnimation.getSpellStartX());
+            fireballAnimation.setSpellVelocityY(fireballAnimation.getSpellStartY());
+            fireballAnimation.setSpellSound(Gdx.audio.newSound(Gdx.files.internal("sounds/fireball_sound.wav")));
+            fireballAnimation.getPe().load(Gdx.files.internal("particles/fireball_particle"), Gdx.files.internal(""));
+
+
         }
 
-        spellVelocityX += 15;
-        spellVelocityY += (spellEndY - spellStartY) / 50;
+
 
     }
 

@@ -3,6 +3,7 @@ package game.models.combat;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import game.actors.GameCharacter;
+import game.spells.Spell;
 import lombok.Getter;
 
 import java.util.List;
@@ -72,6 +73,12 @@ public class BattleStageGroup extends Group {
             characterSlots[i].putActor(actor);
             actor.setSlotId(i);
             this.addActor(actor);
+
+//            for (int j =  0; j < actor.getSpellBookComponent().getSpellSet().getAllSpells().size(); j++) {
+//                Spell spell = actor.getSpellBookComponent().getSpellSet().getAllSpells().get(j);
+//                if (spell != null) this.addActor(spell);
+//
+//            }
 //            this.addActor(actor.getHealthBar());
         }
     }
