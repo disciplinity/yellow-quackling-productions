@@ -2,14 +2,20 @@ package game;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.*;
+import game.actors.GameCharacter;
+import game.actors.GameCharacterType;
 import game.models.combat.BattleStageGroup;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import game.screens.ConnectionTestScreen;
+import game.screens.preferences.PreferenceScreen;
+import game.screens.StartMenuScreen;
+import game.preferences.CharacterSetup;
+import game.preferences.PreferenceScreen;
 import game.screens.LobbyScreen;
+import game.screens.StartMenuScreen;
 import game.session.CombatSession;
+import game.session.GameSession;
 import lombok.Getter;
-import game.models.combat.CombatSetup;
 import lombok.Setter;
 import network.client.GameClient;
 
@@ -53,7 +59,8 @@ public class MyGdxGame extends Game {
         customCursor = Gdx.graphics.newCursor(pixmap, 0, 5);
         Gdx.graphics.setCursor(customCursor);
 
-        this.setScreen(new ConnectionTestScreen());
+        this.setScreen(new StartMenuScreen(this));
+        //setPreferenceScreen();
     }
 
     public void createCombatSession(boolean myTurn) {
@@ -71,6 +78,8 @@ public class MyGdxGame extends Game {
      */
     public void setLobbyScreen() {
         this.screen.dispose();
+        //CharacterSetup characterSetup = new CharacterSetup();
+        //this.setScreen(new PreferenceScreen(characterSetup));
         this.setScreen(new LobbyScreen());
     }
 
@@ -78,6 +87,11 @@ public class MyGdxGame extends Game {
 
 //        BattleStageGroup battleStageGroup = new BattleStageGroup("fairy-forest.jpg", cs, cso);
 //        this.setScreen(new CombatScreen(this, bsg));
+    }
+
+    public void setPreferenceScreen() {
+        CharacterSetup characterSetup = new CharacterSetup();
+        this.setScreen(new PreferenceScreen(characterSetup));
     }
 
 

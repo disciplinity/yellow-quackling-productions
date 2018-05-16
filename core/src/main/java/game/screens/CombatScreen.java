@@ -67,12 +67,10 @@ public class CombatScreen implements Screen {
         spriteBatch.draw(currentBackground, 0, 230, 1280, 570);
         spriteBatch.end();
 
-        battleStage.draw();
         battleStage.act();
-
+        battleStage.draw();
 
         uiStage.draw();
-        uiStage.act();
     }
 
     public void resize (int width, int height) {
