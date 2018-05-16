@@ -16,8 +16,7 @@ public class CharacterSetup extends Group {
 
     public CharacterSetup() {
         characterSlots = new CharacterSlot[3];
-        characters = GameSession.getInstance().getPlayerCombatSetup().getCombatSetup();
-
+        this.characters = GameSession.getInstance().getPlayerCombatSetup().getCombatSetup();
 
         setCharacterPositionOnPlatform();
         spawnCharacters();
