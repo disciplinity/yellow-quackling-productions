@@ -23,9 +23,9 @@ public class CharacterSetup extends Group {
     }
 
     private void setCharacterPositionOnPlatform() {
-        characterSlots[0] = new CharacterSlot(140, -80); // new CharacterSlot(-200, -70);
-        characterSlots[1] = new CharacterSlot(140, 150); // new CharacterSlot(-200, 150);
-        characterSlots[2] = new CharacterSlot(200, 400); // new CharacterSlot(-200, 370);
+        characterSlots[0] = new CharacterSlot(170, -40); // new CharacterSlot(-200, -70);
+        characterSlots[1] = new CharacterSlot(170, 185); // new CharacterSlot(-200, 150);
+        characterSlots[2] = new CharacterSlot(170, 380); // new CharacterSlot(-200, 370);
     }
 
     private void spawnCharacters() {

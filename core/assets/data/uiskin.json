@@ -71,6 +71,7 @@
     "logIn": { down: default-round-down, up: default-round },
     "signUp": { down: default-round-down, up: default-round },
     "exit": { down: default-round-down, up: default-round },
-    "startGame": { down: default-round-down, up: default-round }
+    "startGame": { down: default-round-down, up: default-round },
+    "startFight": { down: default-round-down, up: default-round }
   }
 }

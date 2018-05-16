@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -33,7 +30,8 @@ public class PreferenceScreen implements Screen {
 
     private InputMultiplexer inputMultiplexer;
 
-    public PreferenceScreen(CharacterSetup characterSetup) {
+//    public PreferenceScreen(CharacterSetup characterSetup) {
+    public PreferenceScreen() {
         this.game = MyGdxGame.getInstance();
         this.spriteBatch = this.game.getSpriteBatch();
         this.preferenceStage = new Stage(new ScreenViewport(), spriteBatch);
@@ -45,7 +43,8 @@ public class PreferenceScreen implements Screen {
         inputMultiplexer = new InputMultiplexer(preferenceStage);
         createPlatforms();
         // fill preferences stage by characters
-        preferenceStage.addActor(characterSetup);
+        CharacterSetup charSetup = new CharacterSetup();
+        preferenceStage.addActor(charSetup);
         startGame();
 
     }
@@ -59,6 +58,13 @@ public class PreferenceScreen implements Screen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button ) {
                 // switch to the battle screen
+                startFight.getStyle().disabled = skin.getDrawable("default-round-down");
+                startFight.setDisabled(true);
+                System.out.println("[PreferenceScreen] Waiting for the opponent...");
+                //TODO: [vero]
+//                alertLabel.setText("Waiting for the opponent...");
+                startFight.setTouchable(Touchable.disabled);
+                MyGdxGame.getInstance().getClient().joinBattle();
             }
 
             @Override
