@@ -1,6 +1,8 @@
 package game.actors;
 
 
+import lombok.Data;
+
 import static game.constants.TexturePaths.ICEMAGE_IDLE_TEXTURE;
 import static game.constants.TexturePaths.KNIGHT_IDLE_TEXTURE;
 

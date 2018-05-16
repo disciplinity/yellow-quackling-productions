@@ -11,11 +11,16 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import game.components.SpellBookComponent;
+import game.spells.animations.SpellAnimation;
 import game.utils.FontGenerator;
 import lombok.Setter;
+import lombok.Getter;
+
 
 public class Spell extends Actor {
 
+    @Getter @Setter
+    private SpellAnimation spellAnimation;
     @Setter
     private SpellSlot spellSlot;
     private SpellInfo spellInfo;
@@ -29,7 +34,6 @@ public class Spell extends Actor {
     private boolean clicked;
 
     private Spell reference;
-    ParticleEffect pe;
 
 
     public Spell(SpellInfo spellInfo) {

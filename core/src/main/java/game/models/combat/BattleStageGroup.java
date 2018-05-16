@@ -3,6 +3,7 @@ package game.models.combat;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import game.actors.GameCharacter;
+import game.spells.Spell;
 import lombok.Getter;
 
 import java.util.List;
@@ -22,8 +23,8 @@ import java.util.List;
 public class BattleStageGroup extends Group {
 
     // TODO: method that will fill character slots (pass PlayerCombatHeroSetup)
-    @Getter
-    private CharacterSlot[] characterSlots;
+//    @Getter
+    public static CharacterSlot[] characterSlots;
     private List<GameCharacter> actorGroup;
 
     private List<GameCharacter> opponentGroupAkaSetupPleaseChangeMyNameAndObjectModelWhereIamLocated;
@@ -70,8 +71,15 @@ public class BattleStageGroup extends Group {
             actor.getGraphicsComponent().setPosition(actor, characterSlots[i].getX(), characterSlots[i].getY());
             actor.getGraphicsComponent().setBounds(actor);
             characterSlots[i].putActor(actor);
+            actor.setSlotId(i);
             this.addActor(actor);
-            this.addActor(actor.getHealthBar());
+
+//            for (int j =  0; j < actor.getSpellBookComponent().getSpellSet().getAllSpells().size(); j++) {
+//                Spell spell = actor.getSpellBookComponent().getSpellSet().getAllSpells().get(j);
+//                if (spell != null) this.addActor(spell);
+//
+//            }
+//            this.addActor(actor.getHealthBar());
         }
     }
 
@@ -82,4 +90,23 @@ public class BattleStageGroup extends Group {
         }
     }
 
+    public static int[] getSlotCoordinatesById(int id) {
+        switch(id) {
+            case 0:
+                return new int[]{0, 230};
+            case 1:
+                return new int[]{100, 330};
+            case 2:
+                return new int[]{250, 430};
+            case 3:
+                return new int[]{1000, 250};
+            case 4:
+                return new int[]{900, 330};
+            case 5:
+                return new int[]{800, 430};
+
+            default:
+                return null;
+        }
+    }
 }

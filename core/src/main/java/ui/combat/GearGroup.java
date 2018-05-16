@@ -83,8 +83,8 @@ public class GearGroup extends Group {
      */
     public static void fillItemSlots() {
 
-        if (GameCharacter.currentlyChosen.getGraphicsComponent().isOpponent()) return;
-
+//        if (GameCharacter.currentlyChosen.getGraphicsComponent().isOpponent()) return;
+        if (GameCharacter.currentlyChosen == null) return;
         EquipmentComponent ec = GameCharacter.currentlyChosen.getEquipmentComponent();
         List<Item> items = ec.getItemSet().getAllItems();
         int c = 0;

@@ -25,23 +25,40 @@ public class CharacterFactory {
 
     public static CombatSetup createCombatSetupFrom(List<HeroSetupEntity> heroes) {
         GameCharacter[] chars = new GameCharacter[3];
+        for (HeroSetupEntity heroSetupEntity : heroes) {
+            System.out.println( heroSetupEntity.getHeroName() + " " + heroSetupEntity.getAgility() + " " + heroSetupEntity.getIntelligence() + " " + heroSetupEntity.getStrength());
+        }
         for (int i = 0; i < heroes.size(); i++) {
             HeroSetupEntity hero = heroes.get(i);
             String name = hero.getHeroName();
             StatComponent stats = new StatComponent(hero.getIntelligence(), hero.getStrength(), hero.getAgility());
-            chars[i] = createChar(GameCharacterType.valueOf(name), stats);
+            if (name.equals("Warrior")) chars[i] = createCharKnight(GameCharacterType.valueOf(name), stats);
+            else chars[i] = createCharMage(GameCharacterType.valueOf(name), stats);
+//            chars[i] = createChar(GameCharacterType.valueOf(name), stats);
 
         }
         return new CombatSetup(chars);
     }
 
-    private static GameCharacter createChar(GameCharacterType type, StatComponent stats) {
+    private static GameCharacter createCharMage(GameCharacterType type, StatComponent stats) {
 
         GraphicsComponent graphicsComponent = new GraphicsComponent(type.texturePath, type.columnAmount, type.rowAmount, type.width, type.height, type.endColumn);
 
         // TODO:
         EquipmentComponent equipmentComponent = createMockEquipmentComponentForMage();
         SpellBookComponent spellBookComponent = createMockSpellBookComponentForMage();
+        //
+
+        return new GameCharacter(type.name, stats, graphicsComponent, equipmentComponent, spellBookComponent);
+    }
+
+    private static GameCharacter createCharKnight(GameCharacterType type, StatComponent stats) {
+
+        GraphicsComponent graphicsComponent = new GraphicsComponent(type.texturePath, type.columnAmount, type.rowAmount, type.width, type.height, type.endColumn);
+
+        // TODO:
+        EquipmentComponent equipmentComponent = createMockEquipmentComponentForKnight();
+        SpellBookComponent spellBookComponent = createMockSpellBookComponentForKnight();
         //
 
         return new GameCharacter(type.name, stats, graphicsComponent, equipmentComponent, spellBookComponent);

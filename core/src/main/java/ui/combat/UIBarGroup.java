@@ -16,6 +16,8 @@ public class UIBarGroup extends Group {
     private GearGroup gearGroup;
     private SpellGroup spellGroup;
     private UIDrawer drawer;
+    private Texture endTurnButton;
+
 
     public UIBarGroup() {
         // TODO: Graphic component with EXCESS parameters(eg for animation purposes) -> Change something or create new reduced constructor
@@ -30,19 +32,19 @@ public class UIBarGroup extends Group {
 
         spellGroup = new SpellGroup(shapeRenderer);
         this.addActor(spellGroup);
+        endTurnButton = new Texture("end.png");
 
     }
 
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-//        drawer.drawGrayBackground(batch);
-
         batch.end();
         drawer.drawGrayBackground(shapeRenderer);
         batch.begin();
         drawer.drawElements(batch, elements);
         drawer.drawCards(batch, cardTexture);
+        batch.draw(endTurnButton, 100, 100, 50, 50);
 
 
         if (friendlyCharacterIsChosen()) {
