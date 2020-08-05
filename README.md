@@ -30,6 +30,6 @@ Registration form is realized in separate web application based in Spring MVC.
 * [Maven](https://maven.apache.org/) - Dependency Management
 
 ## Authors
-* **Veronika Zamakhova** - *Front-end developer* [zamakhovav](https://github.com/zamakhovav)
+* **Veronika Zamakhova** - *Registration web-site developer* [zamakhovav](https://github.com/zamakhovav)
 * **Artur Bassov** - *Network developer* [artiku](https://github.com/artiku)
-* **Jaroslav Gorshkov** - *Back-end developer* [disciplinity](https://github.com/disciplinity)
+* **Jaroslav Gorshkov** - *Server-side game logic, database design, game graphics* [disciplinity](https://github.com/disciplinity)
